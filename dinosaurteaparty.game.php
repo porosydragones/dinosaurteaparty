@@ -90,7 +90,9 @@ class dinosaurteaparty extends Table
         // TODO: setup the initial game situation here
 
         // TODO: random 3 quirks
+        self::trace( "pre-initquirk" ); 
         self::initDinosaurQuirks();
+        self::trace( "post-initquirk" ); 
         // TODO: assign each player a different dinosaur random
        
 
@@ -101,17 +103,20 @@ class dinosaurteaparty extends Table
     }
 
     private function initDinosaurQuirks() {
+        self::trace( "start initDinosaurQuirks" ); 
         // select randomly 3 dinosaur id (there are 20)
         $range = range(1, 20); 
         shuffle($range);
         $n = 3;
         $result = array_slice($range, 0 , $n);
+        self::dump( "result", $result );
         // update dinosaurs to add the 3 quirks
-        $sql = "INSERT INTO player (player_id, player_color, player_canal, player_name, player_avatar) VALUES ";    
         $updatequirk1 = "UPDATE `dinosaur` SET `dinosaur_quirk` = '1' WHERE `dinosaur`.`dinosaur_id` = ".$result[0];
         $updatequirk2 = "UPDATE `dinosaur` SET `dinosaur_quirk` = '2' WHERE `dinosaur`.`dinosaur_id` = ".$result[1];
         $updatequirk3 = "UPDATE `dinosaur` SET `dinosaur_quirk` = '3' WHERE `dinosaur`.`dinosaur_id` = ".$result[2];  
-              
+        self::DbQuery( $updatequirk1 );     
+        self::DbQuery( $updatequirk2 );  
+        self::DbQuery( $updatequirk3 );  
     } 
 
 
