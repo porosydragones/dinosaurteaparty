@@ -94,6 +94,9 @@ class dinosaurteaparty extends Table
         // TODO: assign each player a different dinosaur random
         self::initPlayersDinosaur($players);
 
+        // fake, just to try another dino
+        self::initPlayersDinosaur($players);
+
         // Activate first player (which is in general a good idea :) )
         $this->activeNextPlayer();
 
@@ -127,7 +130,6 @@ class dinosaurteaparty extends Table
 
     // Give a not-used random dinosaur to a player (for set-up and later in game)
     private function givePlayerDinosaur($player_id) {
-        self::trace( "givePlayerDinosaur" );
         //inactive current player dinosaur
         $updatesql = "UPDATE `dinosaur` SET `dinosaur_active` = '0' WHERE `dinosaur`.`dinosaur_player_id` = ".$player_id;
         self::DbQuery( $updatesql );  
@@ -135,9 +137,7 @@ class dinosaurteaparty extends Table
         $selectsql = "SELECT dinosaur_id FROM dinosaur WHERE dinosaur_active = 1 AND dinosaur_player_id IS NULL";
         //assign a free dinosaur to player, first select free dinosaurs
         $free_dinosaur_id = self::getObjectListFromDB($selectsql,true);
-        self::dump( "free_dinosaur_id:", $free_dinosaur_id );
         $random_dinosaur_id=array_rand($free_dinosaur_id,1);
-        self::dump( "random_dinosaur_id:", $random_dinosaur_id );
         $updatesql = "UPDATE `dinosaur` SET `dinosaur_player_id` = ".$player_id." WHERE `dinosaur`.`dinosaur_id` = ".$random_dinosaur_id;
         self::DbQuery( $updatesql );  
     }
