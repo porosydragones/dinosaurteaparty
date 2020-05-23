@@ -94,9 +94,6 @@ class dinosaurteaparty extends Table
         // TODO: assign each player a different dinosaur random
         self::initPlayersDinosaur($players);
 
-        // fake, just to try another dino
-        self::initPlayersDinosaur($players);
-
         // Activate first player (which is in general a good idea :) )
         $this->activeNextPlayer();
 
