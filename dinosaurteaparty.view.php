@@ -22,17 +22,17 @@
  *
  * Note: if the HTML of your game interface is always the same, you don't have to place anything here.
  *
- */
+ */ 
   
   require_once( APP_BASE_PATH."view/common/game.view.php" );
   
   class view_dinosaurteaparty_dinosaurteaparty extends game_view
-  {
+  { 
     function getGameName() {
         return "dinosaurteaparty";
     }    
   	function build_page( $viewArgs )
-  	{		
+  	{		 
   	    // Get players & players number
         $players = $this->game->loadPlayersBasicInfos();
         $players_nbr = count( $players );

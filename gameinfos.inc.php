@@ -22,14 +22,14 @@ $gameinfos = array(
 'artist' => 'Matijos Gebreselassie, Jason Taylor',         
 
 // Year of FIRST publication of this game. Can be negative.
-'year' => 2018,                 
+'year' => 2018,                  
 
 // Game publisher
 'publisher' => 'Restoration Games',                     
 
-// Url of game publisher website
+// Url of game publisher website 
 'publisher_website' => 'https://restorationgames.com/',   
-
+ 
 // Board Game Geek ID of the publisher
 'publisher_bgg_id' => 34846,
 

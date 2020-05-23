@@ -24,14 +24,28 @@
     
     Please REMOVE this comment before publishing your game on BGA
 -->
+ 
+  
+ 
+<div id="table_wrap" class="whiteblock">
+    <h3>Table</h3> 
+    <span id="lines_wrap"> 
+    <div id="table_cards_line_0" class="placeholder trait trait1">TRAIT</div>
+    <div id="table_cards_line_1" class="placeholder dinosaur dinosaur2">DINOSAUR</div>
+    <div id="table_cards_line_2"></div>
+    <div id="table_cards_line_3"></div>
+    </span>
+    <span id="deck_wrap">
+    Deck & Discard
+    </span> 
+</div> 
 
-
-This is your game interface. You can edit this HTML in your ".tpl" file.
-<div id="board">
-    
-    <div class="placeholder">asdfqwerty</div>
-    
+<div id="myhand_wrap" class="whiteblock">
+    <h3>My Hand</h3>
+    <div id="myhand">
+    </div>
 </div>
+
 
 <script type="text/javascript">
 

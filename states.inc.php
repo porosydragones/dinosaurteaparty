@@ -71,8 +71,8 @@ $machinestates = array(
             "args" => "argPlayerTurn",            
     		"possibleactions" => array( "askTrait", "guessDinosaur" ),
     		"transitions" => array( "playAgain" => 10, "nextPlayer" => 10, "correctGuess" => 20 )
-    ),
-
+    ),  
+ 
     20 => array(
         "name" => "correctGuess",
         "description" => '',

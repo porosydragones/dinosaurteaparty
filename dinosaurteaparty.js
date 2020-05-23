@@ -43,7 +43,7 @@ function (dojo, declare) {
             
             "gamedatas" argument contains all datas retrieved by your "getAllDatas" PHP method.
         */
-        /*
+        
         setup: function( gamedatas )
         {
             console.log( "Starting game setup" );
@@ -57,13 +57,14 @@ function (dojo, declare) {
             }
             
             // TODO: Set up your game interface here, according to "gamedatas"
-            dojo.query(".placeholder").connect("onclick", this, "onTraitClick");
+            dojo.query(".trait").connect("onclick", this, "onTraitClick");
+            dojo.query(".dinosaur").connect("onclick", this, "onDinosaurClick");
  
             // Setup game notifications to handle (see "setupNotifications" method below)
             this.setupNotifications();
 
             console.log( "Ending game setup" );
-        },*/ 
+        },
        
 
         ///////////////////////////////////////////////////
@@ -206,32 +207,45 @@ function (dojo, declare) {
         },        
         
         */
-
+ 
         // Current player click a trait of another player
-       /* onTraitClick( evt ) {
+        onTraitClick( evt ) {
             console.log( 'onTraitClick' );
             // Preventing default browser reaction
             dojo.stopEvent( evt );  
 
             // Check that this action is possible (see "possibleactions" in states.inc.php)
-            if( ! this.checkAction( 'askTrait' ) ){   
-                console.log( 'CAN NOT click now' );   
-                return; 
-            }   
-            
+            if( ! this.checkAction( 'askTrait' ) ){    return;  }    
+             
             this.ajaxcall( "/dinosaurteaparty/dinosaurteaparty/askTrait.html", { 
                     lock: true, 
-                    trait_id: 4
+                    trait_id: 4,
+                    target_player_id: 1
                 }, 
                 this, function( result ) {
-                    // What to do after the server call if it succeeded
-                    // (most of the time: nothing)
                 }, function( is_error) {
-                    // What to do after the server call in anyway (success or failure)
-                    // (most of the time: nothing)
                 } );               
             
-        }*/
+        },
+
+        // Current player click a dinosaur to guess a player
+        onDinosaurClick( evt ) {
+            console.log( 'onDinosaurClick' );
+            // Preventing default browser reaction
+            dojo.stopEvent( evt );   
+            // Check that this action is possible (see "possibleactions" in states.inc.php)
+            if( ! this.checkAction( 'guessDinosaur' ) ){   return;  } 
+
+            this.ajaxcall( "/dinosaurteaparty/dinosaurteaparty/guessDinosaur.html", { 
+                lock: true, 
+                dinosaur_id: 10,
+                target_player_id: 2
+            }, 
+            this, function( result ) {
+            }, function( is_error) {
+            } );       
+            
+        },
         
         ///////////////////////////////////////////////////
         //// Reaction to cometD notifications

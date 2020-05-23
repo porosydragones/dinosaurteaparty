@@ -60,19 +60,29 @@
 
         self::ajaxResponse( );
     }
-    
+      
     */ 
-/*
+ 
     public function askTrait() {
       self::setAjaxMode();  
 
       // Note: these arguments correspond to what has been sent through the javascript "ajaxcall" method
       $trait_id = self::getArg( "trait_id", AT_posint, true );
-
-      $this->game->askTrait($trait_id);
+      $target_player_id = self::getArg( "target_player_id", AT_posint, true );
+      $this->game->askTrait($trait_id, $target_player_id);
       self::ajaxResponse( );
     }
-*/
+
+    public function guessDinosaur() {
+      self::setAjaxMode();  
+
+      // Note: these arguments correspond to what has been sent through the javascript "ajaxcall" method
+      $dinosaur_id = self::getArg( "dinosaur_id", AT_posint, true );
+      $target_player_id = self::getArg( "target_player_id", AT_posint, true );
+      $this->game->guessDinosaur($dinosaur_id, $target_player_id);
+      self::ajaxResponse( );
+    }
+
   }
   
 

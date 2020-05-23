@@ -35,7 +35,7 @@ $game_options = array(
 
                             // A simple value for this option:
                             1 => array( 'name' => totranslate('option 1') )
-
+ 
                             // A simple value for this option.
                             // If this value is chosen, the value of "tmdisplay" is displayed in the game lobby
                             2 => array( 'name' => totranslate('option 2'), 'tmdisplay' => totranslate('option 2') ),
@@ -48,7 +48,7 @@ $game_options = array(
                         )
             )
 
-    */
+    */ 
 
 );
 

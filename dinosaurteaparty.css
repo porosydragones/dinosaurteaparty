@@ -67,7 +67,7 @@
     }
 */
 
-#game_play_area {
+#game_play_area { 
     text-align: center;
 }
 
@@ -79,12 +79,36 @@
   
 .placeholder {
     background-color: #fff;
-    opacity: 0;
+    /* opacity: 0;*/
     transition: all 250ms ease-in-out;
     cursor: pointer;
-    display: none;
-}
+    /* display: none;*/
+} 
 .placeholder.possibleMove {
     display: inherit;
+} 
+.highlight {
+    font-size: 32px;
 }
 
+.dinosaur {
+    background-color: rgb(10, 131, 70);;
+}
+
+.dinosaur2 {
+    left: 200px;
+}
+
+.trait {
+    background-color: red;
+}
+
+
+.trait1 {
+    background-color: rgb(132, 0, 255);
+}
+
+
+.trait2 {
+    background-color: yellow
+}

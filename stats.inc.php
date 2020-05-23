@@ -68,8 +68,8 @@ $stats_type = array(
                                 "name" => totranslate("table test stat 2"), 
                                 "type" => "float" )
 */  
-    ),
-    
+    ), 
+     
     // Statistics existing for each player
     "player" => array(
 
