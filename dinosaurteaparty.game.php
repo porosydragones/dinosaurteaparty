@@ -121,12 +121,12 @@ class dinosaurteaparty extends Table
 
         foreach( $players as $player_id => $player )
         {
-            self::givePlayerDinosaur($player_id);
+            self::givePlayerDinosaurAndPersist($player_id);
         }
     }
 
     // Give a not-used random dinosaur to a player (for set-up and later in game)
-    private function givePlayerDinosaur($player_id) {
+    private function givePlayerDinosaurAndPersist($player_id) {
         //inactive current player dinosaur
         $updatesql = "UPDATE `dinosaur` SET `dinosaur_active` = '0' WHERE `dinosaur`.`dinosaur_player_id` = ".$player_id;
         self::DbQuery( $updatesql );  
@@ -160,7 +160,8 @@ class dinosaurteaparty extends Table
         $result['players'] = self::getCollectionFromDb( $sql );
   
         // TODO: Gather all information about current game situation (visible by player $current_player_id).
-  
+        // get current traits in another players
+        // get my dinosaur
         return $result;
     }
 
