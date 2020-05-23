@@ -51,7 +51,7 @@
 
  
 $machinestates = array(
-
+ 
     // The initial state. Please do not modify.
     1 => array(
         "name" => "gameSetup",
@@ -62,7 +62,7 @@ $machinestates = array(
     ),
     
     // Note: ID=2 => your first state
-
+  
     10 => array(
     		"name" => "playerTurn",
     		"description" => clienttranslate('${actplayer} must ask or guess'),

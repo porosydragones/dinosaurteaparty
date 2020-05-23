@@ -43,7 +43,7 @@ function (dojo, declare) {
             
             "gamedatas" argument contains all datas retrieved by your "getAllDatas" PHP method.
         */
-        
+        /*
         setup: function( gamedatas )
         {
             console.log( "Starting game setup" );
@@ -63,7 +63,7 @@ function (dojo, declare) {
             this.setupNotifications();
 
             console.log( "Ending game setup" );
-        },
+        },*/ 
        
 
         ///////////////////////////////////////////////////
@@ -208,7 +208,7 @@ function (dojo, declare) {
         */
 
         // Current player click a trait of another player
-        onTraitClick( evt ) {
+       /* onTraitClick( evt ) {
             console.log( 'onTraitClick' );
             // Preventing default browser reaction
             dojo.stopEvent( evt );  
@@ -231,7 +231,7 @@ function (dojo, declare) {
                     // (most of the time: nothing)
                 } );               
             
-        }
+        }*/
         
         ///////////////////////////////////////////////////
         //// Reaction to cometD notifications
@@ -254,7 +254,7 @@ function (dojo, declare) {
             // Example 1: standard notification handling
             // dojo.subscribe( 'cardPlayed', this, "notif_cardPlayed" );
             
-            dojo.subscribe( 'traitAsked', this, "notif_traitAsked" );
+           // dojo.subscribe( 'traitAsked', this, "notif_traitAsked" );
             // Example 2: standard notification handling + tell the user interface to wait
             //            during 3 seconds after calling the method in order to let the players
             //            see what is happening in the game.
@@ -279,7 +279,7 @@ function (dojo, declare) {
         },    
         
         */
-
+/* 
        notif_traitAsked: function( notif )
        {
            console.log( 'notif_traitAsked' );
@@ -288,6 +288,6 @@ function (dojo, declare) {
            // Note: notif.args contains the arguments specified during you "notifyAllPlayers" / "notifyPlayer" PHP call
            
            // TODO: play the card in the user interface.
-       },         
+       }, */        
    });             
 });

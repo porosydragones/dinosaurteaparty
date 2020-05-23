@@ -41,7 +41,7 @@
   	
   	// TODO: defines your action entry points there
 
-
+ 
     /*
     
     Example:
@@ -61,8 +61,8 @@
         self::ajaxResponse( );
     }
     
-    */
-
+    */ 
+/*
     public function askTrait() {
       self::setAjaxMode();  
 
@@ -72,7 +72,7 @@
       $this->game->askTrait($trait_id);
       self::ajaxResponse( );
     }
-
+*/
   }
   
 

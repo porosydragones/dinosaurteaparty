@@ -226,8 +226,8 @@ class dinosaurteaparty extends Table
           
     }
     
-    */
-
+    */ 
+/*
     function askTrait( $trait_id, $target_player_id) {
         self::trace( "askTrait" );
 
@@ -249,7 +249,7 @@ class dinosaurteaparty extends Table
             'trait_id' => $trait_id,
             'target_player_id' => $target_player_id
         ) );        
-    }
+    }*/
 
     
 //////////////////////////////////////////////////////////////////////////////
@@ -330,7 +330,7 @@ class dinosaurteaparty extends Table
         As a consequence, there is no current player associated to this action. In your zombieTurn function,
         you must _never_ use getCurrentPlayerId() or getCurrentPlayerName(), otherwise it will fail with a "Not logged" error message. 
     */
-
+ 
     function zombieTurn( $state, $active_player )
     {
     	$statename = $state['name'];

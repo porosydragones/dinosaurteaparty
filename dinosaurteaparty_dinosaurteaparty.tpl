@@ -29,7 +29,7 @@
 This is your game interface. You can edit this HTML in your ".tpl" file.
 <div id="board">
     
-    <div class="placeholder">asdf</div>
+    <div class="placeholder">asdfqwerty</div>
     
 </div>
 
