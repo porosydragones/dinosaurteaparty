@@ -191,8 +191,6 @@ class dinosaurteaparty extends Table
         In this space, you can put any utility methods useful for your game logic
     */
     private function getDinosaurById($player_id) {
-        //self::trace( "getDinosaurById" );
-      //  self::dump( "getDinosaurById.player_id", $player_id );
         $sql = "SELECT dinosaur_id id, dinosaur_name name, dinosaur_quirk quirk, dinosaur_player_id player_id, 
                        dinosaur_quirk3lastanswer quirk3lastanswer,
                        dinosaur_active active
@@ -203,6 +201,31 @@ class dinosaurteaparty extends Table
         return $dinosaur;
     }
 
+    private function checkDinosaurTrait($dinosaur_id, $trait_id) {
+        $sql = "SELECT dinosaur_id dinosaur_id, trait_id trait_id 
+                FROM dinosaur_trait where dinosaur_id = ".$dinosaur_id
+                ." AND trait_id=".$trait_id;
+        $result = self::getObjectFromDB( $sql );
+        self::dump( "checkDinosaurTrait.result", $result );   
+        $dinosaurHasTrait = ! empty($result);
+        self::dump( "dinosaurHasTrait", $dinosaurHasTrait );
+        return ($dinosaurHasTrait);                     
+    }
+
+    private function persistPlayerTrait($player_id, $trait_id,$correct_trait) {
+        self::dump( "persistPlayerTrait.player_id", $player_id ); 
+        self::dump( "persistPlayerTrait.trait_id", $trait_id ); 
+        self::dump( "persistPlayerTrait.correct_trait", $correct_trait ); 
+        // boolean to int
+        $correct_trait_int = (int) $correct_trait;
+        self::dump( "persistPlayerTrait.correct_trait_int", $correct_trait_int );         
+       /*if($correct_trait) {
+            $correct_trait_int = 1;
+        }*/
+        $updatesql = "INSERT INTO player_trait (`player_trait_player_id`, `player_trait_trait_id`, `player_trait_correct`) 
+                VALUES ('".$player_id."', '".$trait_id."', '".$correct_trait_int."');";
+        self::DbQuery( $updatesql ); 
+    }
 
     // Ask a player for trait, return TRUE if yes, return FALSE if incorrect
     private function askPlayerForTrait($player_id, $trait_id) {
@@ -210,23 +233,32 @@ class dinosaurteaparty extends Table
 
         //get dinosaur of player
         $dinosaur = self::getDinosaurById( $player_id );
-        //check quirk
- 
+        //TODO: check quirk
+        
         //check trait
+        $dinosaurHasTrait = self::checkDinosaurTrait($dinosaur["id"],$trait_id);
 
-        //update dinosaur if necesary
+        //TODO: update dinosaur if necesary (quirk 3)
 
-        //persis quirk
-        return true;
+        //persist trait
+        // TODO: if game mode is clever, do not persist if false
+        self::persistPlayerTrait($player_id,$trait_id,$dinosaurHasTrait);
+
+        return $dinosaurHasTrait;
     }
 
-    private function guessPlayerDinosaur($player_id, $dinosaur_id) { 
+    private function checkGuessPlayerDinosaur($player_id, $dinosaur_id) { 
         // check if player has dinosaur
         $sql = "SELECT dinosaur_id id FROM dinosaur WHERE dinosaur_active = 1 AND dinosaur_player_id =".$player_id." AND dinosaur_id=".$dinosaur_id;
         //get dinosaur of player 
         $dinosaur_id = self::getObjectFromDB( $sql );
         $correctGuess = ! empty($dinosaur_id);
         return ($correctGuess);
+    }
+
+    private function addPointToPlayer($player_id) {
+        $sql = "UPDATE player SET score = score +1 WHERE player_id=".$player_id;
+        self::DbQuery( $updatesql ); 
     }
 
 
@@ -278,42 +310,39 @@ class dinosaurteaparty extends Table
         self::dump( "askTrait.player_id:", $player_id );         
 
         // Add your game logic to ask trait to player
-        $askPlayerForTrait = $this->askPlayerForTrait($target_player_id, $trait_id);
+        $correctAsk = $this->askPlayerForTrait($target_player_id, $trait_id);
 
-        if($askPlayerForTrait) {
-
+        if($correctAsk) {
+            self::trace( "correctAsk, congrats!" );
         } else {
-
+            self::trace( "incorrectAsk, sorry" );
         }
 
         
         // Notify all players about the card played
-        self::notifyAllPlayers( "traitAsked", clienttranslate( '${player_name} ask ${target_player_id} for trait ${trait_id}' ), array(
+        self::notifyAllPlayers( "traitAsked", clienttranslate( '${player_name} ask ${target_player_id} for trait ${trait_id}: ${correctAsk}' ), array(
             'player_id' => $player_id,
             'player_name' => self::getActivePlayerName(),
             'trait_id' => $trait_id,
-            'target_player_id' => $target_player_id
+            'target_player_id' => $target_player_id,
+            'correctAsk' => $correctAsk
         ) );  
         
       
     }
 
     function guessDinosaur( $dinosaur_id, $target_player_id ) {
-        self::trace( "guessDinosaur" );
-
         self::checkAction( 'guessDinosaur' ); 
+        $player_id = self::getActivePlayerId();        
 
         self::dump( "guessDinosaur.dinosaur_id:", $dinosaur_id ); 
         self::dump( "guessDinosaur.target_player_id:", $target_player_id ); 
-
-        $player_id = self::getActivePlayerId();
- 
         self::dump( "guessDinosaur.player_id:", $player_id );         
 
         // Add your game logic to play a card there
-        $correctGuess = $this->guessPlayerDinosaur($target_player_id, $dinosaur_id);
+        $correctGuess = $this->checkGuessPlayerDinosaur($target_player_id, $dinosaur_id);
         if($correctGuess) {
-            // go to state correct guess
+            // go to state correct guess (there add a point and check end game)
             self::trace( "correctGuess, congrats!" );
         } else {
             //go to next player
@@ -321,11 +350,12 @@ class dinosaurteaparty extends Table
         }
         
         // Notify all players about the card played
-        self::notifyAllPlayers( "dinosaurTryGuessed", clienttranslate( '${player_name} ask ${target_player_id} for dinosaur ${dinosaur_id}' ), array(
+        self::notifyAllPlayers( "dinosaurTryGuessed", clienttranslate( '${player_name} ask ${target_player_id} for dinosaur ${dinosaur_id}: ${correctGuess}' ), array(
             'player_id' => $player_id,
             'player_name' => self::getActivePlayerName(),
             'dinosaur_id' => $dinosaur_id,
-            'target_player_id' => $target_player_id
+            'target_player_id' => $target_player_id,
+            'correctGuess' => $correctGuess
         ) );
     }
 
