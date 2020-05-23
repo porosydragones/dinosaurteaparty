@@ -238,7 +238,7 @@ function (dojo, declare) {
 
             this.ajaxcall( "/dinosaurteaparty/dinosaurteaparty/guessDinosaur.html", { 
                 lock: true, 
-                dinosaur_id: 1,
+                dinosaur_id:  13,
                 target_player_id: 2325582
             }, 
             this, function( result ) {

@@ -33,7 +33,7 @@ class dinosaurteaparty extends Table
         parent::__construct();
         
         self::initGameStateLabels( array( 
-                 // "current_target_player_id" => 0
+                  "current_target_player_id" => 10
             //    "my_first_global_variable" => 10,
             //    "my_second_global_variable" => 11,
             //      ...
@@ -81,7 +81,7 @@ class dinosaurteaparty extends Table
         /************ Start the game initialization *****/
 
         // Init global values with their initial values
-     //   self::setGameStateInitialValue( 'current_target_player_id', 0 );
+        self::setGameStateInitialValue( 'current_target_player_id', 0 );
         
         // Init game statistics
         // (note: statistics used in this file must be defined in your stats.inc.php file)
@@ -220,12 +220,15 @@ class dinosaurteaparty extends Table
         // boolean to int
         $correct_trait_int = (int) $correct_trait;
         self::dump( "persistPlayerTrait.correct_trait_int", $correct_trait_int );         
-       /*if($correct_trait) {
-            $correct_trait_int = 1;
-        }*/
         $updatesql = "INSERT INTO player_trait (`player_trait_player_id`, `player_trait_trait_id`, `player_trait_correct`) 
                 VALUES ('".$player_id."', '".$trait_id."', '".$correct_trait_int."');";
         self::DbQuery( $updatesql ); 
+    }
+
+    private function cleanPlayerTrait( $player_id ) {
+        $sql = "DELETE FROM player_trait WHERE player_trait_player_id=".$player_id;
+        self::dump( "cleanPlayerTrait", $sql );
+        self::DbQuery( $sql ); 
     }
 
     // Ask a player for trait, return TRUE if yes, return FALSE if incorrect
@@ -258,10 +261,16 @@ class dinosaurteaparty extends Table
     }
 
     private function addPointToPlayer($player_id) {
-        $sql = "UPDATE player SET score = score +1 WHERE player_id=".$player_id;
-        self::DbQuery( $updatesql ); 
+        $sql = "UPDATE player SET player_score = player_score +1 WHERE player_id=".$player_id;
+        self::DbQuery( $sql ); 
     }
 
+    private function getPlayerScore($player_id) {
+        $selectsql = "SELECT player_score score FROM player WHERE player_id =".$player_id;
+        //assign a free dinosaur to player, first select free dinosaurs
+        $player = self::getObjectFromDB($selectsql,true);
+        return $player['score'];
+    }
 
     private function nextTurnNextPlayer() {
         self::trace( "going to NEXT player" );
@@ -366,10 +375,11 @@ class dinosaurteaparty extends Table
         $correctGuess = $this->checkGuessPlayerDinosaur($target_player_id, $dinosaur_id);
         if($correctGuess) {
             //save current target_player_id in global
-           // self::setGameStateInitialValue( 'current_target_player_id', $target_player_id );
-          //  self::dump( "set current_target_player_id", $target_player_id ); 
+            self::setGameStateInitialValue( 'current_target_player_id', $target_player_id );
+            self::dump( "set current_target_player_id", $target_player_id ); 
             // go to state correct guess (there add a point and check end game)
             self::trace( "correctGuess, congrats!" );
+            self::goSuccessGuessSamePlayer();
         } else {
             //go to next player
             self::trace( "sorry, not correct" );
@@ -456,18 +466,33 @@ class dinosaurteaparty extends Table
      * If not, next turn same player
      */
     function stCorrectGuess() {
-       // $target_player_id = self::getGameStateValue('current_target_player_id');
-        //self::dump( "target_player_id", $target_player_id );    
-        // clean player_traits of this player
+        $target_player_id = self::getGameStateValue('current_target_player_id');
+        self::dump( "target_player_id", $target_player_id );    
+
+        // clean player_traits of the target player
+        self::cleanPlayerTrait($target_player_id );
+        // assign new dinosaur to target player
+        self::givePlayerDinosaurAndPersist( $target_player_id );
 
         // add a point to the active player
+        $player_id = self::getActivePlayerId(); 
+        self::dump( "player_id", $player_id );  
+        self::addPointToPlayer($player_id);
 
-        // if the player has 3 points, end game
+        // get active player score
+        $player_score = self::getPlayerScore( $player_id );
+        self::dump( "player_score", $player_score );
 
-        // if not, same 
+        // if the player less than 3 points, play again
+        if($player_score < 3 ) {
+            $this->gamestate->nextstate("playAgain"); 
+        } else { //if the player has 3 points, end game
+            $this->gamestate->nextstate("prepareEndGame"); 
+        }
     }
 
     function stPrepareEndGame() {
+        self::trace( "stPrepareEndGame" );
         $this->gamestate->nextstate("endGame");
     }
 
