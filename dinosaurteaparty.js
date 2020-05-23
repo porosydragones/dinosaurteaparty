@@ -57,7 +57,7 @@ function (dojo, declare) {
             }
             
             // TODO: Set up your game interface here, according to "gamedatas"
-            
+            dojo.query(".placeholder").connect("onclick", this, "onTraitClick");
  
             // Setup game notifications to handle (see "setupNotifications" method below)
             this.setupNotifications();
@@ -207,6 +207,31 @@ function (dojo, declare) {
         
         */
 
+        // Current player click a trait of another player
+        onTraitClick( evt ) {
+            console.log( 'onTraitClick' );
+            // Preventing default browser reaction
+            dojo.stopEvent( evt );  
+
+            // Check that this action is possible (see "possibleactions" in states.inc.php)
+            if( ! this.checkAction( 'askTrait' ) ){   
+                console.log( 'CAN NOT click now' );   
+                return; 
+            }   
+            
+            this.ajaxcall( "/dinosaurteaparty/dinosaurteaparty/askTrait.html", { 
+                    lock: true, 
+                    trait_id: 4
+                }, 
+                this, function( result ) {
+                    // What to do after the server call if it succeeded
+                    // (most of the time: nothing)
+                }, function( is_error) {
+                    // What to do after the server call in anyway (success or failure)
+                    // (most of the time: nothing)
+                } );               
+            
+        }
         
         ///////////////////////////////////////////////////
         //// Reaction to cometD notifications
@@ -229,6 +254,7 @@ function (dojo, declare) {
             // Example 1: standard notification handling
             // dojo.subscribe( 'cardPlayed', this, "notif_cardPlayed" );
             
+            dojo.subscribe( 'traitAsked', this, "notif_traitAsked" );
             // Example 2: standard notification handling + tell the user interface to wait
             //            during 3 seconds after calling the method in order to let the players
             //            see what is happening in the game.
@@ -253,5 +279,15 @@ function (dojo, declare) {
         },    
         
         */
+
+       notif_traitAsked: function( notif )
+       {
+           console.log( 'notif_traitAsked' );
+           console.log( notif );
+           
+           // Note: notif.args contains the arguments specified during you "notifyAllPlayers" / "notifyPlayer" PHP call
+           
+           // TODO: play the card in the user interface.
+       },         
    });             
 });

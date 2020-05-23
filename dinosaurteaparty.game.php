@@ -228,6 +228,29 @@ class dinosaurteaparty extends Table
     
     */
 
+    function askTrait( $trait_id, $target_player_id) {
+        self::trace( "askTrait" );
+
+        self::checkAction( 'askTrait' ); 
+
+        self::dump( "askTrait.trait_id:", $trait_id ); 
+        self::dump( "askTrait.target_player_id:", $target_player_id ); 
+
+        $player_id = self::getActivePlayerId();
+
+        self::dump( "askTrait.player_id:", $player_id );         
+
+        // Add your game logic to play a card there 
+        
+        // Notify all players about the card played
+        self::notifyAllPlayers( "traitAsked", clienttranslate( '${player_name} ask ${target_player_id} for ${trait_id}' ), array(
+            'player_id' => $player_id,
+            'player_name' => self::getActivePlayerName(),
+            'trait_id' => $trait_id,
+            'target_player_id' => $target_player_id
+        ) );        
+    }
+
     
 //////////////////////////////////////////////////////////////////////////////
 //////////// Game state arguments

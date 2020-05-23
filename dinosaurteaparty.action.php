@@ -63,6 +63,16 @@
     
     */
 
+    public function askTrait() {
+      self::setAjaxMode();  
+
+      // Note: these arguments correspond to what has been sent through the javascript "ajaxcall" method
+      $trait_id = self::getArg( "trait_id", AT_posint, true );
+
+      $this->game->askTrait($trait_id);
+      self::ajaxResponse( );
+    }
+
   }
   
 
