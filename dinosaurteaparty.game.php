@@ -33,6 +33,7 @@ class dinosaurteaparty extends Table
         parent::__construct();
         
         self::initGameStateLabels( array( 
+                 // "current_target_player_id" => 0
             //    "my_first_global_variable" => 10,
             //    "my_second_global_variable" => 11,
             //      ...
@@ -80,7 +81,7 @@ class dinosaurteaparty extends Table
         /************ Start the game initialization *****/
 
         // Init global values with their initial values
-        //self::setGameStateInitialValue( 'my_first_global_variable', 0 );
+     //   self::setGameStateInitialValue( 'current_target_player_id', 0 );
         
         // Init game statistics
         // (note: statistics used in this file must be defined in your stats.inc.php file)
@@ -262,6 +263,26 @@ class dinosaurteaparty extends Table
     }
 
 
+    private function nextTurnNextPlayer() {
+        self::trace( "going to NEXT player" );
+        $this->gamestate->nextState( 'nextPlayer' );
+    }
+
+    private function playAgainSamePlayer() {
+        self::trace( "play again SAME player" );
+        $player_id = self::getActivePlayerId();
+        self::giveExtraTime( $player_id);
+        $this->gamestate->nextstate( 'playAgain' );
+    }
+
+    private function goSuccessGuessSamePlayer() {
+        self::trace( "success guess SAME player" );
+        $player_id = self::getActivePlayerId();
+        self::giveExtraTime( $player_id);
+        $this->gamestate->nextstate( 'correctGuess' );        
+    }
+
+
 //////////////////////////////////////////////////////////////////////////////
 //////////// Player actions
 //////////// 
@@ -314,8 +335,10 @@ class dinosaurteaparty extends Table
 
         if($correctAsk) {
             self::trace( "correctAsk, congrats!" );
+            self::playAgainSamePlayer();
         } else {
             self::trace( "incorrectAsk, sorry" );
+            self::nextTurnNextPlayer();
         }
 
         
@@ -342,11 +365,15 @@ class dinosaurteaparty extends Table
         // Add your game logic to play a card there
         $correctGuess = $this->checkGuessPlayerDinosaur($target_player_id, $dinosaur_id);
         if($correctGuess) {
+            //save current target_player_id in global
+           // self::setGameStateInitialValue( 'current_target_player_id', $target_player_id );
+          //  self::dump( "set current_target_player_id", $target_player_id ); 
             // go to state correct guess (there add a point and check end game)
             self::trace( "correctGuess, congrats!" );
         } else {
             //go to next player
             self::trace( "sorry, not correct" );
+            self::nextTurnNextPlayer();
         }
         
         // Notify all players about the card played
@@ -358,6 +385,7 @@ class dinosaurteaparty extends Table
             'correctGuess' => $correctGuess
         ) );
     }
+
 
     
 //////////////////////////////////////////////////////////////////////////////
@@ -415,7 +443,28 @@ class dinosaurteaparty extends Table
     */
 
     function stNextPlayer() {
+        // Activate next player
+        $player_id = self::activeNextPlayer();
+        self::giveExtraTime( $player_id );
+        $this->gamestate->nextState( 'nextTurn' );        
+    }
 
+    /**
+     * If there is a guess add active a point
+     * 
+     * If the player has 3, prepare end game
+     * If not, next turn same player
+     */
+    function stCorrectGuess() {
+       // $target_player_id = self::getGameStateValue('current_target_player_id');
+        //self::dump( "target_player_id", $target_player_id );    
+        // clean player_traits of this player
+
+        // add a point to the active player
+
+        // if the player has 3 points, end game
+
+        // if not, same 
     }
 
     function stPrepareEndGame() {

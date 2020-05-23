@@ -219,8 +219,8 @@ function (dojo, declare) {
              
             this.ajaxcall( "/dinosaurteaparty/dinosaurteaparty/askTrait.html", { 
                     lock: true, 
-                    trait_id: 4,
-                    target_player_id: 1
+                    trait_id: 9,
+                    target_player_id: 2325582
                 }, 
                 this, function( result ) {
                 }, function( is_error) {
@@ -238,8 +238,8 @@ function (dojo, declare) {
 
             this.ajaxcall( "/dinosaurteaparty/dinosaurteaparty/guessDinosaur.html", { 
                 lock: true, 
-                dinosaur_id: 10,
-                target_player_id: 2
+                dinosaur_id: 1,
+                target_player_id: 2325582
             }, 
             this, function( result ) {
             }, function( is_error) {
