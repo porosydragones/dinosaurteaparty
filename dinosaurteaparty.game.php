@@ -190,7 +190,44 @@ class dinosaurteaparty extends Table
     /*
         In this space, you can put any utility methods useful for your game logic
     */
+    private function getDinosaurById($player_id) {
+        //self::trace( "getDinosaurById" );
+      //  self::dump( "getDinosaurById.player_id", $player_id );
+        $sql = "SELECT dinosaur_id id, dinosaur_name name, dinosaur_quirk quirk, dinosaur_player_id player_id, 
+                       dinosaur_quirk3lastanswer quirk3lastanswer,
+                       dinosaur_active active
+                FROM dinosaur where dinosaur_active = 1 AND dinosaur_player_id = ".$player_id;
 
+        $dinosaur = self::getObjectFromDB( $sql );
+        self::dump( "dinosaur", $dinosaur );
+        return $dinosaur;
+    }
+
+
+    // Ask a player for trait, return TRUE if yes, return FALSE if incorrect
+    private function askPlayerForTrait($player_id, $trait_id) {
+        //look in database if player dinosaur has trait, check quirks
+
+        //get dinosaur of player
+        $dinosaur = self::getDinosaurById( $player_id );
+        //check quirk
+ 
+        //check trait
+
+        //update dinosaur if necesary
+
+        //persis quirk
+        return true;
+    }
+
+    private function guessPlayerDinosaur($player_id, $dinosaur_id) { 
+        // check if player has dinosaur
+        $sql = "SELECT dinosaur_id id FROM dinosaur WHERE dinosaur_active = 1 AND dinosaur_player_id =".$player_id." AND dinosaur_id=".$dinosaur_id;
+        //get dinosaur of player 
+        $dinosaur_id = self::getObjectFromDB( $sql );
+        $correctGuess = ! empty($dinosaur_id);
+        return ($correctGuess);
+    }
 
 
 //////////////////////////////////////////////////////////////////////////////
@@ -240,7 +277,15 @@ class dinosaurteaparty extends Table
  
         self::dump( "askTrait.player_id:", $player_id );         
 
-        // Add your game logic to play a card there 
+        // Add your game logic to ask trait to player
+        $askPlayerForTrait = $this->askPlayerForTrait($target_player_id, $trait_id);
+
+        if($askPlayerForTrait) {
+
+        } else {
+
+        }
+
         
         // Notify all players about the card played
         self::notifyAllPlayers( "traitAsked", clienttranslate( '${player_name} ask ${target_player_id} for trait ${trait_id}' ), array(
@@ -248,7 +293,9 @@ class dinosaurteaparty extends Table
             'player_name' => self::getActivePlayerName(),
             'trait_id' => $trait_id,
             'target_player_id' => $target_player_id
-        ) );        
+        ) );  
+        
+      
     }
 
     function guessDinosaur( $dinosaur_id, $target_player_id ) {
@@ -263,7 +310,15 @@ class dinosaurteaparty extends Table
  
         self::dump( "guessDinosaur.player_id:", $player_id );         
 
-        // Add your game logic to play a card there 
+        // Add your game logic to play a card there
+        $correctGuess = $this->guessPlayerDinosaur($target_player_id, $dinosaur_id);
+        if($correctGuess) {
+            // go to state correct guess
+            self::trace( "correctGuess, congrats!" );
+        } else {
+            //go to next player
+            self::trace( "sorry, not correct" );
+        }
         
         // Notify all players about the card played
         self::notifyAllPlayers( "dinosaurTryGuessed", clienttranslate( '${player_name} ask ${target_player_id} for dinosaur ${dinosaur_id}' ), array(
