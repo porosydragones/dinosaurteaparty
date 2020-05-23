@@ -90,11 +90,9 @@ class dinosaurteaparty extends Table
         // TODO: setup the initial game situation here
 
         // TODO: random 3 quirks
-        self::trace( "pre-initquirk" ); 
         self::initDinosaurQuirks();
-        self::trace( "post-initquirk" ); 
         // TODO: assign each player a different dinosaur random
-       
+        self::initPlayersDinosaur($players);
 
         // Activate first player (which is in general a good idea :) )
         $this->activeNextPlayer();
@@ -102,14 +100,13 @@ class dinosaurteaparty extends Table
         /************ End of the game initialization *****/
     }
 
+    // Give a quirk (1,2,3) to 3 different dinosaurs, randomly
     private function initDinosaurQuirks() {
-        self::trace( "start initDinosaurQuirks" ); 
         // select randomly 3 dinosaur id (there are 20)
         $range = range(1, 20); 
         shuffle($range);
         $n = 3;
         $result = array_slice($range, 0 , $n);
-        self::dump( "result", $result );
         // update dinosaurs to add the 3 quirks
         $updatequirk1 = "UPDATE `dinosaur` SET `dinosaur_quirk` = '1' WHERE `dinosaur`.`dinosaur_id` = ".$result[0];
         $updatequirk2 = "UPDATE `dinosaur` SET `dinosaur_quirk` = '2' WHERE `dinosaur`.`dinosaur_id` = ".$result[1];
@@ -119,7 +116,31 @@ class dinosaurteaparty extends Table
         self::DbQuery( $updatequirk3 );  
     } 
 
+    // Give a random dinosaur to each player
+    private function initPlayersDinosaur($players) {
 
+        foreach( $players as $player_id => $player )
+        {
+            self::givePlayerDinosaur($player_id);
+        }
+    }
+
+    // Give a not-used random dinosaur to a player (for set-up and later in game)
+    private function givePlayerDinosaur($player_id) {
+        self::trace( "givePlayerDinosaur" );
+        //inactive current player dinosaur
+        $updatesql = "UPDATE `dinosaur` SET `dinosaur_active` = '0' WHERE `dinosaur`.`dinosaur_player_id` = ".$player_id;
+        self::DbQuery( $updatesql );  
+
+        $selectsql = "SELECT dinosaur_id FROM dinosaur WHERE dinosaur_active = 1 AND dinosaur_player_id IS NULL";
+        //assign a free dinosaur to player, first select free dinosaurs
+        $free_dinosaur_id = self::getObjectListFromDB($selectsql,true);
+        self::dump( "free_dinosaur_id:", $free_dinosaur_id );
+        $random_dinosaur_id=array_rand($free_dinosaur_id,1);
+        self::dump( "random_dinosaur_id:", $random_dinosaur_id );
+        $updatesql = "UPDATE `dinosaur` SET `dinosaur_player_id` = ".$player_id." WHERE `dinosaur`.`dinosaur_id` = ".$random_dinosaur_id;
+        self::DbQuery( $updatesql );  
+    }
 
     /*
         getAllDatas: 
