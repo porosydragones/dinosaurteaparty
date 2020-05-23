@@ -59,7 +59,7 @@ class dinosaurteaparty extends Table
     {    
         // Set the colors of the players with HTML color code
         // The default below is red/green/blue/orange/brown
-        // The number of colors defined here must correspond to the maximum number of players allowed for the gams
+        // The number of colors defined here must correspond to the maximum number of players allowed for the game
         $gameinfos = self::getGameinfos();
         $default_colors = $gameinfos['player_colors'];
  
@@ -88,6 +88,10 @@ class dinosaurteaparty extends Table
         //self::initStat( 'player', 'player_teststat1', 0 );  // Init a player statistics (for all players)
 
         // TODO: setup the initial game situation here
+
+        // TODO: random 3 quirks
+        self::initDinosaurQuirks();
+        // TODO: assign each player a different dinosaur random
        
 
         // Activate first player (which is in general a good idea :) )
@@ -95,6 +99,22 @@ class dinosaurteaparty extends Table
 
         /************ End of the game initialization *****/
     }
+
+    private function initDinosaurQuirks() {
+        // select randomly 3 dinosaur id (there are 20)
+        $range = range(1, 20); 
+        shuffle($range);
+        $n = 3;
+        $result = array_slice($range, 0 , $n);
+        // update dinosaurs to add the 3 quirks
+        $sql = "INSERT INTO player (player_id, player_color, player_canal, player_name, player_avatar) VALUES ";    
+        $updatequirk1 = "UPDATE `dinosaur` SET `dinosaur_quirk` = '1' WHERE `dinosaur`.`dinosaur_id` = ".$result[0];
+        $updatequirk2 = "UPDATE `dinosaur` SET `dinosaur_quirk` = '2' WHERE `dinosaur`.`dinosaur_id` = ".$result[1];
+        $updatequirk3 = "UPDATE `dinosaur` SET `dinosaur_quirk` = '3' WHERE `dinosaur`.`dinosaur_id` = ".$result[2];  
+              
+    } 
+
+
 
     /*
         getAllDatas: 
@@ -212,6 +232,11 @@ class dinosaurteaparty extends Table
     }    
     */
 
+
+    function argPlayerTurn() {
+        return "";
+    }
+
 //////////////////////////////////////////////////////////////////////////////
 //////////// Game state actions
 ////////////
@@ -233,6 +258,14 @@ class dinosaurteaparty extends Table
         $this->gamestate->nextState( 'some_gamestate_transition' );
     }    
     */
+
+    function stNextPlayer() {
+
+    }
+
+    function stPrepareEndGame() {
+        $this->gamestate->nextstate("endGame");
+    }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////// Zombie
