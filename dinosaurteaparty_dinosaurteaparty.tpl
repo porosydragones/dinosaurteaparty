@@ -34,8 +34,14 @@
     </span>
 
     <div id="dinosaur_cards"></div>
+    
 
 </div> 
+
+<div id="game_play_area" class="whiteblock">
+    <h3>Traits</h3> 
+    <div id="trait_tokens"></div>
+</div>
 
 
 <script type="text/javascript">
@@ -49,6 +55,8 @@ var jstpl_some_game_item='<div class="my_game_item" id="my_game_item_${MY_ITEM_I
 */
 
 var jstpl_dinosaur_item = '<div id="table_cards_line_${DINOSAUR_ID}" class="placeholder dinosaur dinosaur${DINOSAUR_ID}" data-dinosaur-id="${DINOSAUR_ID}">DINOSAUR ${DINOSAUR_ID}</div>';
+
+var jstpl_trait_item = '<div id="table_cards_line_${TRAIT_ID}" class="placeholder trait trait${TRAIT_ID}" data-traitid="${TRAIT_ID}" data-traitplayerid="${TRAIT_PLAYER_ID}">TRAIT ${TRAIT_ID}</div>';
 
 </script>  
 

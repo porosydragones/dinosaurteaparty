@@ -49,7 +49,17 @@ function (dojo, declare) {
             DINOSAUR_ID: dinosaur_id
         });
         dojo.place(node, "dinosaur_cards");             
-    }, 
+        }, 
+        
+        putTrait: function(trait_id, player_id) {
+            var node = this.format_block("jstpl_trait_item", {
+                TRAIT_ID: trait_id,
+                TRAIT_PLAYER_ID: player_id
+            });
+            console.log(node);
+            dojo.place(node, "trait_tokens");             
+            }, 
+
         setup: function( gamedatas )
         {
             console.log( "Starting game setup" );
@@ -60,12 +70,16 @@ function (dojo, declare) {
                 var player = gamedatas.players[player_id];
                          
                 // TODO: Setting up players boards if needed
+
+                for( var $j = 1; $j <=15; $j++ ) {
+                    this.putTrait($j, player['id']);
+                }                  
             }
 
             for( var $i = 1; $i <=20; $i++ ) {
-                console.log( "put dinosaur ".$i );
                 this.putDinosaur($i);
             }
+          
             
             // TODO: Set up your game interface here, according to "gamedatas"
             dojo.query(".trait").connect("onclick", this, "onTraitClick");
@@ -226,12 +240,12 @@ function (dojo, declare) {
             dojo.stopEvent( evt );  
 
             // Check that this action is possible (see "possibleactions" in states.inc.php)
-            if( ! this.checkAction( 'askTrait' ) ){    return;  }    
-             
+            if( ! this.checkAction( 'askTrait' ) ){    return;  }                      
+
             this.ajaxcall( "/dinosaurteaparty/dinosaurteaparty/askTrait.html", { 
                     lock: true, 
-                    trait_id: 11,
-                    target_player_id: 2325582
+                    trait_id: evt.currentTarget.dataset.traitid,
+                    target_player_id: evt.currentTarget.dataset.traitplayerid
                 }, 
                 this, function( result ) {
                 }, function( is_error) {
