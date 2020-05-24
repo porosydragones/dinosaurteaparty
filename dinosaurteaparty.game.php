@@ -90,9 +90,9 @@ class dinosaurteaparty extends Table
 
         // TODO: setup the initial game situation here
 
-        // TODO: random 3 quirks
+        // random 3 quirks
         self::initDinosaurQuirks();
-        // TODO: assign each player a different dinosaur random
+        // assign each player a different dinosaur random
         self::initPlayersDinosaur($players);
 
         // Activate first player (which is in general a good idea :) )
@@ -213,6 +213,11 @@ class dinosaurteaparty extends Table
         return ($dinosaurHasTrait);                     
     }
 
+    private function updateDinosaurQuirk3Answer($dinosaur_id, $quirk3lastanswer) {
+        $sql = "UPDATE dinosaur SET dinosaur_quirk3lastanswer=".$quirk3lastanswer." WHERE dinosaur_id=".$dinosaur_id;
+        self::DbQuery( $sql );
+    }
+
     private function persistPlayerTrait($player_id, $trait_id,$correct_trait) {
         self::dump( "persistPlayerTrait.player_id", $player_id ); 
         self::dump( "persistPlayerTrait.trait_id", $trait_id ); 
@@ -227,7 +232,6 @@ class dinosaurteaparty extends Table
 
     private function cleanPlayerTrait( $player_id ) {
         $sql = "DELETE FROM player_trait WHERE player_trait_player_id=".$player_id;
-        self::dump( "cleanPlayerTrait", $sql );
         self::DbQuery( $sql ); 
     }
 
@@ -237,16 +241,42 @@ class dinosaurteaparty extends Table
 
         //get dinosaur of player
         $dinosaur = self::getDinosaurById( $player_id );
-        //TODO: check quirk
         
         //check trait
         $dinosaurHasTrait = self::checkDinosaurTrait($dinosaur["id"],$trait_id);
-
-        //TODO: update dinosaur if necesary (quirk 3)
-
+        self::dump( "askPlayerForTrait.dinosaurHasTrait", $dinosaurHasTrait );
+        // player answer is dinosaur has trait unless quirk
+        $player_answer = $dinosaurHasTrait;
+        // check quirk to change answer if necessary
+        self::dump( "askPlayerForTrait.check if dinosaur has quirk", $dinosaur["quirk"] );
+        if(! empty($dinosaur["quirk"])) {
+            // quirk 1 always says no
+            if ($dinosaur["quirk"] == 1){
+                $player_answer = 0;
+                self::dump( "askPlayerForTrait.has quirk 1, answer no:", $player_answer );
+            // quirk 1 always lies, so invert dinosaurHasTrait
+            } else if ($dinosaur["quirk"] == 2) {
+                $player_answer = ! $dinosaurHasTrait;
+                self::dump( "askPlayerForTrait.has quirk 2, insert trait:", $player_answer );
+            } else if ($dinosaur["quirk"] == 3) {
+                // first answer is random between true or false and then switche
+                // if there is no previous answer
+                self::dump( "askPlayerForTrait.has quirk 3, check quirk3lastanswer:", $dinosaur["quirk3lastanswer"] );
+                if( empty($dinosaur["quirk3lastanswer"])) {
+                    $random_true_false = rand(0,1) == 1;
+                    self::dump( "askPlayerForTrait.has quirk and no previous quirk3 answer, generate random and give as answer:", $random_true_false );
+                    $player_answer = $random_true_false;
+                } else { //next answers invert previous
+                    $player_answer = !$dinosaur["quirk3lastanswer"];
+                    self::dump( "askPlayerForTrait.has quirk and previous quirk3 answer, invert:", $player_answer );
+                }
+                // update dinosaur quirk3lastanswer
+                self::updateDinosaurQuirk3Answer($dinosaur["id"],$player_answer);
+            }
+        }
         //persist trait
         // TODO: if game mode is clever, do not persist if false
-        self::persistPlayerTrait($player_id,$trait_id,$dinosaurHasTrait);
+        self::persistPlayerTrait($player_id,$trait_id,$player_answer);
 
         return $dinosaurHasTrait;
     }
