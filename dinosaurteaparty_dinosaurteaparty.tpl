@@ -27,24 +27,15 @@
  
   
  
-<div id="table_wrap" class="whiteblock">
+<div id="game_play_area" class="whiteblock">
     <h3>Table</h3> 
     <span id="lines_wrap"> 
-    <div id="table_cards_line_0" class="placeholder trait trait1">TRAIT</div>
-    <div id="table_cards_line_1" class="placeholder dinosaur dinosaur2">DINOSAUR</div>
-    <div id="table_cards_line_2"></div>
-    <div id="table_cards_line_3"></div>
+    <!-- <div id="table_cards_line_0" class="placeholder trait trait1">TRAIT</div> -->       
     </span>
-    <span id="deck_wrap">
-    Deck & Discard
-    </span> 
-</div> 
 
-<div id="myhand_wrap" class="whiteblock">
-    <h3>My Hand</h3>
-    <div id="myhand">
-    </div>
-</div>
+    <div id="dinosaur_cards"></div>
+
+</div> 
 
 
 <script type="text/javascript">
@@ -56,6 +47,8 @@
 var jstpl_some_game_item='<div class="my_game_item" id="my_game_item_${MY_ITEM_ID}"></div>';
 
 */
+
+var jstpl_dinosaur_item = '<div id="table_cards_line_${DINOSAUR_ID}" class="placeholder dinosaur dinosaur${DINOSAUR_ID}" data-dinosaur-id="${DINOSAUR_ID}">DINOSAUR ${DINOSAUR_ID}</div>';
 
 </script>  
 

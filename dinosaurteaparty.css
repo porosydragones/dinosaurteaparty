@@ -69,12 +69,15 @@
 
 #game_play_area { 
     text-align: center;
+    position: relative;
+    height: auto;
+    overflow: auto;
 }
 
 .placeholder {
-    position: absolute;
-    width: 120px;
-    height: 120px;
+    /* position: absolute;*/
+    width: 150px;
+    height: 250px;
 }
   
 .placeholder {
@@ -92,20 +95,42 @@
 }
 
 .dinosaur {
-    background-color: rgb(10, 131, 70);;
+    background-color: rgb(10, 131, 70);
+    background-image: url("img/reginald.jpg");  
+    display:inline-block;  
+    margin: 10px;
+}
+
+.dinosaur1 {
+   /* left: 000px;   */
 }
 
 .dinosaur2 {
-    left: 200px;
+   /* left: 200px;*/
 }
+
+.dinosaur3 {
+   /* left: 400px;*/
+}
+
+.dinosaur4 {
+   /* left: 600px;*/
+}
+
+.dinosaur5 {
+   /* left: 800px;*/
+}
+
 
 .trait {
     background-color: red;
+    display:inline-block;  
 }
 
 
 .trait1 {
     background-color: rgb(132, 0, 255);
+    top: 400px;
 }
 
 

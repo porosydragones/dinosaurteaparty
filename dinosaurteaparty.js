@@ -44,6 +44,12 @@ function (dojo, declare) {
             "gamedatas" argument contains all datas retrieved by your "getAllDatas" PHP method.
         */
         
+       putDinosaur: function(dinosaur_id) {
+        var node = this.format_block("jstpl_dinosaur_item", {
+            DINOSAUR_ID: dinosaur_id
+        });
+        dojo.place(node, "dinosaur_cards");             
+    }, 
         setup: function( gamedatas )
         {
             console.log( "Starting game setup" );
@@ -54,6 +60,11 @@ function (dojo, declare) {
                 var player = gamedatas.players[player_id];
                          
                 // TODO: Setting up players boards if needed
+            }
+
+            for( var $i = 1; $i <=20; $i++ ) {
+                console.log( "put dinosaur ".$i );
+                this.putDinosaur($i);
             }
             
             // TODO: Set up your game interface here, according to "gamedatas"
@@ -219,7 +230,7 @@ function (dojo, declare) {
              
             this.ajaxcall( "/dinosaurteaparty/dinosaurteaparty/askTrait.html", { 
                     lock: true, 
-                    trait_id: 9,
+                    trait_id: 11,
                     target_player_id: 2325582
                 }, 
                 this, function( result ) {
