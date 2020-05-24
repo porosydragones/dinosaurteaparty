@@ -50,6 +50,26 @@ $game_options = array(
 
     */ 
 
+    100 => array(
+        'name' => totranslate('Game variant'),
+        'values' => array(
+
+                    // A simple value for this option:
+                    1 => array( 
+                        'name' => totranslate('Normal')
+                         ),
+
+                    // A simple value for this option.
+                    // If this value is chosen, the value of "tmdisplay" is displayed in the game lobby
+                    2 => array( 
+                        'name' => totranslate('Clever play'), 
+                        'description' => totranslate('When the answer to an inquiry is NO, NO token is put down.'),  
+                        'tmdisplay' => totranslate('Clever play') 
+                        )
+
+                )
+    )
+
 );
 
 

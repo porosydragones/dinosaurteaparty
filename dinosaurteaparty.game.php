@@ -33,7 +33,8 @@ class dinosaurteaparty extends Table
         parent::__construct();
         
         self::initGameStateLabels( array( 
-                  "current_target_player_id" => 10
+                  "current_target_player_id" => 10,
+                  "game_play_variant" => 100
             //    "my_first_global_variable" => 10,
             //    "my_second_global_variable" => 11,
             //      ...
@@ -47,7 +48,7 @@ class dinosaurteaparty extends Table
     {
 		// Used for translations and stuff. Please do not modify.
         return "dinosaurteaparty";
-    }	
+    }	       
 
     /*
         setupNewGame:
@@ -276,8 +277,21 @@ class dinosaurteaparty extends Table
             }
         }
         //persist trait
-        // TODO: if game mode is clever, do not persist if false
-        self::persistPlayerTrait($player_id,$trait_id,$player_answer);
+        // if answer is yes, always persist
+        // if answer is no, persist only in normal mode (not in clever mode)        
+        if( $player_answer ){
+            self::trace( "yes answer, PERSIST" );
+            self::persistPlayerTrait($player_id,$trait_id,$player_answer);
+        } else {
+            $game_play_variant = self::getGameStateValue('game_play_variant');
+            self::dump( "game_play_variant", $game_play_variant );
+            if( $game_play_variant == 1 ) {
+                self::trace( "no answer and NORMAL mode, PERSIST" );
+                self::persistPlayerTrait($player_id,$trait_id,$player_answer);
+            } else {
+                self::trace( "no answer and CLEVER mode, DO NOT PERSIST" );
+            }
+        }
 
         return $player_answer;
     }
