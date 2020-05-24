@@ -214,7 +214,8 @@ class dinosaurteaparty extends Table
     }
 
     private function updateDinosaurQuirk3Answer($dinosaur_id, $quirk3lastanswer) {
-        $sql = "UPDATE dinosaur SET dinosaur_quirk3lastanswer=".$quirk3lastanswer." WHERE dinosaur_id=".$dinosaur_id;
+        $quirk3lastanswer_int = (int) $quirk3lastanswer;
+        $sql = "UPDATE dinosaur SET dinosaur_quirk3lastanswer=".$quirk3lastanswer_int." WHERE dinosaur_id=".$dinosaur_id;
         self::DbQuery( $sql );
     }
 
@@ -262,7 +263,7 @@ class dinosaurteaparty extends Table
                 // first answer is random between true or false and then switche
                 // if there is no previous answer
                 self::dump( "askPlayerForTrait.has quirk 3, check quirk3lastanswer:", $dinosaur["quirk3lastanswer"] );
-                if( empty($dinosaur["quirk3lastanswer"])) {
+                if( is_null($dinosaur["quirk3lastanswer"])) {
                     $random_true_false = rand(0,1) == 1;
                     self::dump( "askPlayerForTrait.has quirk and no previous quirk3 answer, generate random and give as answer:", $random_true_false );
                     $player_answer = $random_true_false;
@@ -278,7 +279,7 @@ class dinosaurteaparty extends Table
         // TODO: if game mode is clever, do not persist if false
         self::persistPlayerTrait($player_id,$trait_id,$player_answer);
 
-        return $dinosaurHasTrait;
+        return $player_answer;
     }
 
     private function checkGuessPlayerDinosaur($player_id, $dinosaur_id) { 
