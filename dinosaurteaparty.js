@@ -73,7 +73,8 @@ function (dojo, declare) {
             console.log( "Starting game setup" );
             
             console.log('inactive_dinosaurs->' + JSON.stringify(gamedatas.inactive_dinosaurs));
-            console.log('player_traits->' + JSON.stringify(gamedatas.player_traits));    
+            console.log('player_traits->' + JSON.stringify(gamedatas.player_traits));   
+            console.log('players -> ' + JSON.stringify(gamedatas.players)); 
             // Setting up player boards
             for( var player_id in gamedatas.players )
             {

@@ -211,12 +211,10 @@ class dinosaurteaparty extends Table
     }
 
     private function getInactiveDinosaurs() {
-        $sql = "SELECT dinosaur_id id, dinosaur_name name, dinosaur_quirk quirk, dinosaur_player_id player_id, 
-                       dinosaur_quirk3lastanswer quirk3lastanswer,
-                       dinosaur_active active
+        $sql = "SELECT dinosaur_id id
                 FROM dinosaur where dinosaur_active = 0 ";
 
-        $inactive_dinosaurs = self::getObjectListFromDB( $sql );
+        $inactive_dinosaurs = self::getObjectListFromDB( $sql , true );
         self::dump( "inactive_dinosaurs", $inactive_dinosaurs );
         return $inactive_dinosaurs;        
     }
