@@ -51,13 +51,13 @@ function (dojo, declare) {
         dojo.place(node, "dinosaur_cards");             
         }, 
         
-        putTrait: function(trait_id, player_id) {
+        putTrait: function(trait_id, player_id, player_board_div) {
             var node = this.format_block("jstpl_trait_item", {
                 TRAIT_ID: trait_id,
                 TRAIT_PLAYER_ID: player_id
             });
             console.log(node);
-            dojo.place(node, "trait_tokens");             
+            dojo.place(node, player_board_div);             
             }, 
 
         setup: function( gamedatas )
@@ -70,9 +70,9 @@ function (dojo, declare) {
                 var player = gamedatas.players[player_id];
                          
                 // TODO: Setting up players boards if needed
-
+                var player_board_div = $('player_board_'+player_id);
                 for( var $j = 1; $j <=15; $j++ ) {
-                    this.putTrait($j, player['id']);
+                    this.putTrait($j, player['id'],player_board_div);
                 }                  
             }
 
