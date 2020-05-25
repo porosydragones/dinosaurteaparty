@@ -84,12 +84,17 @@
     background-color: #fff;
     /* opacity: 0;*/
     transition: all 250ms ease-in-out;
-    cursor: pointer;
+   /* cursor: pointer; */
     /* display: none;*/
 } 
 .placeholder.possibleMove {
     display: inherit;
 } 
+
+.clickableitem {
+    cursor: pointer;
+}
+
 .highlight {
     font-size: 32px;
 }
@@ -139,4 +144,10 @@
 
 .trait2 {
     background-color: yellow
+}
+
+.guess_dinosaur {
+    background-color: coral;
+    width: 200px;
+    height: 30px;
 }

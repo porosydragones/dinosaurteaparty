@@ -28,6 +28,8 @@ function (dojo, declare) {
             // Here, you can init the global variables of your user interface
             // Example:
             // this.myGlobalValue = 0;
+            this.guessPlayerClicked = null;
+            this.dinosaurHandle = null;
 
         },
         
@@ -58,7 +60,15 @@ function (dojo, declare) {
             });
             console.log(node);
             dojo.place(node, player_board_div);             
-            }, 
+        }, 
+
+        putGuessDinosaur: function(player_id, player_board_div) {
+            var node = this.format_block("jstpl_guess_item", {
+                TRAIT_PLAYER_ID: player_id
+            });
+            console.log(node);
+            dojo.place(node, player_board_div);    
+        },
 
         setup: function( gamedatas )
         {
@@ -73,7 +83,10 @@ function (dojo, declare) {
                 var player_board_div = $('player_board_'+player_id);
                 for( var $j = 1; $j <=15; $j++ ) {
                     this.putTrait($j, player['id'],player_board_div);
-                }                  
+                } 
+                if(this.player_id != player_id) {
+                    this.putGuessDinosaur(player['id'],player_board_div);                 
+                }
             }
 
             for( var $i = 1; $i <=20; $i++ ) {
@@ -83,14 +96,14 @@ function (dojo, declare) {
             
             // TODO: Set up your game interface here, according to "gamedatas"
             dojo.query(".trait").connect("onclick", this, "onTraitClick");
-            dojo.query(".dinosaur").connect("onclick", this, "onDinosaurClick");
+            dojo.query(".guess_dinosaur").connect("onclick", this, "onGuessClick"); 
  
             // Setup game notifications to handle (see "setupNotifications" method below)
             this.setupNotifications();
 
             console.log( "Ending game setup" );
         },
-       
+        
 
         ///////////////////////////////////////////////////
         //// Game & client states
@@ -184,6 +197,17 @@ function (dojo, declare) {
         
         */
 
+        callDinosaurGuess: function( dinosaur_id, target_player_id ) {
+            console.log('callDinosaurGuess.dinosaur_id: ' + dinosaur_id + '.target_player_id:' + target_player_id);
+            this.ajaxcall( "/dinosaurteaparty/dinosaurteaparty/guessDinosaur.html", { 
+                lock: true, 
+                dinosaur_id:  dinosaur_id,
+                target_player_id: this.guessPlayerClicked
+            }, 
+            this, function( result ) {
+            }, function( is_error) {
+            } ); 
+        },
 
         ///////////////////////////////////////////////////
         //// Player's action
@@ -234,7 +258,7 @@ function (dojo, declare) {
         */
  
         // Current player click a trait of another player
-        onTraitClick( evt ) {
+        onTraitClick: function( evt ) {
             console.log( 'onTraitClick' );
             // Preventing default browser reaction
             dojo.stopEvent( evt );  
@@ -253,24 +277,37 @@ function (dojo, declare) {
             
         },
 
-        // Current player click a dinosaur to guess a player
-        onDinosaurClick( evt ) {
-            console.log( 'onDinosaurClick' );
+
+        // Current player clicks the guess button in a player board, then enable click on dinosaur
+        onGuessClick: function( evt) {
+            console.log( 'onGuessClick' );
             // Preventing default browser reaction
             dojo.stopEvent( evt );   
             // Check that this action is possible (see "possibleactions" in states.inc.php)
             if( ! this.checkAction( 'guessDinosaur' ) ){   return;  } 
-
-            this.ajaxcall( "/dinosaurteaparty/dinosaurteaparty/guessDinosaur.html", { 
-                lock: true, 
-                dinosaur_id:  13,
-                target_player_id: 2325582
-            }, 
-            this, function( result ) {
-            }, function( is_error) {
-            } );       
             
+            this.guessPlayerClicked = evt.currentTarget.dataset.playerid;
+            // enable dinosaur click
+            this.dinosaurHandle = dojo.query(".dinosaur").connect("onclick", this, "onDinosaurClick"); 
+            dojo.query(".dinosaur").addClass("clickableitem");
+        },         
+
+        // Current player click a dinosaur to guess a player
+        onDinosaurClick: function( evt ) {
+            // Preventing default browser reaction
+            dojo.stopEvent( evt );   
+            // Check that this action is possible (see "possibleactions" in states.inc.php)
+            //if the player has not clicked first on a dinosaur
+            if( ! this.checkAction( 'guessDinosaur' ) || this.guessPlayerClicked == null ){   return;  } 
+
+            // disable dinosaur click 
+            dojo.query(".dinosaur").removeClass("clickableitem");
+            //dojo.disconnect(this.dinosaurHandle);
+
+            this.callDinosaurGuess(evt.currentTarget.dataset.dinosaurid,this.guessPlayerClicked);
+            this.guessPlayerClicked = null;  
         },
+
         
         ///////////////////////////////////////////////////
         //// Reaction to cometD notifications
