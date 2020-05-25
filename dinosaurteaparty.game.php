@@ -162,8 +162,15 @@ class dinosaurteaparty extends Table
         $result['players'] = self::getCollectionFromDb( $sql );
   
         // TODO: Gather all information about current game situation (visible by player $current_player_id).
-        // get current traits in another players
         // get my dinosaur
+        $my_dinosaur = self::getDinosaurById($current_player_id);
+        $result['my_dinosaur'] = $my_dinosaur;
+        // get inactive dinosaurs        
+        $inactive_dinosaurs = self::getInactiveDinosaurs();
+        $result['inactive_dinosaurs'] = $inactive_dinosaurs;   
+        // get current traits in all players        
+        $player_traits = self::getAllPlayerTraits();    
+        $result['player_traits'] = $player_traits;   
         return $result;
     }
 
@@ -201,6 +208,23 @@ class dinosaurteaparty extends Table
         $dinosaur = self::getObjectFromDB( $sql );
         self::dump( "dinosaur", $dinosaur );
         return $dinosaur;
+    }
+
+    private function getInactiveDinosaurs() {
+        $sql = "SELECT dinosaur_id id, dinosaur_name name, dinosaur_quirk quirk, dinosaur_player_id player_id, 
+                       dinosaur_quirk3lastanswer quirk3lastanswer,
+                       dinosaur_active active
+                FROM dinosaur where dinosaur_active = 0 ";
+
+        $inactive_dinosaurs = self::getObjectListFromDB( $sql );
+        self::dump( "inactive_dinosaurs", $inactive_dinosaurs );
+        return $inactive_dinosaurs;        
+    }
+
+    private function getAllPlayerTraits() {
+        $sql = "SELECT `player_trait_player_id`,`player_trait_trait_id`,`player_trait_correct` FROM `player_trait`";
+        $player_traits = self::getObjectListFromDB( $sql );
+        return $player_traits;           
     }
 
     private function checkDinosaurTrait($dinosaur_id, $trait_id) {

@@ -58,7 +58,6 @@ function (dojo, declare) {
                 TRAIT_ID: trait_id,
                 TRAIT_PLAYER_ID: player_id
             });
-            console.log(node);
             dojo.place(node, player_board_div);             
         }, 
 
@@ -66,7 +65,6 @@ function (dojo, declare) {
             var node = this.format_block("jstpl_guess_item", {
                 TRAIT_PLAYER_ID: player_id
             });
-            console.log(node);
             dojo.place(node, player_board_div);    
         },
 
@@ -74,6 +72,8 @@ function (dojo, declare) {
         {
             console.log( "Starting game setup" );
             
+            console.log('inactive_dinosaurs->' + JSON.stringify(gamedatas.inactive_dinosaurs));
+            console.log('player_traits->' + JSON.stringify(gamedatas.player_traits));    
             // Setting up player boards
             for( var player_id in gamedatas.players )
             {
@@ -87,6 +87,8 @@ function (dojo, declare) {
                 if(this.player_id != player_id) {
                     this.putGuessDinosaur(player['id'],player_board_div);                 
                 }
+
+                console.log('mydinosaur->' + JSON.stringify(gamedatas.my_dinosaur));
             }
 
             for( var $i = 1; $i <=20; $i++ ) {
@@ -297,8 +299,9 @@ function (dojo, declare) {
             // Preventing default browser reaction
             dojo.stopEvent( evt );   
             // Check that this action is possible (see "possibleactions" in states.inc.php)
-            //if the player has not clicked first on a dinosaur
-            if( ! this.checkAction( 'guessDinosaur' ) || this.guessPlayerClicked == null ){   return;  } 
+            if( ! this.checkAction( 'guessDinosaur' ) ){   return;  } 
+            // return if the player has not clicked first on a dinosaur
+            if( this.guessPlayerClicked == null) {return ;}
 
             // disable dinosaur click 
             dojo.query(".dinosaur").removeClass("clickableitem");
