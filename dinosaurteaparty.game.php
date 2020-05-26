@@ -97,6 +97,8 @@ class dinosaurteaparty extends Table
         // (note: statistics used in this file must be defined in your stats.inc.php file)
         //self::initStat( 'table', 'table_teststat1', 0 );    // Init a table statistics
         //self::initStat( 'player', 'player_teststat1', 0 );  // Init a player statistics (for all players)
+        self::initStat( 'table', 'turns_number', 0);
+        self::initStat( 'player', 'player_correct_trait', 0);        
 
         // TODO: setup the initial game situation here
 
@@ -285,6 +287,14 @@ class dinosaurteaparty extends Table
         self::DbQuery( $sql ); 
     }
 
+    private function addPlayerCorrectTraitStat($player_id) {
+      self::incStat(1,'player_correct_trait',$player_id);      
+    }
+
+    private function addTurnStat() {
+       self::incStat(1,'turns_number');
+    }
+
     // Ask a player for trait, return TRUE if yes, return FALSE if incorrect
     private function askPlayerForTrait($player_id, $trait_id) {
         //look in database if player dinosaur has trait, check quirks
@@ -437,6 +447,8 @@ class dinosaurteaparty extends Table
 
         if($correctAsk) {
             self::trace( "correctAsk, congrats!" );
+            //add correct trait to player stat
+            self::addPlayerCorrectTraitStat($player_id);
             self::playAgainSamePlayer();
         } else {
             self::trace( "incorrectAsk, sorry" );
@@ -468,7 +480,7 @@ class dinosaurteaparty extends Table
         $correctGuess = $this->checkGuessPlayerDinosaur($target_player_id, $dinosaur_id);
         if($correctGuess) {
             //save current target_player_id in global
-            self::setGameStateInitialValue( 'current_target_player_id', $target_player_id );
+            self::setGameStateValue( 'current_target_player_id', $target_player_id );
             self::dump( "set current_target_player_id", $target_player_id ); 
             // go to state correct guess (there add a point and check end game)
             self::trace( "correctGuess, congrats!" );
@@ -549,6 +561,7 @@ class dinosaurteaparty extends Table
         // Activate next player
         $player_id = self::activeNextPlayer();
         self::giveExtraTime( $player_id );
+        self::addTurnStat();
         $this->gamestate->nextState( 'nextTurn' );        
     }
 

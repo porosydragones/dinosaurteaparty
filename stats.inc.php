@@ -55,7 +55,7 @@ $stats_type = array(
         "turns_number" => array("id"=> 10,
                     "name" => totranslate("Number of turns"),
                     "type" => "int" ),
-
+ 
 /*
         Examples:
 
@@ -73,9 +73,9 @@ $stats_type = array(
     // Statistics existing for each player
     "player" => array(
 
-        "turns_number" => array("id"=> 10,
-                    "name" => totranslate("Number of turns"),
-                    "type" => "int" ),
+        "player_correct_trait" => array(   "id"=> 20,
+                    "name" => totranslate("Player traits guessed"), 
+                    "type" => "int" ),                    
     
 /*
         Examples:    
