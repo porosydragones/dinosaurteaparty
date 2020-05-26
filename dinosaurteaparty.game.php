@@ -34,6 +34,7 @@ class dinosaurteaparty extends Table
         
         self::initGameStateLabels( array( 
                   "current_target_player_id" => 10,
+                  "progression_multiplier" => 20,                  
                   "game_play_variant" => 100
             //    "my_first_global_variable" => 10,
             //    "my_second_global_variable" => 11,
@@ -83,7 +84,15 @@ class dinosaurteaparty extends Table
 
         // Init global values with their initial values
         self::setGameStateInitialValue( 'current_target_player_id', 0 );
-        
+        // Progression multiplier per correct guess, 3 players 15%, 4 players 12%, 5 players 10%
+        $num_players = count($players);
+        if($num_players == 3) {
+            self::setGameStateInitialValue( 'progression_multiplier', 15 );
+        } else  if ($num_players == 4) {
+            self::setGameStateInitialValue( 'progression_multiplier', 12 );
+        } else {
+            self::setGameStateInitialValue( 'progression_multiplier', 15 );
+        }
         // Init game statistics
         // (note: statistics used in this file must be defined in your stats.inc.php file)
         //self::initStat( 'table', 'table_teststat1', 0 );    // Init a table statistics
@@ -186,9 +195,20 @@ class dinosaurteaparty extends Table
     */
     function getGameProgression()
     {
-        // TODO: compute and return the game progression
+        $max_score = self::getMaxScoreOfPlayers();    
+        // if a player has 3 points, return 100 (end of game)        
+        if($max_score == 3 ) {
+            return 100;
+        } else {
+            // progression is number of correct guess * progression_multiplier
+            // number of correct guess is count of inactive dinosaurs
+            $num_inactive_dinosaurs = count(self::getInactiveDinosaurs());    
+            $progression_multiplier = self::getGameStateValue('progression_multiplier');       
+            $progression =  $num_inactive_dinosaurs * $progression_multiplier;     
 
-        return 0;
+            return $progression;        
+        }
+
     }
 
 
@@ -223,6 +243,12 @@ class dinosaurteaparty extends Table
         $sql = "SELECT `player_trait_player_id`,`player_trait_trait_id`,`player_trait_correct` FROM `player_trait`";
         $player_traits = self::getObjectListFromDB( $sql );
         return $player_traits;           
+    }
+
+    private function getMaxScoreOfPlayers() {
+        $sql = "select max(player_score) FROM player";
+        $max_score = self::getUniqueValueFromDB($sql);
+        return $max_score;
     }
 
     private function checkDinosaurTrait($dinosaur_id, $trait_id) {
