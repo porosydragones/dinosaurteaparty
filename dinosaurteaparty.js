@@ -100,6 +100,14 @@ function (dojo, declare) {
             // TODO: Set up your game interface here, according to "gamedatas"
             dojo.query(".trait").connect("onclick", this, "onTraitClick");
             dojo.query(".guess_dinosaur").connect("onclick", this, "onGuessClick"); 
+
+
+            //inactive dinosaurs
+            var arrayLength = gamedatas.inactive_dinosaurs.length;
+            for (var i = 0; i < arrayLength; i++) {
+                var dinosaur_id_to_inactive = ".dinosaur" +  gamedatas.inactive_dinosaurs[i];
+                dojo.query(dinosaur_id_to_inactive).addClass("dinosaur_inactive");
+            }
  
             // Setup game notifications to handle (see "setupNotifications" method below)
             this.setupNotifications();
