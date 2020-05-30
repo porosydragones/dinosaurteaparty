@@ -41,6 +41,7 @@ CREATE TABLE `dinosaur` (
     `dinosaur_quirk` INT(10) UNSIGNED NULL ,
     `dinosaur_player_id` INT(10) NULL , 
     `dinosaur_quirk3lastanswer` INT(10) NULL ,
+    `dinosaur_order` INT(10) UNSIGNED NULL ,
     `dinosaur_active` TINYINT(1) NULL ,
     PRIMARY KEY (`dinosaur_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

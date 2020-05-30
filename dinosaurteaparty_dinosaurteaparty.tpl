@@ -38,6 +38,11 @@
 
 </div> 
 
+<div id="your_hand" class="whiteblock">
+<h3>Your hand</h3>
+    <div id="my_dinosaur"></div>
+</div>
+
 <script type="text/javascript">
 
 // Javascript HTML templates
@@ -53,6 +58,8 @@ var jstpl_dinosaur_item = '<div id="table_cards_line_${DINOSAUR_ID}" class="plac
 var jstpl_trait_item = '<div id="player_trait_${TRAIT_ID}" class="placeholder clickableitem trait trait${TRAIT_ID}" data-traitid="${TRAIT_ID}" data-traitplayerid="${TRAIT_PLAYER_ID}">TRAIT ${TRAIT_ID}</div>';
 
 var jstpl_guess_item = '<div id="player_guess" class="placeholder clickableitem guess_dinosaur" data-playerid="${TRAIT_PLAYER_ID}">GUESS</div>';
+
+var jstpl_my_dinosaur_item = '<div id="cards_${MY_DINOSAUR_ID}" class="placeholder dinosaur dinosaur${MY_DINOSAUR_ID}" data-dinosaurid="${MY_DINOSAUR_ID}">DINOSAUR ${MY_DINOSAUR_ID}</div>';
 
 </script>  
 

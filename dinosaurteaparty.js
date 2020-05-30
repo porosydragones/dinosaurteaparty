@@ -68,6 +68,14 @@ function (dojo, declare) {
             dojo.place(node, player_board_div);    
         },
 
+                
+       putMyDinosaur: function(my_dinosaur_id) {
+        var node = this.format_block("jstpl_my_dinosaur_item", {
+            MY_DINOSAUR_ID: my_dinosaur_id
+        });
+        dojo.place(node, "my_dinosaur");             
+        }, 
+
         setup: function( gamedatas )
         {
             console.log( "Starting game setup" );
@@ -89,12 +97,17 @@ function (dojo, declare) {
                     this.putGuessDinosaur(player['id'],player_board_div);                 
                 }
 
-                console.log('mydinosaur->' + JSON.stringify(gamedatas.my_dinosaur));
             }
-
-            for( var $i = 1; $i <=20; $i++ ) {
-                this.putDinosaur($i);
+            // put dinosaurs in order
+            console.log('dinosaur_order->' + JSON.stringify(gamedatas.dinosaur_order));
+            for( var $i = 0; $i < gamedatas.dinosaur_order.length; $i++) {
+                console.log(gamedatas.dinosaur_order[$i ]);
+                this.putDinosaur(gamedatas.dinosaur_order[$i ]);
             }
+            
+            console.log('mydinosaur->' + JSON.stringify(gamedatas.my_dinosaur));
+            console.log('mydinosaur id->' + gamedatas.my_dinosaur['id']);
+            this.putMyDinosaur(gamedatas.my_dinosaur['id']);
           
             
             // TODO: Set up your game interface here, according to "gamedatas"

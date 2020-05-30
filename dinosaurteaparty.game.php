@@ -102,6 +102,9 @@ class dinosaurteaparty extends Table
 
         // TODO: setup the initial game situation here
 
+
+        //random order in dinosaurs
+        self::initDinosaursOrder();
         // random 3 quirks
         self::initDinosaurQuirks();
         // assign each player a different dinosaur random
@@ -111,6 +114,19 @@ class dinosaurteaparty extends Table
         $this->activeNextPlayer();
 
         /************ End of the game initialization *****/
+    }
+
+    // Randomize order of dinosaurs, so they appear in different order in the table each game
+    private function initDinosaursOrder() {
+        $range = range(1, 20); 
+        shuffle($range);
+        self::dump( "range", $range );
+        $i=1;
+        foreach( $range as $range_value) {
+            $updateorder = "UPDATE `dinosaur` SET `dinosaur_order` = '.$range_value.' WHERE `dinosaur`.`dinosaur_id` = ".$i;
+            self::DbQuery( $updateorder );     
+            $i++;
+        }
     }
 
     // Give a quirk (1,2,3) to 3 different dinosaurs, randomly
@@ -173,15 +189,17 @@ class dinosaurteaparty extends Table
         $result['players'] = self::getCollectionFromDb( $sql );
   
         // TODO: Gather all information about current game situation (visible by player $current_player_id).
-        // get my dinosaur
-        $my_dinosaur = self::getDinosaurById($current_player_id);
-        $result['my_dinosaur'] = $my_dinosaur;
+        // get dinosaurs order
+        $result['dinosaur_order'] = self::getDinosaursOrder();
         // get inactive dinosaurs        
         $inactive_dinosaurs = self::getInactiveDinosaurs();
         $result['inactive_dinosaurs'] = $inactive_dinosaurs;   
         // get current traits in all players        
         $player_traits = self::getAllPlayerTraits();    
         $result['player_traits'] = $player_traits;   
+        // get my dinosaur
+        $my_dinosaur = self::getDinosaurById($current_player_id);
+        $result['my_dinosaur'] = $my_dinosaur;        
         return $result;
     }
 
@@ -223,13 +241,22 @@ class dinosaurteaparty extends Table
     */
     private function getDinosaurById($player_id) {
         $sql = "SELECT dinosaur_id id, dinosaur_name name, dinosaur_quirk quirk, dinosaur_player_id player_id, 
-                       dinosaur_quirk3lastanswer quirk3lastanswer,
+                       dinosaur_quirk3lastanswer quirk3lastanswer, dinosaur_order,
                        dinosaur_active active
                 FROM dinosaur where dinosaur_active = 1 AND dinosaur_player_id = ".$player_id;
 
         $dinosaur = self::getObjectFromDB( $sql );
         self::dump( "dinosaur", $dinosaur );
         return $dinosaur;
+    }
+
+    private function getDinosaursOrder( ) {
+        $sql = "SELECT dinosaur_id id
+            FROM dinosaur order by dinosaur_order ";
+
+        $dinosaur_order = self::getObjectListFromDB( $sql , true );
+        self::dump( "dinosaur_order", $dinosaur_order );
+        return $dinosaur_order; 
     }
 
     private function getInactiveDinosaurs() {
