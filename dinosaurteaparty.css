@@ -109,6 +109,10 @@
 .dinosaur_inactive {
     filter: grayscale(100%);
 }
+/* class to handle clic of dinosaur */
+.dinosaur_active {
+  
+}
 
 .dinosaur1 {
    /* left: 000px;   */

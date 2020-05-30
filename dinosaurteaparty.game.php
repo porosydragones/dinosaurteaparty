@@ -265,7 +265,13 @@ class dinosaurteaparty extends Table
 
         $inactive_dinosaurs = self::getObjectListFromDB( $sql , true );
         self::dump( "inactive_dinosaurs", $inactive_dinosaurs );
-        return $inactive_dinosaurs;        
+
+        $inactive_dinosaurs_int = [];
+        for( $i=0; $i< count($inactive_dinosaurs); $i++) {
+            $inactive_dinosaurs_int[$i] = (int) $inactive_dinosaurs[$i];
+        }
+
+        return $inactive_dinosaurs_int;        
     }
 
     private function getAllPlayerTraits() {

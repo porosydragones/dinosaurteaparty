@@ -101,7 +101,6 @@ function (dojo, declare) {
             // put dinosaurs in order
             console.log('dinosaur_order->' + JSON.stringify(gamedatas.dinosaur_order));
             for( var $i = 0; $i < gamedatas.dinosaur_order.length; $i++) {
-                console.log(gamedatas.dinosaur_order[$i ]);
                 this.putDinosaur(gamedatas.dinosaur_order[$i ]);
             }
             
@@ -115,13 +114,19 @@ function (dojo, declare) {
             dojo.query(".guess_dinosaur").connect("onclick", this, "onGuessClick"); 
 
 
-            //inactive dinosaurs
-            var arrayLength = gamedatas.inactive_dinosaurs.length;
-            for (var i = 0; i < arrayLength; i++) {
-                var dinosaur_id_to_inactive = ".dinosaur" +  gamedatas.inactive_dinosaurs[i];
-                dojo.query(dinosaur_id_to_inactive).addClass("dinosaur_inactive");
+            //inactive dinosaurs, add inactivedinosaur or activedinosaur class
+            console.log('inactive_dinosaurs->' + JSON.stringify(gamedatas.inactive_dinosaurs));
+            for($i=1; $i<=20; $i++) {
+                var dinosaur_id_to_change = ".dinosaur" + $i;
+                if(gamedatas.inactive_dinosaurs.includes($i)) {
+                    console.log( "Dinosaur is INACTIVE "+$i );
+                    dojo.query(dinosaur_id_to_change).addClass("dinosaur_inactive");                    
+                } else {
+                    console.log( "Dinosaur is ACTIVE "+$i );
+                    dojo.query(dinosaur_id_to_change).addClass("dinosaur_active");                    
+                }
             }
- 
+
             // Setup game notifications to handle (see "setupNotifications" method below)
             this.setupNotifications();
 
@@ -312,8 +317,8 @@ function (dojo, declare) {
             
             this.guessPlayerClicked = evt.currentTarget.dataset.playerid;
             // enable dinosaur click
-            this.dinosaurHandle = dojo.query(".dinosaur").connect("onclick", this, "onDinosaurClick"); 
-            dojo.query(".dinosaur").addClass("clickableitem");
+            this.dinosaurHandle = dojo.query(".dinosaur_active").connect("onclick", this, "onDinosaurClick"); 
+            dojo.query(".dinosaur_active").addClass("clickableitem");
         },         
 
         // Current player click a dinosaur to guess a player
@@ -326,7 +331,7 @@ function (dojo, declare) {
             if( this.guessPlayerClicked == null) {return ;}
 
             // disable dinosaur click 
-            dojo.query(".dinosaur").removeClass("clickableitem");
+            dojo.query(".dinosaur_active").removeClass("clickableitem");
             //dojo.disconnect(this.dinosaurHandle);
 
             this.callDinosaurGuess(evt.currentTarget.dataset.dinosaurid,this.guessPlayerClicked);
