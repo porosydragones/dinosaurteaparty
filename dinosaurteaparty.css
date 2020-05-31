@@ -148,14 +148,19 @@
 .quirk1 {
     background-color: rgb(255, 51, 0);
     background-image: url("img/DTP-Quirk_1.png"); 
+    background-repeat: no-repeat;
 }
 
 .quirk2 {
     background-color: rgb(115, 255, 0);
+    background-image: url("img/DTP-Quirk_2.png"); 
+    background-repeat: no-repeat;    
 }
 
 .quirk3 {
     background-color: rgb(247, 0, 255);
+    background-image: url("img/DTP-Quirk_3.png"); 
+    background-repeat: no-repeat;      
 }
 
 
