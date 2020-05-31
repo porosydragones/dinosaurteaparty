@@ -155,29 +155,29 @@
 }
 
 .trait_active {
-
+    background-color: green;
 }
 
 .trait_inactive {
-
+    background-color: red;
 }
 
 .trait_normal {
-    
+    background-color: orange;
 }
 
 .trait1 {
-    background-color: rgb(132, 0, 255);
+
     top: 400px;
 }
 
 .trait1_inactive {
-    background-color: rgb(132, 0, 255);
+
     top: 400px;
 }
 
 .trait2 {
-    background-color: yellow
+
 }
 
 .guess_dinosaur {

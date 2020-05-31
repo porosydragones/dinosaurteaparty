@@ -186,7 +186,8 @@ class dinosaurteaparty extends Table
         // Get information about players
         // Note: you can retrieve some extra field you added for "player" table in "dbmodel.sql" if you need it.
         $sql = "SELECT player_id id, player_score score FROM player ";
-        $result['players'] = self::getCollectionFromDb( $sql );
+        $players_info = self::getCollectionFromDb( $sql );
+        $result['players'] = $players_info;
   
         // TODO: Gather all information about current game situation (visible by player $current_player_id).
         // get dinosaurs order
@@ -195,7 +196,7 @@ class dinosaurteaparty extends Table
         $inactive_dinosaurs = self::getInactiveDinosaurs();
         $result['inactive_dinosaurs'] = $inactive_dinosaurs;   
         // get current traits in all players        
-        $player_traits = self::getAllPlayerTraits();    
+        $player_traits = self::getAllPlayerTraits($players_info);    
         $result['player_traits'] = $player_traits;   
         // get my dinosaur
         $my_dinosaur = self::getDinosaurById($current_player_id);
@@ -274,10 +275,34 @@ class dinosaurteaparty extends Table
         return $inactive_dinosaurs_int;        
     }
 
-    private function getAllPlayerTraits() {
-        $sql = "SELECT `player_trait_player_id`,`player_trait_trait_id`,`player_trait_correct` FROM `player_trait`";
+    private function getAllPlayerTraits($players_info) {
+
+        $player_all_trait_data = [];
+        foreach ($players_info as $player_value) {
+           $player_trait_data = [];
+        // self::dump( "getAllPlayerTraits.player_value", $player_value);   
+            self::dump( "getAllPlayerTraits.player_value.ID", $player_value['id']); 
+            $player_id_traits =  self::getPlayerTraits( $player_value['id'] );        
+            self::dump( "getAllPlayerTraits.player_value.player_id_trait", $player_id_traits);       
+            foreach ($player_id_traits as $player_trait_value) {
+            self::dump( "getAllPlayerTraits.player_value.player_trait_value", $player_trait_value); 
+            $player_trait_data[$player_trait_value['player_trait_trait_id']] = (int)$player_trait_value['player_trait_correct'];
+            }     
+            self::dump( "getAllPlayerTraits.player_trait_data", $player_trait_data); 
+            $player_all_trait_data[$player_value['id']]  = $player_trait_data;
+        }
+        self::dump( "getAllPlayerTraits.player_all_trait_data", $player_all_trait_data); 
+       /* $sql = "SELECT `player_trait_player_id`,`player_trait_trait_id`,`player_trait_correct` FROM `player_trait`";
         $player_traits = self::getObjectListFromDB( $sql );
-        return $player_traits;           
+        return $player_traits; */
+        return  $player_all_trait_data;   
+    }
+
+    private function getPlayerTraits($playerid) {
+        $sql = "SELECT `player_trait_player_id`,`player_trait_trait_id`,`player_trait_correct` FROM `player_trait` WHERE player_trait_player_id = ".$playerid;
+        $player_traits = self::getObjectListFromDB( $sql );
+
+        return $player_traits;     
     }
 
     private function getMaxScoreOfPlayers() {

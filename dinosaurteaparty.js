@@ -92,6 +92,7 @@ function (dojo, declare) {
                 var player_board_div = $('player_board_'+player_id);
                 for( var $j = 1; $j <=15; $j++ ) {
                     this.putTrait($j, player['id'],player_board_div);
+                    
                 } 
                 if(this.player_id != player_id) {
                     this.putGuessDinosaur(player['id'],player_board_div);                 
