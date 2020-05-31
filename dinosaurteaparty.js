@@ -144,7 +144,7 @@ function (dojo, declare) {
           
             
             // TODO: Set up your game interface here, according to "gamedatas"
-            dojo.query(".trait").connect("onclick", this, "onTraitClick");
+            dojo.query(".trait_normal").connect("onclick", this, "onTraitClick");
             dojo.query(".guess_dinosaur").connect("onclick", this, "onGuessClick"); 
 
 

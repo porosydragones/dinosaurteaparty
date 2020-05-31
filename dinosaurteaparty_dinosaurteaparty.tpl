@@ -56,8 +56,8 @@ var jstpl_some_game_item='<div class="my_game_item" id="my_game_item_${MY_ITEM_I
 var jstpl_dinosaur_item = '<div id="table_cards_line_${DINOSAUR_ID}" class="placeholder dinosaur dinosaur${DINOSAUR_ID}" data-dinosaurid="${DINOSAUR_ID}">DINOSAUR ${DINOSAUR_ID}</div>';
 
 var jstpl_trait_item_normal = '<div id="player_trait_${TRAIT_ID}" class="placeholder clickableitem trait trait${TRAIT_ID} trait_normal" data-traitid="${TRAIT_ID}" data-traitplayerid="${TRAIT_PLAYER_ID}">TRAIT ${TRAIT_ID}</div>';
-var jstpl_trait_item_correct = '<div id="player_trait_${TRAIT_ID}" class="placeholder clickableitem trait trait${TRAIT_ID} trait_correct" data-traitid="${TRAIT_ID}" data-traitplayerid="${TRAIT_PLAYER_ID}">TRAIT ${TRAIT_ID}</div>';
-var jstpl_trait_item_incorrect = '<div id="player_trait_${TRAIT_ID}" class="placeholder clickableitem trait trait${TRAIT_ID} trait_incorrect" data-traitid="${TRAIT_ID}" data-traitplayerid="${TRAIT_PLAYER_ID}">TRAIT ${TRAIT_ID}</div>';
+var jstpl_trait_item_correct = '<div id="player_trait_${TRAIT_ID}" class="placeholder trait trait${TRAIT_ID} trait_correct" data-traitid="${TRAIT_ID}" data-traitplayerid="${TRAIT_PLAYER_ID}">TRAIT ${TRAIT_ID}</div>';
+var jstpl_trait_item_incorrect = '<div id="player_trait_${TRAIT_ID}" class="placeholder trait trait${TRAIT_ID} trait_incorrect" data-traitid="${TRAIT_ID}" data-traitplayerid="${TRAIT_PLAYER_ID}">TRAIT ${TRAIT_ID}</div>';
 
 
 
