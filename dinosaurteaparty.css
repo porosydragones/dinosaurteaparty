@@ -134,6 +134,17 @@
    /* left: 800px;*/
 }
 
+.mydinosaur {
+    background-color: rgb(10, 131, 70);
+    background-image: url("img/reginald.jpg");  
+    display:inline-block;  
+    margin: 0px;
+}
+
+.mydinosaur1 {
+  /* alice my dinosaur */
+}
+
 
 .trait {
     background-color: red;
@@ -143,6 +154,17 @@
     margin: 0px;   
 }
 
+.trait_active {
+
+}
+
+.trait_inactive {
+
+}
+
+.trait_normal {
+    
+}
 
 .trait1 {
     background-color: rgb(132, 0, 255);
@@ -153,7 +175,6 @@
     background-color: rgb(132, 0, 255);
     top: 400px;
 }
-
 
 .trait2 {
     background-color: yellow

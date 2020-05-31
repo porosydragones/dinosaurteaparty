@@ -59,7 +59,7 @@ var jstpl_trait_item = '<div id="player_trait_${TRAIT_ID}" class="placeholder cl
 
 var jstpl_guess_item = '<div id="player_guess" class="placeholder clickableitem guess_dinosaur" data-playerid="${TRAIT_PLAYER_ID}">GUESS</div>';
 
-var jstpl_my_dinosaur_item = '<div id="cards_${MY_DINOSAUR_ID}" class="placeholder dinosaur dinosaur${MY_DINOSAUR_ID}" data-dinosaurid="${MY_DINOSAUR_ID}">DINOSAUR ${MY_DINOSAUR_ID}</div>';
+var jstpl_my_dinosaur_item = '<div id="cards_${MY_DINOSAUR_ID}" class="placeholder mydinosaur mydinosaur${MY_DINOSAUR_ID}" data-dinosaurid="${MY_DINOSAUR_ID}">MY DINOSAUR ${MY_DINOSAUR_ID}</div>';
 
 </script>  
 

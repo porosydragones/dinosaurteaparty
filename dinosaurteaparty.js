@@ -119,10 +119,10 @@ function (dojo, declare) {
             for($i=1; $i<=20; $i++) {
                 var dinosaur_id_to_change = ".dinosaur" + $i;
                 if(gamedatas.inactive_dinosaurs.includes($i)) {
-                    console.log( "Dinosaur is INACTIVE "+$i );
+                    //console.log( "Dinosaur is INACTIVE "+$i );
                     dojo.query(dinosaur_id_to_change).addClass("dinosaur_inactive");                    
                 } else {
-                    console.log( "Dinosaur is ACTIVE "+$i );
+                    //console.log( "Dinosaur is ACTIVE "+$i );
                     dojo.query(dinosaur_id_to_change).addClass("dinosaur_active");                    
                 }
             }
