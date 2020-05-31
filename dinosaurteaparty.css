@@ -154,11 +154,11 @@
     margin: 0px;   
 }
 
-.trait_active {
+.trait_correct {
     background-color: green;
 }
 
-.trait_inactive {
+.trait_incorrect {
     background-color: red;
 }
 

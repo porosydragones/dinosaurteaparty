@@ -53,8 +53,24 @@ function (dojo, declare) {
         dojo.place(node, "dinosaur_cards");             
         }, 
         
-        putTrait: function(trait_id, player_id, player_board_div) {
-            var node = this.format_block("jstpl_trait_item", {
+        putTraitNormal: function(trait_id, player_id, player_board_div) {
+            var node = this.format_block("jstpl_trait_item_normal", {
+                TRAIT_ID: trait_id,
+                TRAIT_PLAYER_ID: player_id
+            });
+            dojo.place(node, player_board_div);             
+        }, 
+        
+        putTraitCorrect: function(trait_id, player_id, player_board_div) {
+            var node = this.format_block("jstpl_trait_item_correct", {
+                TRAIT_ID: trait_id,
+                TRAIT_PLAYER_ID: player_id
+            });
+            dojo.place(node, player_board_div);             
+        }, 
+
+        putTraitIncorrect: function(trait_id, player_id, player_board_div) {
+            var node = this.format_block("jstpl_trait_item_incorrect", {
                 TRAIT_ID: trait_id,
                 TRAIT_PLAYER_ID: player_id
             });
@@ -87,11 +103,28 @@ function (dojo, declare) {
             for( var player_id in gamedatas.players )
             {
                 var player = gamedatas.players[player_id];
-                         
+                console.log('PLAYER ID->' + player_id);     
+                player_str = player_id.toString();     
+                console.log('PLAYER ID STR->' + player_str);                      
+
+                player_traits = gamedatas.player_traits[player_str];
+                console.log('player_traits.PLAYER ID->' + JSON.stringify(player_traits));                  
+
                 // TODO: Setting up players boards if needed
                 var player_board_div = $('player_board_'+player_id);
                 for( var $j = 1; $j <=15; $j++ ) {
-                    this.putTrait($j, player['id'],player_board_div);
+
+                    if ($j in player_traits) {
+                        if(player_traits[$j] == 1) {
+                            this.putTraitCorrect($j, player['id'],player_board_div);                            
+                        }  else {
+                            this.putTraitIncorrect($j, player['id'],player_board_div);                            
+                        }
+                    } else {
+                        this.putTraitNormal($j, player['id'],player_board_div);                        
+                    }
+
+
                     
                 } 
                 if(this.player_id != player_id) {
