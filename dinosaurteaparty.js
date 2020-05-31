@@ -150,6 +150,10 @@ function (dojo, declare) {
 
             //inactive dinosaurs, add inactivedinosaur or activedinosaur class
             console.log('inactive_dinosaurs->' + JSON.stringify(gamedatas.inactive_dinosaurs));
+
+            console.log('quirk_1_dinosaur_id ->' + gamedatas.quirk_1_dinosaur_id);
+            console.log('quirk_2_dinosaur_id ->' + gamedatas.quirk_2_dinosaur_id);
+            console.log('quirk_3_dinosaur_id ->' + gamedatas.quirk_3_dinosaur_id);                        
             for($i=1; $i<=20; $i++) {
                 var dinosaur_id_to_change = ".dinosaur" + $i;
                 if(gamedatas.inactive_dinosaurs.includes($i)) {
@@ -157,7 +161,20 @@ function (dojo, declare) {
                     dojo.query(dinosaur_id_to_change).addClass("dinosaur_inactive");                    
                 } else {
                     //console.log( "Dinosaur is ACTIVE "+$i );
-                    dojo.query(dinosaur_id_to_change).addClass("dinosaur_active");                    
+                    dojo.query(dinosaur_id_to_change).addClass("dinosaur_active");                
+                }
+
+                //add quirk
+                // if dinosaur has quirk1
+                if( gamedatas.quirk_1_dinosaur_id == $i ) {
+                    dojo.query(dinosaur_id_to_change).addClass("quirk1");   
+                    console.log('add quirk1 to id' + $i);                    
+                } else if ( gamedatas.quirk_2_dinosaur_id == $i ) { // if dinosaur has quirk2
+                    dojo.query(dinosaur_id_to_change).addClass("quirk2");   
+                    console.log('add quirk2 to id' + $i);                     
+                } else if ( gamedatas.quirk_3_dinosaur_id == $i ) { // if dinosaur has quirk3
+                    dojo.query(dinosaur_id_to_change).addClass("quirk3");   
+                    console.log('add quirk3 to id' + $i);                     
                 }
             }
 

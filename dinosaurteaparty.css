@@ -145,6 +145,18 @@
   /* alice my dinosaur */
 }
 
+.quirk1 {
+    background-color: rgb(255, 51, 0);
+}
+
+.quirk2 {
+    background-color: rgb(115, 255, 0);
+}
+
+.quirk3 {
+    background-color: rgb(247, 0, 255);
+}
+
 
 .trait {
     background-color: red;

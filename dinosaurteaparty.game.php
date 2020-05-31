@@ -200,7 +200,14 @@ class dinosaurteaparty extends Table
         $result['player_traits'] = $player_traits;   
         // get my dinosaur
         $my_dinosaur = self::getDinosaurById($current_player_id);
-        $result['my_dinosaur'] = $my_dinosaur;        
+        $result['my_dinosaur'] = $my_dinosaur;  
+        
+        $quirk_1_dinosaur_id = self::getDinosaurQuirk(1);
+        $result['quirk_1_dinosaur_id'] = $quirk_1_dinosaur_id;          
+        $quirk_2_dinosaur_id = self::getDinosaurQuirk(2);
+        $result['quirk_2_dinosaur_id'] = $quirk_2_dinosaur_id;          
+        $quirk_3_dinosaur_id = self::getDinosaurQuirk(3);
+        $result['quirk_3_dinosaur_id'] = $quirk_3_dinosaur_id;  
         return $result;
     }
 
@@ -249,6 +256,14 @@ class dinosaurteaparty extends Table
         $dinosaur = self::getObjectFromDB( $sql );
         self::dump( "dinosaur", $dinosaur );
         return $dinosaur;
+    }
+
+    private function getDinosaurQuirk ($quirk_id) {
+        $sql = "SELECT dinosaur_id id
+            FROM dinosaur WHERE dinosaur_quirk = ".$quirk_id;
+
+        $quirk_dinosaur_id = self::getObjectListFromDB( $sql , true );
+        return $quirk_dinosaur_id;         
     }
 
     private function getDinosaursOrder( ) {
