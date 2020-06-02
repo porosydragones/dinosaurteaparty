@@ -185,17 +185,48 @@
 }
 
 .trait1 {
-    background-image: url("img/DTPtrait-blue_drink.jpg");      
-    top: 400px;
+    background: url("img/DTP_Trait_Blue.png") 0 0;     
+    width: 34px;
 }
 
-.trait1_inactive {
+.trait1_incorrect {
+    background: url("img/DTP_Trait_Blue.png") 0 -80px;     
+    width: 34px;
+}
 
-    top: 400px;
+.trait1_correct {
+    background: url("img/DTP_Trait_Blue.png") 0 -40px;     
+    width: 34px;
 }
 
 .trait2 {
-    background: url("img/DTP_Trait_Blue.png") 0 0;     
+    background: url("img/DTP_Trait_Blue.png") 34px 0;     
+    width: 35px;
+}
+
+.trait2_incorrect {
+    background: url("img/DTP_Trait_Blue.png") 34px -80px;     
+    width: 35px;
+}
+
+.trait2_correct {
+    background: url("img/DTP_Trait_Blue.png") 34px -40px;     
+    width: 35px;
+}
+
+.trait3 {
+    background: url("img/DTP_Trait_Blue.png") 69px 0;     
+    width: 34px;
+}
+
+.trait3_incorrect {
+    background: url("img/DTP_Trait_Blue.png") 69px -80px;     
+    width: 34px;
+}
+
+.trait3_correct {
+    background: url("img/DTP_Trait_Blue.png") 69px -40px;     
+    width: 34px;
 }
 
 .guess_dinosaur {
