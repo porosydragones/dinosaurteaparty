@@ -164,6 +164,13 @@
 }
 
 
+.guess_dinosaur {
+    background-color: coral;
+    width: 200px;
+    height: 30px;
+}
+
+
 .trait {
     background-color: red;
     display:inline-block;  
@@ -217,6 +224,7 @@
 .trait3 {
     background: url("img/DTP_Trait_Blue.png") -69px 0;     
     width: 34px;
+    margin-left: 15px;
 }
 
 .trait3_incorrect {
@@ -246,37 +254,171 @@
 }
 
 .trait5 {
-    background: url("img/DTP_Trait_Blue.png") -137px 0;     
+    background: url("img/DTP_Trait_Blue.png") -136px 0;     
     width: 35px;
+    margin-right: 20px;
 }
 
 .trait5_incorrect {
-    background: url("img/DTP_Trait_Blue.png") -137px -80px;     
+    background: url("img/DTP_Trait_Blue.png") -136px -80px;     
     width: 35px;
 }
 
 .trait5_correct {
-    background: url("img/DTP_Trait_Blue.png") -137px -40px;     
+    background: url("img/DTP_Trait_Blue.png") -136px -40px;     
     width: 35px;
 }
 
 .trait6 {
     background: url("img/DTP_Trait_Blue.png") -172px 0;     
-    width: 34px;
+    width: 35px;
 }
 
 .trait6_incorrect {
     background: url("img/DTP_Trait_Blue.png") -172px -80px;     
-    width: 34px;
+    width: 35px;
 }
 
 .trait6_correct {
     background: url("img/DTP_Trait_Blue.png") -172px -40px;     
+    width: 35px;
+}
+
+.trait7 {
+    background: url("img/DTP_Trait_Blue.png") -207px 0;     
+    width: 35px;
+}
+
+.trait7_incorrect {
+    background: url("img/DTP_Trait_Blue.png") -207px -80px;     
+    width: 35px;
+}
+
+.trait7_correct {
+    background: url("img/DTP_Trait_Blue.png") -207px -40px;     
+    width: 35px;
+}
+
+.trait8 {
+    background: url("img/DTP_Trait_Blue.png") -242px 0;     
+    width: 35px;
+}
+
+.trait8_incorrect {
+    background: url("img/DTP_Trait_Blue.png") -242px -80px;     
+    width: 35px;
+}
+
+.trait8_correct {
+    background: url("img/DTP_Trait_Blue.png") -242px -40px;     
+    width: 35px;
+}
+
+.trait9 {
+    background: url("img/DTP_Trait_Blue.png") -277px 0;     
     width: 34px;
 }
 
-.guess_dinosaur {
-    background-color: coral;
-    width: 200px;
-    height: 30px;
+.trait9_incorrect {
+    background: url("img/DTP_Trait_Blue.png") -277px -80px;     
+    width: 34px;
+}
+
+.trait9_correct {
+    background: url("img/DTP_Trait_Blue.png") -277px -40px;     
+    width: 34px;
+}
+
+.trait10 {
+    background: url("img/DTP_Trait_Blue.png") -311px 0;     
+    width: 34px;
+    margin-left: 14px;    
+    margin-right: 20px;    
+}
+
+.trait10_incorrect {
+    background: url("img/DTP_Trait_Blue.png") -311px -80px;     
+    width: 34px;
+}
+
+.trait10_correct {
+    background: url("img/DTP_Trait_Blue.png") -311px -40px;     
+    width: 34px;
+}
+
+.trait11 {
+    background: url("img/DTP_Trait_Blue.png") -345px 0;     
+    width: 35px;  
+}
+
+.trait11_incorrect {
+    background: url("img/DTP_Trait_Blue.png") -345px -80px;     
+    width: 35px;
+}
+
+.trait11_correct {
+    background: url("img/DTP_Trait_Blue.png") -345px -40px;     
+    width: 35px;
+}
+
+.trait12 {
+    background: url("img/DTP_Trait_Blue.png") -379px 0;     
+    width: 35px;  
+}
+
+.trait12_incorrect {
+    background: url("img/DTP_Trait_Blue.png") -379px -80px;     
+    width: 35px;
+}
+
+.trait12_correct {
+    background: url("img/DTP_Trait_Blue.png") -379px -40px;     
+    width: 35px;
+}
+
+.trait13 {
+    background: url("img/DTP_Trait_Blue.png") -414px 0;     
+    width: 35px;  
+    margin-left: 14px;  
+}
+
+.trait13_incorrect {
+    background: url("img/DTP_Trait_Blue.png") -414px -80px;     
+    width: 35px;
+}
+
+.trait13_correct {
+    background: url("img/DTP_Trait_Blue.png") -414px -40px;     
+    width: 35px;
+}
+
+.trait14 {
+    background: url("img/DTP_Trait_Blue.png") -448px 0;     
+    width: 34px;  
+}
+
+.trait14_incorrect {
+    background: url("img/DTP_Trait_Blue.png") -448px -80px;     
+    width: 34px;
+}
+
+.trait14_correct {
+    background: url("img/DTP_Trait_Blue.png") -450px -40px;     
+    width: 34px;
+}
+
+.trait15 {
+    background: url("img/DTP_Trait_Blue.png") -482px 0;     
+    width: 35px; 
+    margin-right: 20px;      
+}
+
+.trait15_incorrect {
+    background: url("img/DTP_Trait_Blue.png") -482px -80px;     
+    width: 35px;
+}
+
+.trait15_correct {
+    background: url("img/DTP_Trait_Blue.png") -482px -40px;     
+    width: 35px;
 }
