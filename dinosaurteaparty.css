@@ -200,32 +200,78 @@
 }
 
 .trait2 {
-    background: url("img/DTP_Trait_Blue.png") 34px 0;     
+    background: url("img/DTP_Trait_Blue.png") -34px 0;     
     width: 35px;
 }
 
 .trait2_incorrect {
-    background: url("img/DTP_Trait_Blue.png") 34px -80px;     
+    background: url("img/DTP_Trait_Blue.png") -34px -80px;     
     width: 35px;
 }
 
 .trait2_correct {
-    background: url("img/DTP_Trait_Blue.png") 34px -40px;     
+    background: url("img/DTP_Trait_Blue.png") -34px -40px;     
     width: 35px;
 }
 
 .trait3 {
-    background: url("img/DTP_Trait_Blue.png") 69px 0;     
+    background: url("img/DTP_Trait_Blue.png") -69px 0;     
     width: 34px;
 }
 
 .trait3_incorrect {
-    background: url("img/DTP_Trait_Blue.png") 69px -80px;     
+    background: url("img/DTP_Trait_Blue.png") -69px -80px;     
     width: 34px;
 }
 
 .trait3_correct {
-    background: url("img/DTP_Trait_Blue.png") 69px -40px;     
+    background: url("img/DTP_Trait_Blue.png") -69px -40px;     
+    width: 34px;
+}
+
+
+.trait4 {
+    background: url("img/DTP_Trait_Blue.png") -103px 0;     
+    width: 34px;
+}
+
+.trait4_incorrect {
+    background: url("img/DTP_Trait_Blue.png") -103px -80px;     
+    width: 34px;
+}
+
+.trait4_correct {
+    background: url("img/DTP_Trait_Blue.png") -103px -40px;     
+    width: 34px;
+}
+
+.trait5 {
+    background: url("img/DTP_Trait_Blue.png") -137px 0;     
+    width: 35px;
+}
+
+.trait5_incorrect {
+    background: url("img/DTP_Trait_Blue.png") -137px -80px;     
+    width: 35px;
+}
+
+.trait5_correct {
+    background: url("img/DTP_Trait_Blue.png") -137px -40px;     
+    width: 35px;
+}
+
+.trait6 {
+    background: url("img/DTP_Trait_Blue.png") -172px 0;     
+    width: 34px;
+}
+
+.trait6_incorrect {
+    background: url("img/DTP_Trait_Blue.png") -172px -80px;     
+    width: 34px;
+}
+
+.trait6_correct {
+    background: url("img/DTP_Trait_Blue.png") -172px -40px;     
     width: 34px;
 }
 
