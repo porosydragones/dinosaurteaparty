@@ -100,10 +100,9 @@
 }
 
 .dinosaur {
-    background-color: rgb(10, 131, 70);
-    background-image: url("img/dinosaurs.jpg");  
     display:inline-block;  
     margin: 0px;
+    width: 150px;    
 }
 
 .dinosaur_inactive {
@@ -116,25 +115,63 @@
 
 .dinosaur1 {
     background: url("img/dinosaurs.jpg") 0 0;     
-    width: 150px;
 }
-
 .dinosaur2 {
     background: url("img/dinosaurs.jpg") -150px 0;     
-    width: 150px;
 }
-
 .dinosaur3 {
     background: url("img/dinosaurs.jpg") -300px 0;     
-    width: 150px;
 }
-
 .dinosaur4 {
-   /* left: 600px;*/
+    background: url("img/dinosaurs.jpg") -450px 0;     
 }
-
 .dinosaur5 {
-   /* left: 800px;*/
+    background: url("img/dinosaurs.jpg") -600px 0;     
+}
+.dinosaur6 {
+    background: url("img/dinosaurs.jpg") -750px 0;     
+}
+.dinosaur7 {
+    background: url("img/dinosaurs.jpg") -900px 0;     
+}
+.dinosaur8 {
+    background: url("img/dinosaurs.jpg") -1050px 0;     
+}
+.dinosaur9 {
+    background: url("img/dinosaurs.jpg") -1200px 0;     
+}
+.dinosaur10 {
+    background: url("img/dinosaurs.jpg") -1350px 0;     
+}
+.dinosaur11 {
+    background: url("img/dinosaurs.jpg") -1500px 0;     
+}
+.dinosaur12 {
+    background: url("img/dinosaurs.jpg") -1650px 0;     
+}
+.dinosaur13 {
+    background: url("img/dinosaurs.jpg") -1800px 0;     
+}
+.dinosaur14 {
+    background: url("img/dinosaurs.jpg") -1950px 0;     
+}
+.dinosaur15 {
+    background: url("img/dinosaurs.jpg") -2100px 0;     
+}
+.dinosaur16 {
+    background: url("img/dinosaurs.jpg") -2250px 0;     
+}
+.dinosaur17 {
+    background: url("img/dinosaurs.jpg") -2400px 0;     
+}
+.dinosaur18 {
+    background: url("img/dinosaurs.jpg") -2550px 0;     
+}
+.dinosaur19 {
+    background: url("img/dinosaurs.jpg") -2700px 0;     
+}
+.dinosaur20 {
+    background: url("img/dinosaurs.jpg") -2850px 0;     
 }
 
 .mydinosaur {
@@ -169,8 +206,9 @@
 
 .guess_dinosaur {
     background-color: coral;
-    width: 200px;
-    height: 30px;
+    width: 188px;
+    height: 61px;
+    background-image: url("img/guess.png");      
 }
 
 
