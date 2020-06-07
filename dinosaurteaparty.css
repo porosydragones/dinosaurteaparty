@@ -101,7 +101,7 @@
 
 .dinosaur {
     background-color: rgb(10, 131, 70);
-    background-image: url("img/reginald.jpg");  
+    background-image: url("img/dinosaurs.jpg");  
     display:inline-block;  
     margin: 0px;
 }
@@ -115,15 +115,18 @@
 }
 
 .dinosaur1 {
-   /* left: 000px;   */
+    background: url("img/dinosaurs.jpg") 0 0;     
+    width: 150px;
 }
 
 .dinosaur2 {
-   /* left: 200px;*/
+    background: url("img/dinosaurs.jpg") -150px 0;     
+    width: 150px;
 }
 
 .dinosaur3 {
-   /* left: 400px;*/
+    background: url("img/dinosaurs.jpg") -300px 0;     
+    width: 150px;
 }
 
 .dinosaur4 {
