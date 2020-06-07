@@ -123,64 +123,121 @@
 .dinosaur2 {
     background: url("img/dinosaurs.jpg") -150px 0;     
 }
+.dinosaur2_inactive {
+    background: url("img/dinosaurs_back.jpg") -150px 0;     
+}
 .dinosaur3 {
     background: url("img/dinosaurs.jpg") -300px 0;     
+}
+.dinosaur3_inactive {
+    background: url("img/dinosaurs_back.jpg") -300px 0;     
 }
 .dinosaur4 {
     background: url("img/dinosaurs.jpg") -450px 0;     
 }
+.dinosaur4_inactive {
+    background: url("img/dinosaurs_back.jpg") -450px 0;     
+}
 .dinosaur5 {
     background: url("img/dinosaurs.jpg") -600px 0;     
+}
+.dinosaur5_inactive {
+    background: url("img/dinosaurs_back.jpg") -600px 0;     
 }
 .dinosaur6 {
     background: url("img/dinosaurs.jpg") -750px 0;     
 }
+.dinosaur6_inactive {
+    background: url("img/dinosaurs_back.jpg") -750px 0;     
+}
 .dinosaur7 {
     background: url("img/dinosaurs.jpg") -900px 0;     
+}
+.dinosaur7_inactive {
+    background: url("img/dinosaurs_back.jpg") -900px 0;     
 }
 .dinosaur8 {
     background: url("img/dinosaurs.jpg") -1050px 0;     
 }
+.dinosaur8_inactive {
+    background: url("img/dinosaurs_back.jpg") -1050px 0;     
+}
 .dinosaur9 {
     background: url("img/dinosaurs.jpg") -1200px 0;     
+}
+.dinosaur9_inactive {
+    background: url("img/dinosaurs_back.jpg") -1200px 0;     
 }
 .dinosaur10 {
     background: url("img/dinosaurs.jpg") -1350px 0;     
 }
+.dinosaur10_inactive {
+    background: url("img/dinosaurs_back.jpg") -1350px 0;     
+}
 .dinosaur11 {
     background: url("img/dinosaurs.jpg") -1500px 0;     
+}
+.dinosaur11_inactive {
+    background: url("img/dinosaurs_back.jpg") -1500px 0;     
 }
 .dinosaur12 {
     background: url("img/dinosaurs.jpg") -1650px 0;     
 }
+.dinosaur12_inactive {
+    background: url("img/dinosaurs_back.jpg") -1650px 0;     
+}
 .dinosaur13 {
     background: url("img/dinosaurs.jpg") -1800px 0;     
+}
+.dinosaur13_inactive {
+    background: url("img/dinosaurs_back.jpg") -1800px 0;     
 }
 .dinosaur14 {
     background: url("img/dinosaurs.jpg") -1950px 0;     
 }
+.dinosaur14_inactive {
+    background: url("img/dinosaurs_back.jpg") -1950px 0;     
+}
 .dinosaur15 {
     background: url("img/dinosaurs.jpg") -2100px 0;     
+}
+.dinosaur15_inactive {
+    background: url("img/dinosaurs_back.jpg") -2100px 0;     
 }
 .dinosaur16 {
     background: url("img/dinosaurs.jpg") -2250px 0;     
 }
+.dinosaur16_inactive {
+    background: url("img/dinosaurs_back.jpg") -2250px 0;     
+}
 .dinosaur17 {
     background: url("img/dinosaurs.jpg") -2400px 0;     
+}
+.dinosaur17_inactive {
+    background: url("img/dinosaurs_back.jpg") -2400px 0;     
 }
 .dinosaur18 {
     background: url("img/dinosaurs.jpg") -2550px 0;     
 }
+.dinosaur18_inactive {
+    background: url("img/dinosaurs_back.jpg") -2550px 0;     
+}
 .dinosaur19 {
     background: url("img/dinosaurs.jpg") -2700px 0;     
+}
+.dinosaur19_inactive {
+    background: url("img/dinosaurs_back.jpg") -2700px 0;     
 }
 .dinosaur20 {
     background: url("img/dinosaurs.jpg") -2850px 0;     
 }
+.dinosaur20_inactive {
+    background: url("img/dinosaurs_back.jpg") -2850px 0;     
+}
 
 .mydinosaur {
     background-color: rgb(10, 131, 70);
-    background-image: url("img/reginald.jpg");  
+    background-image: url("img/lloyd.png");  
     display:inline-block;  
     margin: 0px;
 }
