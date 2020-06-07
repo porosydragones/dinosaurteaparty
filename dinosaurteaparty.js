@@ -158,7 +158,7 @@ function (dojo, declare) {
                 var dinosaur_id_to_change = ".dinosaur" + $i;
                 if(gamedatas.inactive_dinosaurs.includes($i)) {
                     //console.log( "Dinosaur is INACTIVE "+$i );
-                    dojo.query(dinosaur_id_to_change).addClass("dinosaur_inactive");                    
+                    dojo.query(dinosaur_id_to_change).addClass("dinosaur" + $i + "_inactive");                    
                 } else {
                     //console.log( "Dinosaur is ACTIVE "+$i );
                     dojo.query(dinosaur_id_to_change).addClass("dinosaur_active");                
