@@ -274,6 +274,11 @@
 
 .guess_text {
     text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 35px;
+    width: 100%;
 }
 
 .trait {
