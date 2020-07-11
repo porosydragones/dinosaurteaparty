@@ -18,7 +18,7 @@
  *       
  * If you define a method "myAction" here, then you can call it from your javascript code with:
  * this.ajaxcall( "/dinosaurteaparty/dinosaurteaparty/myAction.html", ...)
- *
+ * 
  */
   
   
