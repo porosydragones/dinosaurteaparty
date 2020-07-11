@@ -272,6 +272,9 @@
     background-image: url("img/guess.png");      
 }
 
+.guess_text {
+    text-align: center;
+}
 
 .trait {
     background-color: red;

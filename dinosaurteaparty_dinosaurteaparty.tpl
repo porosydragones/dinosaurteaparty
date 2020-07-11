@@ -61,7 +61,7 @@ var jstpl_trait_item_incorrect = '<div id="player_trait_${TRAIT_ID}" class="plac
 
 
 
-var jstpl_guess_item = '<div id="player_guess" class="placeholder clickableitem guess_dinosaur" data-playerid="${TRAIT_PLAYER_ID}">GUESS</div>';
+var jstpl_guess_item = '<div id="player_guess" class="placeholder clickableitem guess_dinosaur" data-playerid="${TRAIT_PLAYER_ID}"><span class="guess_text">GUESS</span></div>';
 
 var jstpl_my_dinosaur_item = '<div id="cards_${MY_DINOSAUR_ID}" class="placeholder mydinosaur mydinosaur${MY_DINOSAUR_ID}" data-dinosaurid="${MY_DINOSAUR_ID}">MY DINOSAUR ${MY_DINOSAUR_ID}</div>';
 
