@@ -30,7 +30,7 @@
 <div id="game_play_area" >  
 
     <span id="lines_wrap"> 
-    <!-- <div id="table_cards_line_0" class="placeholder trait trait1">TRAIT</div> -->       
+    <!-- <div id="table_cards_line_0" class="placeholder trait trait1">TRAIT.</div> -->       
     </span>
 
     <div id="dinosaur_cards"></div>
