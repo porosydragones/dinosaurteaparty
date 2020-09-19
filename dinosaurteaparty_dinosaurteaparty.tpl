@@ -27,7 +27,7 @@
  
   
  
-<div id="game_play_area" > 
+<div id="game_play_area" >  
 
     <span id="lines_wrap"> 
     <!-- <div id="table_cards_line_0" class="placeholder trait trait1">TRAIT</div> -->       
