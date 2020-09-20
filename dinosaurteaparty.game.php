@@ -387,7 +387,7 @@ class dinosaurteaparty extends Table
             if ($dinosaur["quirk"] == 1){
                 $player_answer = 0;
                 self::dump( "askPlayerForTrait.has quirk 1, answer no:", $player_answer );
-            // quirk 1 always lies, so invert dinosaurHasTrait
+            // quirk 2 always lies, so invert dinosaurHasTrait
             } else if ($dinosaur["quirk"] == 2) {
                 $player_answer = ! $dinosaurHasTrait;
                 self::dump( "askPlayerForTrait.has quirk 2, insert trait:", $player_answer );
