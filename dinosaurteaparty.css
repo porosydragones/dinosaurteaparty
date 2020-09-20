@@ -327,15 +327,15 @@
 
 
 .quirk1 {
-    background-position-y: -250px;
+   /* background-position-y: -250px;*/
 }
 
 .quirk2 {
-    background-position-y: -500px;  
+   /* background-position-y: -500px;  */
 }
 
 .quirk3 {
-    background-position-y: -750px;   
+  /*  background-position-y: -750px;   */
 }
 
 
