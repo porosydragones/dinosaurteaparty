@@ -528,11 +528,11 @@ class dinosaurteaparty extends Table
             self::nextTurnNextPlayer();
         }
 
-        
+
         // Notify all players about the card played
         self::notifyAllPlayers( "traitAsked", clienttranslate( '${player_name} ask ${target_player_id} for trait ${trait_id}: ${correctAsk}' ), array(
             'player_id' => $player_id,
-            'player_name' => self::getActivePlayerName(),
+            'player_name' => self::getUniqueValueFromDb( "SELECT player_name FROM player WHERE player_id = $player_id" ),
             'trait_id' => $trait_id,
             'target_player_id' => $target_player_id,
             'correctAsk' => $correctAsk
