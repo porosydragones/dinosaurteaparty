@@ -411,13 +411,14 @@ function (dojo, declare) {
             // Example 1: standard notification handling
             // dojo.subscribe( 'cardPlayed', this, "notif_cardPlayed" );
             
-           // dojo.subscribe( 'traitAsked', this, "notif_traitAsked" );
             // Example 2: standard notification handling + tell the user interface to wait
             //            during 3 seconds after calling the method in order to let the players
             //            see what is happening in the game.
             // dojo.subscribe( 'cardPlayed', this, "notif_cardPlayed" );
             // this.notifqueue.setSynchronous( 'cardPlayed', 3000 );
             // 
+
+            dojo.subscribe('traitAsked',this,"notif_traitAsked")
         },  
         
         // TODO: from this point and below, you can write your game notifications handling methods
@@ -436,7 +437,7 @@ function (dojo, declare) {
         },    
         
         */
-/* 
+
        notif_traitAsked: function( notif )
        {
            console.log( 'notif_traitAsked' );
@@ -445,6 +446,6 @@ function (dojo, declare) {
            // Note: notif.args contains the arguments specified during you "notifyAllPlayers" / "notifyPlayer" PHP call
            
            // TODO: play the card in the user interface.
-       }, */        
+       },       
    });             
 });
