@@ -32,6 +32,28 @@ $this->card_types = array(
 
 */
 
+$this->trait_names = array(
+  1 =>  clienttranslate('eating'),
+  2 =>  clienttranslate('drinking'),
+  3 =>  clienttranslate('having teeth'),
+  4 =>  clienttranslate('having spikes'),
+  5 =>  clienttranslate('having tail'),
+  6 =>  clienttranslate('having a hat'),
+  7 =>  clienttranslate('wearing glasses'),
+  8 =>  clienttranslate('wearing jewerly'),
+  9 =>  clienttranslate('wearing a flower'),
+  10 =>  clienttranslate('being with a pet'),
+  11 =>  clienttranslate('being spotted'),
+  12 =>  clienttranslate('being striped'),
+  13 =>  clienttranslate('being in a green room'),
+  14 =>  clienttranslate('being in a purple room'),
+  15 =>  clienttranslate('being in a orange room')
+);
+
+$this->trait_answers = array (
+  true => clienttranslate('"Yes, correct!"'),
+  false => clienttranslate('"No, sorry."')
+);
 
 
 
