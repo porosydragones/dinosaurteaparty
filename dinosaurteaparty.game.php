@@ -530,13 +530,15 @@ class dinosaurteaparty extends Table
 
 
         // Notify all players about the card played
-        self::notifyAllPlayers( "traitAsked", clienttranslate( '${player_name} asks ${target_player_name} about ${trait_name}: ${correctAsk}' ), array(
+        self::notifyAllPlayers( "traitAsked", clienttranslate( '${player_name} asks ${target_player_name} about ${trait_name}: ${answer}' ), array(
             'player_id' => $player_id,
             'player_name' => self::getUniqueValueFromDb( "SELECT player_name FROM player WHERE player_id = $player_id" ),
             'target_player_name' => self::getUniqueValueFromDb( "SELECT player_name FROM player WHERE player_id = $target_player_id" ),            
             'trait_name' => $this->trait_names[$trait_id],
+            'trait_id' =>$trait_id,            
             'target_player_id' => $target_player_id,
-            'correctAsk' => $this->trait_answers[$correctAsk]
+            'correctAsk' => $correctAsk,
+            'answer' => $this->trait_answers[$correctAsk]
         ) );  
         
       
