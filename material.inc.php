@@ -51,9 +51,15 @@ $this->trait_names = array(
 );
 
 $this->trait_answers = array (
-  true => clienttranslate('"Yes, correct!"'),
-  false => clienttranslate('"No, sorry."')
+  true => clienttranslate('"Yes, you are correct!"'),
+  false => clienttranslate('"No, I am sorry."')
 );
+
+$this->guess_answers = array (
+  true => clienttranslate('"Yes, you are correct!"'),
+  false => clienttranslate('"No, I am sorry."')
+);
+
 
 
 

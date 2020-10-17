@@ -568,12 +568,14 @@ class dinosaurteaparty extends Table
         }
         
         // Notify all players about the card played
-        self::notifyAllPlayers( "dinosaurTryGuessed", clienttranslate( '${player_name} ask ${target_player_id} for dinosaur ${dinosaur_id}: ${correctGuess}' ), array(
+        self::notifyAllPlayers( "dinosaurTryGuessed", clienttranslate( '${player_name} asks ${target_player_name}: "Are you ${dinosaur_name}?" ${correctGuess}' ), array(
             'player_id' => $player_id,
             'player_name' => self::getActivePlayerName(),
+            'target_player_name' => self::getUniqueValueFromDb( "SELECT player_name FROM player WHERE player_id = $target_player_id" ),               
             'dinosaur_id' => $dinosaur_id,
+            'dinosaur_name' => self::getUniqueValueFromDb( "SELECT dinosaur_name FROM dinosaur WHERE dinosaur_id = $dinosaur_id" ),              
             'target_player_id' => $target_player_id,
-            'correctGuess' => $correctGuess
+            'correctGuess' => $this->guess_answers[$correctGuess]
         ) );
     }
 

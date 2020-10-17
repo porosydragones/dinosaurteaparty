@@ -442,6 +442,26 @@ function (dojo, declare) {
        {
            console.log( 'notif_traitAsked' );
            console.log( notif );
+
+           var correctTrait = notif.args.correctAsk;
+           var target_player_id = notif.args.target_player_id;
+           var player_board_div = $('player_board_'+target_player_id);
+           var trait_id = notif.args.trait_id;
+
+           console.log( 'notif_traitAsked.correctTrait= ' +correctTrait  );
+           console.log( 'notif_traitAsked.target_player_id= ' +target_player_id  );    
+           console.log( 'notif_traitAsked.player_board_div= ' +player_board_div  );  
+           console.log( 'notif_traitAsked.trait_id= ' +trait_id  );         
+
+           if(correctTrait) {
+            console.log( 'notif_traitAsked.correctAsk' );
+            notif.args.correctAsk
+            this.putTraitCorrect(trait_id, target_player_id,player_board_div); 
+           } else {
+            console.log( 'notif_traitAsked.INcorrectAsk' );
+            this.putTraitIncorrect(trait_id, target_player_id,player_board_div);   
+           }
+ 
            
            // Note: notif.args contains the arguments specified during you "notifyAllPlayers" / "notifyPlayer" PHP call
            
