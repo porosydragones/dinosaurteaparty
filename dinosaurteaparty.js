@@ -451,18 +451,22 @@ function (dojo, declare) {
            console.log( 'notif_traitAsked.correctTrait= ' +correctTrait  );
            console.log( 'notif_traitAsked.target_player_id= ' +target_player_id  );    
            console.log( 'notif_traitAsked.player_board_div= ' +player_board_div  );  
-           console.log( 'notif_traitAsked.trait_id= ' +trait_id  );         
+           console.log( 'notif_traitAsked.trait_id= ' +trait_id  );        
+           var player_trait_to_change = "#player_" + target_player_id + "_trait_" + trait_id;
+           console.log( 'notif_traitAsked.player_trait_to_change= ' +player_trait_to_change  );   
 
            if(correctTrait) {
             console.log( 'notif_traitAsked.correctAsk' );
-            notif.args.correctAsk
-            this.putTraitCorrect(trait_id, target_player_id,player_board_div); 
+            var correct_class_to_add = 'trait' + trait_id + '_correct';
+            console.log( 'notif_traitAsked.correct_class_to_add= ' +correct_class_to_add  );   
+            dojo.query(player_trait_to_change).addClass(correct_class_to_add);  
            } else {
             console.log( 'notif_traitAsked.INcorrectAsk' );
-            this.putTraitIncorrect(trait_id, target_player_id,player_board_div);   
+            var incorrect_class_to_add = 'trait' + trait_id + '_incorrect';
+            console.log( 'notif_traitAsked.incorrect_class_to_add= ' +incorrect_class_to_add  );   
+            dojo.query(player_trait_to_change).addClass(incorrect_class_to_add);  
            }
- 
-           
+
            // Note: notif.args contains the arguments specified during you "notifyAllPlayers" / "notifyPlayer" PHP call
            
            // TODO: play the card in the user interface.
