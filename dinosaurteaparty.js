@@ -418,7 +418,9 @@ function (dojo, declare) {
             // this.notifqueue.setSynchronous( 'cardPlayed', 3000 );
             // 
 
-            dojo.subscribe('traitAsked',this,"notif_traitAsked")
+            dojo.subscribe('traitAsked',this,"notif_traitAsked");
+
+            dojo.subscribe('dinosaurTryGuessed',this,"notif_dinosaurTryGuessed");
         },  
         
         // TODO: from this point and below, you can write your game notifications handling methods
@@ -470,6 +472,27 @@ function (dojo, declare) {
            // Note: notif.args contains the arguments specified during you "notifyAllPlayers" / "notifyPlayer" PHP call
            
            // TODO: play the card in the user interface.
-       },       
+       }, 
+       
+       notif_dinosaurTryGuessed: function (notif) 
+       {
+        console.log( 'notif_dinosaurTryGuessed' );
+        console.log( notif );
+
+        var correctGuess = notif.args.correctGuess;
+        var dinosaur_id = notif.args.dinosaur_id;
+
+        // only if correct guess, change dinosaur to inactive
+        if(correctGuess) {
+            console.log( 'notif_dinosaurTryGuessed.correctGuess' );
+            var dinosaur_to_change = "#table_cards_line_" +  dinosaur_id;
+            var inactive_class_to_add = 'dinosaur' + dinosaur_id + '_inactive';
+            console.log( 'notif_dinosaurTryGuessed.dinosaur_to_change=' + dinosaur_to_change );
+            console.log( 'notif_dinosaurTryGuessed.inactive_class_to_add=' + inactive_class_to_add );
+            dojo.query(dinosaur_to_change).addClass(inactive_class_to_add);
+        } else {
+            console.log( 'notif_dinosaurTryGuessed.INcorrectGuess' );
+        }
+       },
    });             
 });
