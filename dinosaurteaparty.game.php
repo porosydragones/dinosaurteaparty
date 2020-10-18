@@ -546,20 +546,37 @@ class dinosaurteaparty extends Table
 
     function guessDinosaur( $dinosaur_id, $target_player_id ) {
         self::checkAction( 'guessDinosaur' ); 
-        $player_id = self::getActivePlayerId();        
+        $player_id = self::getActivePlayerId();
+        $dinosaur_name = self::getUniqueValueFromDb( "SELECT dinosaur_name FROM dinosaur WHERE dinosaur_id = $dinosaur_id" );  
+        $new_dinosaur_id = null;
+        $new_dinosaur_name = '';        
 
         self::dump( "guessDinosaur.dinosaur_id:", $dinosaur_id ); 
+        self::dump( "guessDinosaur.dinosaur_name:", $dinosaur_name ); 
         self::dump( "guessDinosaur.target_player_id:", $target_player_id ); 
         self::dump( "guessDinosaur.player_id:", $player_id );         
 
         // Add your game logic to play a card there
         $correctGuess = $this->checkGuessPlayerDinosaur($target_player_id, $dinosaur_id);
+        
         if($correctGuess) {
             //save current target_player_id in global
             self::setGameStateValue( 'current_target_player_id', $target_player_id );
             self::dump( "set current_target_player_id", $target_player_id ); 
             // go to state correct guess (there add a point and check end game)
             self::trace( "correctGuess, congrats!" );
+
+            // clean player_traits of the target player
+            self::cleanPlayerTrait($target_player_id );
+            // assign new dinosaur to target player
+            self::givePlayerDinosaurAndPersist( $target_player_id );
+
+             //get dinosaur of player
+            $new_dinosaur = self::getDinosaurById( $target_player_id );
+            $new_dinosaur_id = $new_dinosaur['id'];
+            $new_dinosaur_name = $new_dinosaur['name']; 
+
+
             self::goSuccessGuessSamePlayer();
         } else {
             //go to next player
@@ -567,17 +584,26 @@ class dinosaurteaparty extends Table
             self::nextTurnNextPlayer();
         }
         
-        // Notify all players about the card played
+        // Notify all players about the guess
         self::notifyAllPlayers( "dinosaurTryGuessed", clienttranslate( '${player_name} asks ${target_player_name}: "Are you ${dinosaur_name}?" ${answer}' ), array(
             'player_id' => $player_id,
             'player_name' => self::getActivePlayerName(),
             'target_player_name' => self::getUniqueValueFromDb( "SELECT player_name FROM player WHERE player_id = $target_player_id" ),               
             'dinosaur_id' => $dinosaur_id,
-            'dinosaur_name' => self::getUniqueValueFromDb( "SELECT dinosaur_name FROM dinosaur WHERE dinosaur_id = $dinosaur_id" ),              
+            'dinosaur_name' => $dinosaur_name,              
             'target_player_id' => $target_player_id,
             'correctGuess' => $correctGuess,
             'answer' => $this->guess_answers[$correctGuess]
         ) );
+
+        // Notify player about their new dinosaur
+        self::notifyPlayer( $target_player_id, "newDinosaurAssigned", clienttranslate('Your new dinosaur is: ${new_dinosaur_name}'), array(
+            'target_player_id' => $target_player_id,
+            'old_dinosaur_id' => $dinosaur_id,
+            'new_dinosaur_id' => $new_dinosaur_id,
+            'new_dinosaur_name' => $new_dinosaur_name
+        ));
+
     }
 
 
@@ -652,12 +678,7 @@ class dinosaurteaparty extends Table
      */
     function stCorrectGuess() {
         $target_player_id = self::getGameStateValue('current_target_player_id');
-        self::dump( "target_player_id", $target_player_id );    
-
-        // clean player_traits of the target player
-        self::cleanPlayerTrait($target_player_id );
-        // assign new dinosaur to target player
-        self::givePlayerDinosaurAndPersist( $target_player_id );
+        self::dump( "target_player_id", $target_player_id );   
 
         // add a point to the active player
         $player_id = self::getActivePlayerId(); 

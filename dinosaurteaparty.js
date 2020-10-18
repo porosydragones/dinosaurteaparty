@@ -463,6 +463,8 @@ function (dojo, declare) {
             dojo.subscribe('traitAsked',this,"notif_traitAsked");
 
             dojo.subscribe('dinosaurTryGuessed',this,"notif_dinosaurTryGuessed");
+
+            dojo.subscribe('newDinosaurAssigned',this,"notif_newDinosaurAssigned");
         },  
         
         // TODO: from this point and below, you can write your game notifications handling methods
@@ -541,6 +543,24 @@ function (dojo, declare) {
         } else {
             console.log( 'notif_dinosaurTryGuessed.INcorrectGuess' );
         }
+       },
+
+       notif_newDinosaurAssigned: function (notif) 
+       {
+
+        console.log( 'notif_newDinosaurAssigned' );
+        console.log( notif );
+        var target_player_id = notif.args.target_player_id;
+            // give player its new dinosaur
+            if(target_player_id == this.player_id) {
+                var old_dinosaur_id = notif.args.old_dinosaur_id;                
+                var new_dinosaur_id = notif.args.new_dinosaur_id;
+                var my_dino_to_remove = '#my_dino_' +  old_dinosaur_id;
+                console.log( 'notif_newDinosaurAssigned.my_dino_to_remove= ' + my_dino_to_remove );
+                dojo.query(my_dino_to_remove).remove();
+                console.log( 'notif_newDinosaurAssigned.putMyDinosaur= ' + new_dinosaur_id);
+                this.putMyDinosaur(new_dinosaur_id);
+            }
        },
    });             
 });
