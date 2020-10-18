@@ -540,6 +540,9 @@ function (dojo, declare) {
             console.log( 'notif_dinosaurTryGuessed.inactive_class_to_add=' + inactive_class_to_add );
             dojo.query(dinosaur_to_change).addClass(inactive_class_to_add);
             this.revertPlayerTraitsToNormalClickable(target_player_id);
+            // update player score
+            var div_player_score = 'player_score_'+ notif.args.player_id; 
+            document.getElementById(div_player_score).innerHTML = notif.args.player_score ;
         } else {
             console.log( 'notif_dinosaurTryGuessed.INcorrectGuess' );
         }
