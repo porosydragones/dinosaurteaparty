@@ -31,6 +31,7 @@ function (dojo, declare) {
             this.guessPlayerClicked = null;
             this.dinosaurHandle = null;
             this.clickableitem_class = 'clickableitem';
+            this.traitnormal_class = 'trait_normal';
 
         },
         
@@ -103,7 +104,19 @@ function (dojo, declare) {
         },
 
         revertPlayerTraitsToNormalClickable: function (player_id) {
-
+            // make the 15 traits clickable and normal
+            for( var $t = 1; $t <=15; $t++ ) {
+                var player_trait_to_change = "#player_" + player_id + "_trait_" + $t;
+                dojo.query(player_trait_to_change).addClass(this.traitnormal_class);  
+                var correct_class_to_add = 'trait' + $t + '_correct';
+                var incorrect_class_to_add = 'trait' + $t + '_incorrect';
+                dojo.query(player_trait_to_change).removeClass(correct_class_to_add);   
+                dojo.query(player_trait_to_change).removeClass(incorrect_class_to_add);  
+                // add clickable only if the player is not the same
+                if(player_id != this.player_id) {
+                    dojo.query(player_trait_to_change).addClass(this.clickableitem_class);  
+                }
+            }
         },
 
         setup: function( gamedatas )
@@ -370,7 +383,7 @@ function (dojo, declare) {
             }
 
             // Check if trait is normal, not correct or incorrect
-            if(!evt.currentTarget.className.includes('trait_normal')) {
+            if(!evt.currentTarget.className.includes(this.traitnormal_class)) {
                 console.log('cannot click correct or incorrect traits');
                 return;
             }
@@ -398,7 +411,7 @@ function (dojo, declare) {
             this.guessPlayerClicked = evt.currentTarget.dataset.playerid;
             // enable dinosaur click
             this.dinosaurHandle = dojo.query(".dinosaur_active").connect("onclick", this, "onDinosaurClick"); 
-            dojo.query(".dinosaur_active").addClass("clickableitem");
+            dojo.query(".dinosaur_active").addClass(this.clickableitem_class);
         },         
 
         // Current player click a dinosaur to guess a player
@@ -411,7 +424,7 @@ function (dojo, declare) {
             if( this.guessPlayerClicked == null) {return ;}
 
             // disable dinosaur click 
-            dojo.query(".dinosaur_active").removeClass("clickableitem");
+            dojo.query(".dinosaur_active").removeClass(this.clickableitem_class);
             //dojo.disconnect(this.dinosaurHandle);
 
             this.callDinosaurGuess(evt.currentTarget.dataset.dinosaurid,this.guessPlayerClicked);
@@ -484,12 +497,10 @@ function (dojo, declare) {
            console.log( 'notif_traitAsked.player_board_div= ' +player_board_div  );  
            console.log( 'notif_traitAsked.trait_id= ' +trait_id  );        
            var player_trait_to_change = "#player_" + target_player_id + "_trait_" + trait_id;
-           console.log( 'notif_traitAsked.player_trait_to_change= ' +player_trait_to_change  );   
+           console.log( 'notif_traitAsked.player_trait_to_change= ' +player_trait_to_change  );  
+
            // remove from trait: clickable item so cursos is not pointer
            // and trait_normal to not link function to trait
-           var normal_trait_class_to_remove = 'trait_normal';
-           var clickableitem_class_to_remove = 'clickableitem ';
-
            if(correctTrait) {
             console.log( 'notif_traitAsked.correctAsk' );
             var correct_class_to_add = 'trait' + trait_id + '_correct';
@@ -502,8 +513,8 @@ function (dojo, declare) {
             dojo.query(player_trait_to_change).addClass(incorrect_class_to_add);                   
            }
            // in both correct or incorrect: remove clickable from trait
-           dojo.query(player_trait_to_change).removeClass(normal_trait_class_to_remove);  
-           dojo.query(player_trait_to_change).removeClass(clickableitem_class_to_remove);  
+           dojo.query(player_trait_to_change).removeClass(this.traitnormal_class);  
+           dojo.query(player_trait_to_change).removeClass(this.clickableitem_class);  
 
 
            // Note: notif.args contains the arguments specified during you "notifyAllPlayers" / "notifyPlayer" PHP call
@@ -516,6 +527,7 @@ function (dojo, declare) {
 
         var correctGuess = notif.args.correctGuess;
         var dinosaur_id = notif.args.dinosaur_id;
+        var target_player_id = notif.args.target_player_id;
 
         // only if correct guess, change dinosaur to inactive
         if(correctGuess) {
@@ -525,6 +537,7 @@ function (dojo, declare) {
             console.log( 'notif_dinosaurTryGuessed.dinosaur_to_change=' + dinosaur_to_change );
             console.log( 'notif_dinosaurTryGuessed.inactive_class_to_add=' + inactive_class_to_add );
             dojo.query(dinosaur_to_change).addClass(inactive_class_to_add);
+            this.revertPlayerTraitsToNormalClickable(target_player_id);
         } else {
             console.log( 'notif_dinosaurTryGuessed.INcorrectGuess' );
         }
