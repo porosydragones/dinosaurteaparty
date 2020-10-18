@@ -30,6 +30,7 @@ function (dojo, declare) {
             // this.myGlobalValue = 0;
             this.guessPlayerClicked = null;
             this.dinosaurHandle = null;
+            this.clickableitem_class = 'clickableitem';
 
         },
         
@@ -54,6 +55,7 @@ function (dojo, declare) {
         }, 
         
         putTraitNormal: function(trait_id, player_id, player_board_div) {
+
             var node = this.format_block("jstpl_trait_item_normal", {
                 TRAIT_ID: trait_id,
                 TRAIT_PLAYER_ID: player_id
@@ -92,7 +94,15 @@ function (dojo, declare) {
         dojo.place(node, "my_dinosaur");             
         }, 
 
-        removeClickableClassForTraits: function (player_id) {
+        removeClickableClassForPlayerTraits: function (player_id) {
+            // remove all the 15 trait clickable class for player 
+            for( var $t = 1; $t <=15; $t++ ) {
+                var player_trait_to_change = "#player_" + player_id + "_trait_" + $t;
+                dojo.query(player_trait_to_change).removeClass(this.clickableitem_class);  
+            }
+        },
+
+        revertPlayerTraitsToNormalClickable: function (player_id) {
 
         },
 
@@ -134,6 +144,10 @@ function (dojo, declare) {
                 } 
 
             }
+
+            // remove clickable class to currect player
+            this.removeClickableClassForPlayerTraits(this.player_id);
+
             // put dinosaurs in order
             console.log('dinosaur_order->' + JSON.stringify(gamedatas.dinosaur_order));
             for( var $i = 0; $i < gamedatas.dinosaur_order.length; $i++) {
