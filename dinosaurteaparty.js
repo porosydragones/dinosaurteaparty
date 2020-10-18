@@ -32,6 +32,7 @@ function (dojo, declare) {
             this.dinosaurHandle = null;
             this.clickableitem_class = 'clickableitem';
             this.traitnormal_class = 'trait_normal';
+            this.dinosauractive_class='dinosaur_active';
 
         },
         
@@ -190,7 +191,7 @@ function (dojo, declare) {
                     dojo.query(dinosaur_id_to_change).addClass("dinosaur" + $i + "_inactive");                    
                 } else {
                     //console.log( "Dinosaur is ACTIVE "+$i );
-                    dojo.query(dinosaur_id_to_change).addClass("dinosaur_active");                
+                    dojo.query(dinosaur_id_to_change).addClass(this.dinosauractive_class);                
                 }
 
                 //add quirk
@@ -422,6 +423,13 @@ function (dojo, declare) {
             if( ! this.checkAction( 'guessDinosaur' ) ){   return;  } 
             // return if the player has not clicked first on a dinosaur
             if( this.guessPlayerClicked == null) {return ;}
+
+            // return if the dinosaur is not active
+            this.dinosaur_inactive_class = 'dinosaur' +  evt.currentTarget.dataset.dinosaurid + '_inactive';
+            if(evt.currentTarget.className.includes(this.dinosaur_inactive_class)) {
+                console.log('cannot click on inactive dinosaur');
+                return;
+            }
 
             // disable dinosaur click 
             dojo.query(".dinosaur_active").removeClass(this.clickableitem_class);
