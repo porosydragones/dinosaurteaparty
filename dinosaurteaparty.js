@@ -92,10 +92,14 @@ function (dojo, declare) {
         dojo.place(node, "my_dinosaur");             
         }, 
 
+        removeClickableClassForTraits: function (player_id) {
+
+        },
+
         setup: function( gamedatas )
         {
             console.log( "Starting game setup" );
-            
+                     
             console.log('inactive_dinosaurs->' + JSON.stringify(gamedatas.inactive_dinosaurs));
             console.log('player_traits->' + JSON.stringify(gamedatas.player_traits));   
             console.log('players -> ' + JSON.stringify(gamedatas.players)); 
@@ -110,7 +114,6 @@ function (dojo, declare) {
                 player_traits = gamedatas.player_traits[player_str];
                 console.log('player_traits.PLAYER ID->' + JSON.stringify(player_traits));                  
 
-                // TODO: Setting up players boards if needed
                 var player_board_div = $('player_board_'+player_id);
                 for( var $j = 1; $j <=15; $j++ ) {
 
@@ -122,14 +125,13 @@ function (dojo, declare) {
                         }
                     } else {
                         this.putTraitNormal($j, player['id'],player_board_div);                        
-                    }
-
-
-                    
+                    }     
                 } 
+
+                // do not put guess button for player, only for other players
                 if(this.player_id != player_id) {
                     this.putGuessDinosaur(player['id'],player_board_div);                 
-                }
+                } 
 
             }
             // put dinosaurs in order
@@ -289,6 +291,7 @@ function (dojo, declare) {
             } ); 
         },
 
+
         ///////////////////////////////////////////////////
         //// Player's action
         
@@ -344,7 +347,19 @@ function (dojo, declare) {
             dojo.stopEvent( evt );  
 
             // Check that this action is possible (see "possibleactions" in states.inc.php)
-            if( ! this.checkAction( 'askTrait' ) ){    return;  }                      
+            if( ! this.checkAction( 'askTrait' ) ){    return;  }      
+            
+            // Check if trait is normal and not for current player
+            if(this.player_id == evt.currentTarget.dataset.traitplayerid) {
+                console.log('cannot click your own traits');
+                return;
+            }
+
+            // Check if trait is normal, not correct or incorrect
+            if(!evt.currentTarget.className.includes('trait_normal')) {
+                console.log('cannot click correct or incorrect traits');
+                return;
+            }
 
             this.ajaxcall( "/dinosaurteaparty/dinosaurteaparty/askTrait.html", { 
                     lock: true, 
@@ -456,6 +471,10 @@ function (dojo, declare) {
            console.log( 'notif_traitAsked.trait_id= ' +trait_id  );        
            var player_trait_to_change = "#player_" + target_player_id + "_trait_" + trait_id;
            console.log( 'notif_traitAsked.player_trait_to_change= ' +player_trait_to_change  );   
+           // remove from trait: clickable item so cursos is not pointer
+           // and trait_normal to not link function to trait
+           var normal_trait_class_to_remove = 'trait_normal';
+           var clickableitem_class_to_remove = 'clickableitem ';
 
            if(correctTrait) {
             console.log( 'notif_traitAsked.correctAsk' );
@@ -466,12 +485,14 @@ function (dojo, declare) {
             console.log( 'notif_traitAsked.INcorrectAsk' );
             var incorrect_class_to_add = 'trait' + trait_id + '_incorrect';
             console.log( 'notif_traitAsked.incorrect_class_to_add= ' +incorrect_class_to_add  );   
-            dojo.query(player_trait_to_change).addClass(incorrect_class_to_add);  
+            dojo.query(player_trait_to_change).addClass(incorrect_class_to_add);                   
            }
+           // in both correct or incorrect: remove clickable from trait
+           dojo.query(player_trait_to_change).removeClass(normal_trait_class_to_remove);  
+           dojo.query(player_trait_to_change).removeClass(clickableitem_class_to_remove);  
+
 
            // Note: notif.args contains the arguments specified during you "notifyAllPlayers" / "notifyPlayer" PHP call
-           
-           // TODO: play the card in the user interface.
        }, 
        
        notif_dinosaurTryGuessed: function (notif) 
