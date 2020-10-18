@@ -571,11 +571,18 @@ class dinosaurteaparty extends Table
             // assign new dinosaur to target player
             self::givePlayerDinosaurAndPersist( $target_player_id );
 
-             //get dinosaur of player
+            //get new dinosaur of target player
             $new_dinosaur = self::getDinosaurById( $target_player_id );
             $new_dinosaur_id = $new_dinosaur['id'];
             $new_dinosaur_name = $new_dinosaur['name']; 
 
+           // Notify player about their new dinosaur
+            self::notifyPlayer( $target_player_id, "newDinosaurAssigned", clienttranslate('Your new dinosaur is: ${new_dinosaur_name}'), array(
+                'target_player_id' => $target_player_id,
+                'old_dinosaur_id' => $dinosaur_id,
+                'new_dinosaur_id' => $new_dinosaur_id,
+                'new_dinosaur_name' => $new_dinosaur_name
+            ));
 
             self::goSuccessGuessSamePlayer();
         } else {
@@ -595,14 +602,6 @@ class dinosaurteaparty extends Table
             'correctGuess' => $correctGuess,
             'answer' => $this->guess_answers[$correctGuess]
         ) );
-
-        // Notify player about their new dinosaur
-        self::notifyPlayer( $target_player_id, "newDinosaurAssigned", clienttranslate('Your new dinosaur is: ${new_dinosaur_name}'), array(
-            'target_player_id' => $target_player_id,
-            'old_dinosaur_id' => $dinosaur_id,
-            'new_dinosaur_id' => $new_dinosaur_id,
-            'new_dinosaur_name' => $new_dinosaur_name
-        ));
 
     }
 
