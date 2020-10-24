@@ -147,14 +147,24 @@ class dinosaurteaparty extends Table
 
     // Give a random dinosaur to each player
     private function initPlayersDinosaur($players) {
-
+    $random_first_dinos = self::uniqueRandomNumbersWithinRange(1,20,count($players));
+        $d=0;
         foreach( $players as $player_id => $player )
         {
-            self::givePlayerDinosaurAndPersist($player_id);
+            $player_first_dino_id = $random_first_dinos[$d];
+            $updatesql = "UPDATE `dinosaur` SET `dinosaur_player_id` = ".$player_id." WHERE `dinosaur`.`dinosaur_id` = ".$player_first_dino_id;
+            self::DbQuery( $updatesql );  
+            $d++;
         }
     }
 
-    // Give a not-used random dinosaur to a player (for set-up and later in game)
+    function uniqueRandomNumbersWithinRange($min, $max, $quantity) {
+        $numbers = range($min, $max);
+        shuffle($numbers);
+        return array_slice($numbers, 0, $quantity);
+    }
+
+    // Give a not-used random dinosaur to a player
     private function givePlayerDinosaurAndPersist($player_id) {
         //inactive current player dinosaur
         $updatesql = "UPDATE `dinosaur` SET `dinosaur_active` = '0' WHERE `dinosaur`.`dinosaur_player_id` = ".$player_id;
