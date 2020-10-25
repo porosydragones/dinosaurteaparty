@@ -734,11 +734,10 @@ class dinosaurteaparty extends Table
     function zombieTurn( $state, $active_player )
     {
     	$statename = $state['name'];
-    	
         if ($state['type'] === "activeplayer") {
             switch ($statename) {
                 default:
-                    $this->gamestate->nextState( "zombiePass" );
+                    self::nextTurnNextPlayer();
                 	break;
             }
 
