@@ -33,8 +33,8 @@ $this->card_types = array(
 */
 
 $this->trait_names = array(
-  1 =>  clienttranslate('eating'),
-  2 =>  clienttranslate('drinking'),
+  1 =>  clienttranslate('drinking'),
+  2 =>  clienttranslate('eating'),
   3 =>  clienttranslate('having teeth'),
   4 =>  clienttranslate('having spikes'),
   5 =>  clienttranslate('having tail'),

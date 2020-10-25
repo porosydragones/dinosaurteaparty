@@ -33,6 +33,7 @@ function (dojo, declare) {
             this.clickableitem_class = 'clickableitem';
             this.traitnormal_class = 'trait_normal';
             this.dinosauractive_class='dinosaur_active';
+            this.trait_names_texts=null;
 
         },
         
@@ -57,12 +58,21 @@ function (dojo, declare) {
         }, 
         
         putTraitNormal: function(trait_id, player_id, player_board_div) {
+            
+            // Get a string in player's language with parameter:
+            var translated_trait_title = dojo.string.substitute( _("ask about ${trait_name}"), {
+                trait_name: this.trait_names_texts[trait_id]
+            } );
 
             var node = this.format_block("jstpl_trait_item_normal", {
                 TRAIT_ID: trait_id,
-                TRAIT_PLAYER_ID: player_id
+                TRAIT_PLAYER_ID: player_id,
+                TRAIT_TITLE: translated_trait_title
             });
-            dojo.place(node, player_board_div);             
+            dojo.place(node, player_board_div); 
+
+            //var player_trait_to_change = "#player_" + player_id + "_trait_" + trait_id;
+           // dojo.query(player_trait_to_change).attr(node, "title", "my title");    
         }, 
         
         putTraitCorrect: function(trait_id, player_id, player_board_div) {
@@ -122,11 +132,13 @@ function (dojo, declare) {
 
         setup: function( gamedatas )
         {
-            console.log( "Starting game setup" );
-                     
+            console.log( "Starting game setup..." );
+                   
             console.log('inactive_dinosaurs->' + JSON.stringify(gamedatas.inactive_dinosaurs));
             console.log('player_traits->' + JSON.stringify(gamedatas.player_traits));   
             console.log('players -> ' + JSON.stringify(gamedatas.players)); 
+            console.log('trait_names_texts -> ' + JSON.stringify(gamedatas.trait_names_texts))
+            this.trait_names_texts = gamedatas.trait_names_texts;
             // Setting up player boards
             for( var player_id in gamedatas.players )
             {

@@ -606,3 +606,7 @@
     background: url("img/DTP_Trait_Blue.png") -482px -40px;     
     width: 35px;
 }
+
+.trait:hover {
+    outline: 3px dotted #9C27B0 !important;
+}

@@ -218,6 +218,8 @@ class dinosaurteaparty extends Table
         $result['quirk_2_dinosaur_id'] = $quirk_2_dinosaur_id;          
         $quirk_3_dinosaur_id = self::getDinosaurQuirk(3);
         $result['quirk_3_dinosaur_id'] = $quirk_3_dinosaur_id;  
+
+        $result['trait_names_texts'] = $this->trait_names;
         return $result;
     }
 
