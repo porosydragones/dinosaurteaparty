@@ -33,6 +33,7 @@ function (dojo, declare) {
             this.clickableitem_class = 'clickableitem';
             this.traitnormal_class = 'trait_normal';
             this.dinosauractive_class='dinosaur_active';
+            this.dinosauractiveglow_class='guess_glow_dinos';
             this.trait_names_texts=null;
 
         },
@@ -409,13 +410,18 @@ function (dojo, declare) {
             if(this.player_id == evt.currentTarget.dataset.traitplayerid) {
                 console.log('cannot click your own traits');
                 return;
-            }
+            }         
 
             // Check if trait is normal, not correct or incorrect
             if(!evt.currentTarget.className.includes(this.traitnormal_class)) {
                 console.log('cannot click correct or incorrect traits');
                 return;
             }
+
+            // disable dinosaur click and cancel guess button if clicked before trait
+            this.guessPlayerClicked = null;
+            dojo.query(".dinosaur_active").removeClass(this.clickableitem_class);
+            dojo.query(".dinosaur_active").removeClass(this.dinosauractiveglow_class);   
 
             this.ajaxcall( "/dinosaurteaparty/dinosaurteaparty/askTrait.html", { 
                     lock: true, 
@@ -441,6 +447,7 @@ function (dojo, declare) {
             // enable dinosaur click
             this.dinosaurHandle = dojo.query(".dinosaur_active").connect("onclick", this, "onDinosaurClick"); 
             dojo.query(".dinosaur_active").addClass(this.clickableitem_class);
+            dojo.query(".dinosaur_active").addClass(this.dinosauractiveglow_class);
         },         
 
         // Current player click a dinosaur to guess a player
@@ -461,6 +468,7 @@ function (dojo, declare) {
 
             // disable dinosaur click 
             dojo.query(".dinosaur_active").removeClass(this.clickableitem_class);
+            dojo.query(".dinosaur_active").removeClass(this.dinosauractiveglow_class);
             //dojo.disconnect(this.dinosaurHandle);
 
             this.callDinosaurGuess(evt.currentTarget.dataset.dinosaurid,this.guessPlayerClicked);

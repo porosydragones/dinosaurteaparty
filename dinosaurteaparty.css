@@ -346,6 +346,7 @@
     background-image: url("img/guess.png");      
 }
 
+
 .guess_text {
     text-align: center;
     display: flex;
@@ -354,6 +355,11 @@
     height: 35px;
     width: 100%;
 }
+
+.guess_glow_dinos {
+
+}
+
 
 .trait {
     background-color: red;
@@ -607,6 +613,16 @@
     width: 35px;
 }
 
-.trait:hover {
-    outline: 3px dotted #9C27B0 !important;
+/*
+.guess_glow_dinos:hover {
+    box-shadow: 0px 0px 25px #4d83ac;
 }
+
+.guess_dinosaur:hover {
+    box-shadow: 0px 0px 15px #4d83ac !important;
+}
+
+.trait_normal:hover {
+    box-shadow: 0px 0px 15px #4d83ac !important;
+}
+*/
