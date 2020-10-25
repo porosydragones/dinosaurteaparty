@@ -37,7 +37,7 @@
 
 </div> 
 
-<div id="your_hand" class="whiteblock">
+<div id="dtp_your_hand" class="whiteblock">
 <h3>Your hand</h3>
     <div id="my_dinosaur"></div>
 </div>

@@ -57,6 +57,13 @@
     overflow: auto;
 }
 
+#dtp_your_hand {
+    text-align: center;
+    position: relative;
+    height: auto;
+    overflow: auto;
+}
+
 .dtp_placeholder {
     width: 150px;
     height: 250px;
