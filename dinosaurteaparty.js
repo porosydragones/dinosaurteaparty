@@ -27,7 +27,7 @@ function (dojo, declare) {
             // Here, you can init the global variables of your user interface
             this.guessPlayerClicked = null;
             this.dinosaurHandle = null;
-            this.clickableitem_class = 'clickableitem';
+            this.clickableitem_class = 'dtp_clickableitem';
             this.traitnormal_class = 'trait_normal';
             this.dinosauractive_class='dinosaur_active';
             this.dinosauractiveglow_class='guess_glow_dinos';

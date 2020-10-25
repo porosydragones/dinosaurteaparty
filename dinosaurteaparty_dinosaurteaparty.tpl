@@ -27,10 +27,9 @@
  
   
  
-<div id="game_play_area" >  
+<div id="dtp_game_play_area" >  
 
-    <span id="lines_wrap"> 
-    <!-- <div id="table_cards_line_0" class="placeholder trait trait1">TRAIT.</div> -->       
+    <span id="lines_wrap">    
     </span>
 
     <div id="dinosaur_cards"></div>
@@ -48,17 +47,17 @@
 // Javascript HTML templates
 
 
-var jstpl_dinosaur_item = '<div id="table_cards_line_${DINOSAUR_ID}" class="placeholder dinosaur dinosaur${DINOSAUR_ID}" data-dinosaurid="${DINOSAUR_ID}"></div>';
+var jstpl_dinosaur_item = '<div id="table_cards_line_${DINOSAUR_ID}" class="dtp_placeholder dinosaur dinosaur${DINOSAUR_ID}" data-dinosaurid="${DINOSAUR_ID}"></div>';
 
-var jstpl_trait_item_normal = '<div id="player_${TRAIT_PLAYER_ID}_trait_${TRAIT_ID}" title="${TRAIT_TITLE}" class="placeholder clickableitem trait trait${TRAIT_ID} trait_normal" data-traitid="${TRAIT_ID}" data-traitplayerid="${TRAIT_PLAYER_ID}"></div>';
-var jstpl_trait_item_correct = '<div id="player_${TRAIT_PLAYER_ID}_trait_${TRAIT_ID}" title="${TRAIT_TITLE}" class="placeholder trait trait${TRAIT_ID} trait${TRAIT_ID}_correct" data-traitid="${TRAIT_ID}" data-traitplayerid="${TRAIT_PLAYER_ID}"></div>';
-var jstpl_trait_item_incorrect = '<div id="player_${TRAIT_PLAYER_ID}_trait_${TRAIT_ID}" title="${TRAIT_TITLE}" class="placeholder trait trait${TRAIT_ID} trait${TRAIT_ID}_incorrect" data-traitid="${TRAIT_ID}" data-traitplayerid="${TRAIT_PLAYER_ID}"></div>';
+var jstpl_trait_item_normal = '<div id="player_${TRAIT_PLAYER_ID}_trait_${TRAIT_ID}" title="${TRAIT_TITLE}" class="dtp_placeholder dtp_clickableitem trait trait${TRAIT_ID} trait_normal" data-traitid="${TRAIT_ID}" data-traitplayerid="${TRAIT_PLAYER_ID}"></div>';
+var jstpl_trait_item_correct = '<div id="player_${TRAIT_PLAYER_ID}_trait_${TRAIT_ID}" title="${TRAIT_TITLE}" class="dtp_placeholder trait trait${TRAIT_ID} trait${TRAIT_ID}_correct" data-traitid="${TRAIT_ID}" data-traitplayerid="${TRAIT_PLAYER_ID}"></div>';
+var jstpl_trait_item_incorrect = '<div id="player_${TRAIT_PLAYER_ID}_trait_${TRAIT_ID}" title="${TRAIT_TITLE}" class="dtp_placeholder trait trait${TRAIT_ID} trait${TRAIT_ID}_incorrect" data-traitid="${TRAIT_ID}" data-traitplayerid="${TRAIT_PLAYER_ID}"></div>';
 
 
 
-var jstpl_guess_item = '<div id="player_guess" title="${GUESS_TITLE}" class="placeholder clickableitem guess_dinosaur" data-playerid="${TRAIT_PLAYER_ID}"><span class="guess_text">${GUESS_TEXT}</span></div>';
+var jstpl_guess_item = '<div id="player_guess" title="${GUESS_TITLE}" class="dtp_placeholder dtp_clickableitem guess_dinosaur" data-playerid="${TRAIT_PLAYER_ID}"><span class="guess_text">${GUESS_TEXT}</span></div>';
 
-var jstpl_my_dinosaur_item = '<div id="my_dino_${MY_DINOSAUR_ID}" class="placeholder mydinosaur mydinosaur${MY_DINOSAUR_ID}" data-dinosaurid="${MY_DINOSAUR_ID}"></div>';
+var jstpl_my_dinosaur_item = '<div id="my_dino_${MY_DINOSAUR_ID}" class="dtp_placeholder mydinosaur mydinosaur${MY_DINOSAUR_ID}" data-dinosaurid="${MY_DINOSAUR_ID}"></div>';
 
 </script>  
 

@@ -50,32 +50,26 @@
 
 
 
-#game_play_area { 
+#dtp_game_play_area { 
     text-align: center;
     position: relative;
     height: auto;
     overflow: auto;
 }
 
-.placeholder {
+.dtp_placeholder {
     width: 150px;
     height: 250px;
-}
-  
-.placeholder {
     background-color: #fff;
     transition: all 250ms ease-in-out;
-} 
-.placeholder.possibleMove {
+}
+
+.dtp_placeholder.possibleMove {
     display: inherit;
 } 
 
-.clickableitem {
+.dtp_clickableitem {
     cursor: pointer;
-}
-
-.highlight {
-    font-size: 32px;
 }
 
 .dinosaur {
