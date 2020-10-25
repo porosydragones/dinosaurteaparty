@@ -389,8 +389,6 @@ function (dojo, declare) {
                 return;
             }
 
-            console.log('onTraitClick. Trait' + evt.currentTarget.dataset.traitid + ' of player ' +evt.currentTarget.dataset.traitplayerid );
-
             // disable dinosaur click and cancel guess button if clicked before trait
             this.guessPlayerClicked = null;
             dojo.query(".dinosaur_active").removeClass(this.clickableitem_class);

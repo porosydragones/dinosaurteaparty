@@ -165,8 +165,8 @@ class dinosaurteaparty extends Table
         $selectsql = "SELECT dinosaur_id FROM dinosaur WHERE dinosaur_active = '1' AND dinosaur_player_id IS NULL";
         //assign a free dinosaur to player, first select free dinosaurs
         $free_dinosaur_id = self::getObjectListFromDB($selectsql,true);
-        $random_dinosaur_id=array_rand($free_dinosaur_id,1);
-        $updatesql = "UPDATE `dinosaur` SET `dinosaur_player_id` = ".$player_id." WHERE `dinosaur`.`dinosaur_id` = ".$random_dinosaur_id;
+        $random_dinosaur_key=array_rand($free_dinosaur_id,1);
+        $updatesql = "UPDATE `dinosaur` SET `dinosaur_player_id` = ".$player_id." WHERE `dinosaur`.`dinosaur_id` = ".$free_dinosaur_id[$random_dinosaur_key];
         self::DbQuery( $updatesql );  
     }
 
@@ -257,10 +257,7 @@ class dinosaurteaparty extends Table
                        dinosaur_active active
                 FROM dinosaur where dinosaur_active = 1 AND dinosaur_player_id = ".$player_id;
 
-        $dinosaur = self::getObjectFromDB( $sql );
-
-        self::dump( "getDinosaur of player = ", $player_id );
-        self::dump( "getDinosaur of dinosaur = ", $dinosaur );        
+        $dinosaur = self::getObjectFromDB( $sql );      
 
         return $dinosaur;
     }
@@ -331,10 +328,6 @@ class dinosaurteaparty extends Table
 
         $dinosaurHasTrait = ! empty($result);
 
-        self::dump( "checkDinosaurTrait.dinosaur_id = ", $dinosaur_id );
-        self::dump( "checkDinosaurTrait.trait_id = ", $trait_id );                
-        self::dump( "checkDinosaurTrait.dinosaurHasTrait = ", $dinosaurHasTrait );
-
         return ($dinosaurHasTrait);                     
     }
 
@@ -368,9 +361,6 @@ class dinosaurteaparty extends Table
     // Ask a player for trait, return TRUE if yes, return FALSE if incorrect
     private function askPlayerForTrait($player_id, $trait_id) {
         //look in database if player dinosaur has trait, check quirks
-
-        self::dump( "askPlayerForTrait. player_id = ", $player_id );
-        self::dump( "askPlayerForTrait. trait_id = ", $trait_id );
 
         //get dinosaur of player
         $dinosaur = self::getDinosaurById( $player_id );
