@@ -99,9 +99,14 @@ function (dojo, declare) {
             dojo.place(node, player_board_div);             
         }, 
 
-        putGuessDinosaur: function(player_id, player_board_div) {
+        putGuessDinosaur: function(player_id, player_board_div,player_name) {
+            // Get a string in player's language with parameter:
+            var translated_guess_title = dojo.string.substitute( _("Guess the dinosaur of the player ${player_name_tag}"), {
+                player_name_tag: player_name
+            } );
             var node = this.format_block("jstpl_guess_item", {
-                TRAIT_PLAYER_ID: player_id
+                TRAIT_PLAYER_ID: player_id,
+                GUESS_TITLE: translated_guess_title
             });
             dojo.place(node, player_board_div);    
         },
@@ -145,7 +150,7 @@ function (dojo, declare) {
             console.log('inactive_dinosaurs->' + JSON.stringify(gamedatas.inactive_dinosaurs));
             console.log('player_traits->' + JSON.stringify(gamedatas.player_traits));   
             console.log('players -> ' + JSON.stringify(gamedatas.players)); 
-            console.log('trait_names_texts -> ' + JSON.stringify(gamedatas.trait_names_texts))
+            console.log('trait_names_texts -> ' + JSON.stringify(gamedatas.trait_names_texts));
             this.trait_names_texts = gamedatas.trait_names_texts;
             // Setting up player boards
             for( var player_id in gamedatas.players )
@@ -174,7 +179,7 @@ function (dojo, declare) {
 
                 // do not put guess button for player, only for other players
                 if(this.player_id != player_id) {
-                    this.putGuessDinosaur(player['id'],player_board_div);                 
+                    this.putGuessDinosaur(player['id'],player_board_div,player['name']);                 
                 } 
 
             }
