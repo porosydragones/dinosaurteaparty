@@ -60,7 +60,7 @@ function (dojo, declare) {
         putTraitNormal: function(trait_id, player_id, player_board_div) {
             
             // Get a string in player's language with parameter:
-            var translated_trait_title = dojo.string.substitute( _("ask about ${trait_name}"), {
+            var translated_trait_title = dojo.string.substitute( _("Ask about ${trait_name}"), {
                 trait_name: this.trait_names_texts[trait_id]
             } );
 
@@ -100,13 +100,16 @@ function (dojo, declare) {
         }, 
 
         putGuessDinosaur: function(player_id, player_board_div,player_name) {
+            var translated_guess = _("GUESS");
+
             // Get a string in player's language with parameter:
             var translated_guess_title = dojo.string.substitute( _("Guess the dinosaur of the player ${player_name_tag}"), {
                 player_name_tag: player_name
             } );
             var node = this.format_block("jstpl_guess_item", {
                 TRAIT_PLAYER_ID: player_id,
-                GUESS_TITLE: translated_guess_title
+                GUESS_TITLE: translated_guess_title,
+                GUESS_TEXT: translated_guess
             });
             dojo.place(node, player_board_div);    
         },
