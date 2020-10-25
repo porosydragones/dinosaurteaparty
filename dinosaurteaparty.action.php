@@ -35,7 +35,6 @@
   	    else
   	    {
             $this->view = "dinosaurteaparty_dinosaurteaparty";
-            self::trace( "Complete reinitialization of board game" );
       }
   	} 
  

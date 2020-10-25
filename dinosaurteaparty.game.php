@@ -112,7 +112,7 @@ class dinosaurteaparty extends Table
     private function initDinosaursOrder() {
         $range = range(1, 20); 
         shuffle($range);
-        self::dump( "range", $range );
+        //self::dump( "range", $range );
         $i=1;
         foreach( $range as $range_value) {
             $updateorder = "UPDATE `dinosaur` SET `dinosaur_order` = '.$range_value.' WHERE `dinosaur`.`dinosaur_id` = ".$i;
@@ -258,7 +258,7 @@ class dinosaurteaparty extends Table
                 FROM dinosaur where dinosaur_active = 1 AND dinosaur_player_id = ".$player_id;
 
         $dinosaur = self::getObjectFromDB( $sql );
-        self::dump( "dinosaur", $dinosaur );
+
         return $dinosaur;
     }
 
@@ -275,7 +275,6 @@ class dinosaurteaparty extends Table
             FROM dinosaur order by dinosaur_order ";
 
         $dinosaur_order = self::getObjectListFromDB( $sql , true );
-        self::dump( "dinosaur_order", $dinosaur_order );
         return $dinosaur_order; 
     }
 
@@ -284,7 +283,7 @@ class dinosaurteaparty extends Table
                 FROM dinosaur where dinosaur_active = 0 ";
 
         $inactive_dinosaurs = self::getObjectListFromDB( $sql , true );
-        self::dump( "inactive_dinosaurs", $inactive_dinosaurs );
+
 
         $inactive_dinosaurs_int = [];
         for( $i=0; $i< count($inactive_dinosaurs); $i++) {
@@ -299,18 +298,12 @@ class dinosaurteaparty extends Table
         $player_all_trait_data = [];
         foreach ($players_info as $player_value) {
            $player_trait_data = [];
-        // self::dump( "getAllPlayerTraits.player_value", $player_value);   
-            self::dump( "getAllPlayerTraits.player_value.ID", $player_value['id']); 
-            $player_id_traits =  self::getPlayerTraits( $player_value['id'] );        
-            self::dump( "getAllPlayerTraits.player_value.player_id_trait", $player_id_traits);       
+            $player_id_traits =  self::getPlayerTraits( $player_value['id'] );           
             foreach ($player_id_traits as $player_trait_value) {
-            self::dump( "getAllPlayerTraits.player_value.player_trait_value", $player_trait_value); 
-            $player_trait_data[$player_trait_value['player_trait_trait_id']] = (int)$player_trait_value['player_trait_correct'];
+                $player_trait_data[$player_trait_value['player_trait_trait_id']] = (int)$player_trait_value['player_trait_correct'];
             }     
-            self::dump( "getAllPlayerTraits.player_trait_data", $player_trait_data); 
             $player_all_trait_data[$player_value['id']]  = $player_trait_data;
         }
-        self::dump( "getAllPlayerTraits.player_all_trait_data", $player_all_trait_data); 
         return  $player_all_trait_data;   
     }
 
@@ -332,9 +325,7 @@ class dinosaurteaparty extends Table
                 FROM dinosaur_trait where dinosaur_id = ".$dinosaur_id
                 ." AND trait_id=".$trait_id;
         $result = self::getObjectFromDB( $sql );
-        self::dump( "checkDinosaurTrait.result", $result );   
         $dinosaurHasTrait = ! empty($result);
-        self::dump( "dinosaurHasTrait", $dinosaurHasTrait );
         return ($dinosaurHasTrait);                     
     }
 
@@ -345,12 +336,8 @@ class dinosaurteaparty extends Table
     }
 
     private function persistPlayerTrait($player_id, $trait_id,$correct_trait) {
-        self::dump( "persistPlayerTrait.player_id", $player_id ); 
-        self::dump( "persistPlayerTrait.trait_id", $trait_id ); 
-        self::dump( "persistPlayerTrait.correct_trait", $correct_trait ); 
         // boolean to int
-        $correct_trait_int = (int) $correct_trait;
-        self::dump( "persistPlayerTrait.correct_trait_int", $correct_trait_int );         
+        $correct_trait_int = (int) $correct_trait;       
         $updatesql = "INSERT INTO player_trait (`player_trait_player_id`, `player_trait_trait_id`, `player_trait_correct`) 
                 VALUES ('".$player_id."', '".$trait_id."', '".$correct_trait_int."');";
         self::DbQuery( $updatesql ); 
@@ -378,31 +365,24 @@ class dinosaurteaparty extends Table
         
         //check trait
         $dinosaurHasTrait = self::checkDinosaurTrait($dinosaur["id"],$trait_id);
-        self::dump( "askPlayerForTrait.dinosaurHasTrait", $dinosaurHasTrait );
         // player answer is dinosaur has trait unless quirk
         $player_answer = $dinosaurHasTrait;
         // check quirk to change answer if necessary
-        self::dump( "askPlayerForTrait.check if dinosaur has quirk", $dinosaur["quirk"] );
         if(! empty($dinosaur["quirk"])) {
             // quirk 1 always says no
             if ($dinosaur["quirk"] == 1){
                 $player_answer = 0;
-                self::dump( "askPlayerForTrait.has quirk 1, answer no:", $player_answer );
             // quirk 2 always lies, so invert dinosaurHasTrait
             } else if ($dinosaur["quirk"] == 2) {
                 $player_answer = ! $dinosaurHasTrait;
-                self::dump( "askPlayerForTrait.has quirk 2, insert trait:", $player_answer );
             } else if ($dinosaur["quirk"] == 3) {
                 // first answer is random between true or false and then switche
                 // if there is no previous answer
-                self::dump( "askPlayerForTrait.has quirk 3, check quirk3lastanswer:", $dinosaur["quirk3lastanswer"] );
                 if( is_null($dinosaur["quirk3lastanswer"])) {
                     $random_true_false = rand(0,1) == 1;
-                    self::dump( "askPlayerForTrait.has quirk and no previous quirk3 answer, generate random and give as answer:", $random_true_false );
                     $player_answer = $random_true_false;
                 } else { //next answers invert previous
                     $player_answer = !$dinosaur["quirk3lastanswer"];
-                    self::dump( "askPlayerForTrait.has quirk and previous quirk3 answer, invert:", $player_answer );
                 }
                 // update dinosaur quirk3lastanswer
                 self::updateDinosaurQuirk3Answer($dinosaur["id"],$player_answer);
@@ -412,16 +392,13 @@ class dinosaurteaparty extends Table
         // if answer is yes, always persist
         // if answer is no, persist only in normal mode (not in clever mode)        
         if( $player_answer ){
-            self::trace( "yes answer, PERSIST" );
             self::persistPlayerTrait($player_id,$trait_id,$player_answer);
         } else {
             $game_play_variant = self::getGameStateValue('game_play_variant');
-            self::dump( "game_play_variant", $game_play_variant );
             if( $game_play_variant == 1 ) {
-                self::trace( "no answer and NORMAL mode, PERSIST" );
                 self::persistPlayerTrait($player_id,$trait_id,$player_answer);
             } else {
-                self::trace( "no answer and CLEVER mode, DO NOT PERSIST" );
+                // no answer and clever, do not persist
             }
         }
 
@@ -450,19 +427,19 @@ class dinosaurteaparty extends Table
     }
 
     private function nextTurnNextPlayer() {
-        self::trace( "going to NEXT player" );
+        // go to text player
         $this->gamestate->nextState( 'nextPlayer' );
     }
 
     private function playAgainSamePlayer() {
-        self::trace( "play again SAME player" );
+        // play again same player
         $player_id = self::getActivePlayerId();
         self::giveExtraTime( $player_id);
         $this->gamestate->nextstate( 'playAgain' );
     }
 
     private function goSuccessGuessSamePlayer() {
-        self::trace( "success guess SAME player" );
+        //success guess same player
         $player_id = self::getActivePlayerId();
         self::giveExtraTime( $player_id);
         $this->gamestate->nextstate( 'correctGuess' );        
@@ -474,27 +451,20 @@ class dinosaurteaparty extends Table
 //////////// 
  
     function askTrait( $trait_id, $target_player_id ) {
-        self::trace( "askTrait" );
-
+        // ask trait
         self::checkAction( 'askTrait' ); 
 
-        self::dump( "askTrait.trait_id:", $trait_id ); 
-        self::dump( "askTrait.target_player_id:", $target_player_id ); 
-
-        $player_id = self::getActivePlayerId();
- 
-        self::dump( "askTrait.player_id:", $player_id );         
+        $player_id = self::getActivePlayerId();       
 
         // Add your game logic to ask trait to player
         $correctAsk = $this->askPlayerForTrait($target_player_id, $trait_id);
 
         if($correctAsk) {
-            self::trace( "correctAsk, congrats!" );
             //add correct trait to player stat
             self::addPlayerCorrectTraitStat($player_id);
             self::playAgainSamePlayer();
         } else {
-            self::trace( "incorrectAsk, sorry" );
+            // incorrect ask
             self::nextTurnNextPlayer();
         }
 
@@ -519,12 +489,7 @@ class dinosaurteaparty extends Table
         $player_id = self::getActivePlayerId();
         $dinosaur_name = self::getUniqueValueFromDb( "SELECT dinosaur_name FROM dinosaur WHERE dinosaur_id = $dinosaur_id" );  
         $new_dinosaur_id = null;
-        $new_dinosaur_name = '';        
-
-        self::dump( "guessDinosaur.dinosaur_id:", $dinosaur_id ); 
-        self::dump( "guessDinosaur.dinosaur_name:", $dinosaur_name ); 
-        self::dump( "guessDinosaur.target_player_id:", $target_player_id ); 
-        self::dump( "guessDinosaur.player_id:", $player_id );         
+        $new_dinosaur_name = '';             
 
         // Add your game logic to play a card there
         $correctGuess = $this->checkGuessPlayerDinosaur($target_player_id, $dinosaur_id);
@@ -532,9 +497,7 @@ class dinosaurteaparty extends Table
         if($correctGuess) {
             //save current target_player_id in global
             self::setGameStateValue( 'current_target_player_id', $target_player_id );
-            self::dump( "set current_target_player_id", $target_player_id ); 
             // go to state correct guess (there add a point and check end game)
-            self::trace( "correctGuess, congrats!" );
 
             // clean player_traits of the target player
             self::cleanPlayerTrait($target_player_id );
@@ -556,8 +519,7 @@ class dinosaurteaparty extends Table
 
             self::goSuccessGuessSamePlayer();
         } else {
-            //go to next player
-            self::trace( "sorry, not correct" );
+            //go to next player, not correct
             self::nextTurnNextPlayer();
         }
 
@@ -608,16 +570,13 @@ class dinosaurteaparty extends Table
      */
     function stCorrectGuess() {
         $target_player_id = self::getGameStateValue('current_target_player_id');
-        self::dump( "target_player_id", $target_player_id );   
 
         // add a point to the active player
         $player_id = self::getActivePlayerId(); 
-        self::dump( "player_id", $player_id );  
         self::addPointToPlayer($player_id);
 
         // get active player score
         $player_score = self::getPlayerScore( $player_id );
-        self::dump( "player_score", $player_score );
 
         // if the player less than 3 points, play again
         if($player_score < 3 ) {
@@ -628,7 +587,7 @@ class dinosaurteaparty extends Table
     }
 
     function stPrepareEndGame() {
-        self::trace( "stPrepareEndGame" );
+        //prepare end game
         $this->gamestate->nextstate("endGame");
     }
 
