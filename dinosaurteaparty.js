@@ -69,24 +69,32 @@ function (dojo, declare) {
                 TRAIT_PLAYER_ID: player_id,
                 TRAIT_TITLE: translated_trait_title
             });
-            dojo.place(node, player_board_div); 
-
-            //var player_trait_to_change = "#player_" + player_id + "_trait_" + trait_id;
-           // dojo.query(player_trait_to_change).attr(node, "title", "my title");    
+            dojo.place(node, player_board_div);    
         }, 
         
         putTraitCorrect: function(trait_id, player_id, player_board_div) {
+            // Get a string in player's language with parameter:
+            var translated_trait_title = dojo.string.substitute( _("Yes: ${trait_name}"), {
+                trait_name: this.trait_names_texts[trait_id]
+            } );
+
             var node = this.format_block("jstpl_trait_item_correct", {
                 TRAIT_ID: trait_id,
-                TRAIT_PLAYER_ID: player_id
+                TRAIT_PLAYER_ID: player_id,
+                TRAIT_TITLE: translated_trait_title
             });
             dojo.place(node, player_board_div);             
         }, 
 
         putTraitIncorrect: function(trait_id, player_id, player_board_div) {
+            // Get a string in player's language with parameter:
+            var translated_trait_title = dojo.string.substitute( _("No: ${trait_name}"), {
+                trait_name: this.trait_names_texts[trait_id]
+            } );
             var node = this.format_block("jstpl_trait_item_incorrect", {
                 TRAIT_ID: trait_id,
-                TRAIT_PLAYER_ID: player_id
+                TRAIT_PLAYER_ID: player_id,
+                TRAIT_TITLE: translated_trait_title
             });
             dojo.place(node, player_board_div);             
         }, 
