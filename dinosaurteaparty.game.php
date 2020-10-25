@@ -162,7 +162,7 @@ class dinosaurteaparty extends Table
         $updatesql = "UPDATE `dinosaur` SET `dinosaur_active` = '0' WHERE `dinosaur`.`dinosaur_player_id` = ".$player_id;
         self::DbQuery( $updatesql );  
 
-        $selectsql = "SELECT dinosaur_id FROM dinosaur WHERE dinosaur_active = 1 AND dinosaur_player_id IS NULL";
+        $selectsql = "SELECT dinosaur_id FROM dinosaur WHERE dinosaur_active = '1' AND dinosaur_player_id IS NULL";
         //assign a free dinosaur to player, first select free dinosaurs
         $free_dinosaur_id = self::getObjectListFromDB($selectsql,true);
         $random_dinosaur_id=array_rand($free_dinosaur_id,1);
@@ -259,6 +259,9 @@ class dinosaurteaparty extends Table
 
         $dinosaur = self::getObjectFromDB( $sql );
 
+        self::dump( "getDinosaur of player = ", $player_id );
+        self::dump( "getDinosaur of dinosaur = ", $dinosaur );        
+
         return $dinosaur;
     }
 
@@ -325,7 +328,13 @@ class dinosaurteaparty extends Table
                 FROM dinosaur_trait where dinosaur_id = ".$dinosaur_id
                 ." AND trait_id=".$trait_id;
         $result = self::getObjectFromDB( $sql );
+
         $dinosaurHasTrait = ! empty($result);
+
+        self::dump( "checkDinosaurTrait.dinosaur_id = ", $dinosaur_id );
+        self::dump( "checkDinosaurTrait.trait_id = ", $trait_id );                
+        self::dump( "checkDinosaurTrait.dinosaurHasTrait = ", $dinosaurHasTrait );
+
         return ($dinosaurHasTrait);                     
     }
 
@@ -359,6 +368,9 @@ class dinosaurteaparty extends Table
     // Ask a player for trait, return TRUE if yes, return FALSE if incorrect
     private function askPlayerForTrait($player_id, $trait_id) {
         //look in database if player dinosaur has trait, check quirks
+
+        self::dump( "askPlayerForTrait. player_id = ", $player_id );
+        self::dump( "askPlayerForTrait. trait_id = ", $trait_id );
 
         //get dinosaur of player
         $dinosaur = self::getDinosaurById( $player_id );

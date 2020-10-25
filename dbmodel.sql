@@ -129,8 +129,8 @@ INSERT INTO `dinosaur_trait` (`dinosaur_id`, `trait_id`) VALUES ('7', '2');
 INSERT INTO `dinosaur_trait` (`dinosaur_id`, `trait_id`) VALUES ('7', '1');
 INSERT INTO `dinosaur_trait` (`dinosaur_id`, `trait_id`) VALUES ('7', '4');
 INSERT INTO `dinosaur_trait` (`dinosaur_id`, `trait_id`) VALUES ('7', '8');
+INSERT INTO `dinosaur_trait` (`dinosaur_id`, `trait_id`) VALUES ('7', '11');
 INSERT INTO `dinosaur_trait` (`dinosaur_id`, `trait_id`) VALUES ('7', '14');
-INSERT INTO `dinosaur_trait` (`dinosaur_id`, `trait_id`) VALUES ('7', '15');
 -- jeannine
 INSERT INTO `dinosaur_trait` (`dinosaur_id`, `trait_id`) VALUES ('8', '6');
 INSERT INTO `dinosaur_trait` (`dinosaur_id`, `trait_id`) VALUES ('8', '2');
@@ -154,31 +154,31 @@ INSERT INTO `dinosaur_trait` (`dinosaur_id`, `trait_id`) VALUES ('11', '6');
 INSERT INTO `dinosaur_trait` (`dinosaur_id`, `trait_id`) VALUES ('11', '2');
 INSERT INTO `dinosaur_trait` (`dinosaur_id`, `trait_id`) VALUES ('11', '3');
 INSERT INTO `dinosaur_trait` (`dinosaur_id`, `trait_id`) VALUES ('11', '4');
-INSERT INTO `dinosaur_trait` (`dinosaur_id`, `trait_id`) VALUES ('11', '18');
+INSERT INTO `dinosaur_trait` (`dinosaur_id`, `trait_id`) VALUES ('11', '13');
 INSERT INTO `dinosaur_trait` (`dinosaur_id`, `trait_id`) VALUES ('11', '12');
 INSERT INTO `dinosaur_trait` (`dinosaur_id`, `trait_id`) VALUES ('11', '5');
 -- quinton
 INSERT INTO `dinosaur_trait` (`dinosaur_id`, `trait_id`) VALUES ('12', '2');
 INSERT INTO `dinosaur_trait` (`dinosaur_id`, `trait_id`) VALUES ('12', '7');
 INSERT INTO `dinosaur_trait` (`dinosaur_id`, `trait_id`) VALUES ('12', '8');
-INSERT INTO `dinosaur_trait` (`dinosaur_id`, `trait_id`) VALUES ('12', '11');
+INSERT INTO `dinosaur_trait` (`dinosaur_id`, `trait_id`) VALUES ('12', '15');
 INSERT INTO `dinosaur_trait` (`dinosaur_id`, `trait_id`) VALUES ('12', '12');
 INSERT INTO `dinosaur_trait` (`dinosaur_id`, `trait_id`) VALUES ('12', '10');
 -- reginald
 INSERT INTO `dinosaur_trait` (`dinosaur_id`, `trait_id`) VALUES ('13', '2');
 INSERT INTO `dinosaur_trait` (`dinosaur_id`, `trait_id`) VALUES ('13', '7');
 INSERT INTO `dinosaur_trait` (`dinosaur_id`, `trait_id`) VALUES ('13', '4');
-INSERT INTO `dinosaur_trait` (`dinosaur_id`, `trait_id`) VALUES ('13', '11');
+INSERT INTO `dinosaur_trait` (`dinosaur_id`, `trait_id`) VALUES ('13', '15');
 INSERT INTO `dinosaur_trait` (`dinosaur_id`, `trait_id`) VALUES ('13', '12');
 INSERT INTO `dinosaur_trait` (`dinosaur_id`, `trait_id`) VALUES ('13', '5');
 -- sebastian
-INSERT INTO `dinosaur_trait` (`dinosaur_id`, `trait_id`) VALUES ('14', '6');
 INSERT INTO `dinosaur_trait` (`dinosaur_id`, `trait_id`) VALUES ('14', '2');
 INSERT INTO `dinosaur_trait` (`dinosaur_id`, `trait_id`) VALUES ('14', '3');
 INSERT INTO `dinosaur_trait` (`dinosaur_id`, `trait_id`) VALUES ('14', '4');
-INSERT INTO `dinosaur_trait` (`dinosaur_id`, `trait_id`) VALUES ('14', '11');
 INSERT INTO `dinosaur_trait` (`dinosaur_id`, `trait_id`) VALUES ('14', '5');
+INSERT INTO `dinosaur_trait` (`dinosaur_id`, `trait_id`) VALUES ('14', '6');
 INSERT INTO `dinosaur_trait` (`dinosaur_id`, `trait_id`) VALUES ('14', '10');
+INSERT INTO `dinosaur_trait` (`dinosaur_id`, `trait_id`) VALUES ('14', '15');
 -- tabitha
 INSERT INTO `dinosaur_trait` (`dinosaur_id`, `trait_id`) VALUES ('15', '6');
 INSERT INTO `dinosaur_trait` (`dinosaur_id`, `trait_id`) VALUES ('15', '1');
@@ -212,7 +212,7 @@ INSERT INTO `dinosaur_trait` (`dinosaur_id`, `trait_id`) VALUES ('19', '6');
 INSERT INTO `dinosaur_trait` (`dinosaur_id`, `trait_id`) VALUES ('19', '1');
 INSERT INTO `dinosaur_trait` (`dinosaur_id`, `trait_id`) VALUES ('19', '3');
 INSERT INTO `dinosaur_trait` (`dinosaur_id`, `trait_id`) VALUES ('19', '4');
-INSERT INTO `dinosaur_trait` (`dinosaur_id`, `trait_id`) VALUES ('19', '11');
+INSERT INTO `dinosaur_trait` (`dinosaur_id`, `trait_id`) VALUES ('19', '15');
 INSERT INTO `dinosaur_trait` (`dinosaur_id`, `trait_id`) VALUES ('19', '12');
 INSERT INTO `dinosaur_trait` (`dinosaur_id`, `trait_id`) VALUES ('19', '5');
 -- yorick
