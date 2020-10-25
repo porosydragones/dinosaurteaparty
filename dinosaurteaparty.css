@@ -55,6 +55,8 @@
     position: relative;
     height: auto;
     overflow: auto;
+    /* lukestyles */
+    padding:10px;
 }
 
 #dtp_your_hand {
@@ -84,6 +86,9 @@
     margin: 0px;
     width: 150px;   
     height: 245px; 
+    /* lukestyles */
+    margin: 10px;
+    box-shadow: 1px 1px 2px black;
 }
 
 .dinosaur_inactive {
@@ -216,12 +221,12 @@
 }
 
 .mydinosaur {
-    background-color: rgb(10, 131, 70);
     background-image: url("img/mydinos.png");  
     display:inline-block;  
     margin: 0px;
     width: 349px;   
     height: 250px; 
+    box-shadow: 1px 1px 2px black;
 
 }
 
