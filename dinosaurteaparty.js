@@ -25,8 +25,6 @@ function (dojo, declare) {
         constructor: function(){
               
             // Here, you can init the global variables of your user interface
-            // Example:
-            // this.myGlobalValue = 0;
             this.guessPlayerClicked = null;
             this.dinosaurHandle = null;
             this.clickableitem_class = 'clickableitem';
@@ -206,7 +204,7 @@ function (dojo, declare) {
             this.putMyDinosaur(my_dinosaur_id);
           
             
-            // TODO: Set up your game interface here, according to "gamedatas"
+            //  Set up your game interface here, according to "gamedatas"
             dojo.query(".trait_normal").connect("onclick", this, "onTraitClick");
             dojo.query(".guess_dinosaur").connect("onclick", this, "onGuessClick"); 
 
@@ -496,18 +494,6 @@ function (dojo, declare) {
         {
             console.log( 'notifications subscriptions setup' );
             
-            // TODO: here, associate your game notifications with local methods
-            
-            // Example 1: standard notification handling
-            // dojo.subscribe( 'cardPlayed', this, "notif_cardPlayed" );
-            
-            // Example 2: standard notification handling + tell the user interface to wait
-            //            during 3 seconds after calling the method in order to let the players
-            //            see what is happening in the game.
-            // dojo.subscribe( 'cardPlayed', this, "notif_cardPlayed" );
-            // this.notifqueue.setSynchronous( 'cardPlayed', 3000 );
-            // 
-
             dojo.subscribe('traitAsked',this,"notif_traitAsked");
 
             dojo.subscribe('dinosaurTryGuessed',this,"notif_dinosaurTryGuessed");
@@ -515,22 +501,7 @@ function (dojo, declare) {
             dojo.subscribe('newDinosaurAssigned',this,"notif_newDinosaurAssigned");
         },  
         
-        // TODO: from this point and below, you can write your game notifications handling methods
-        
-        /*
-        Example:
-        
-        notif_cardPlayed: function( notif )
-        {
-            console.log( 'notif_cardPlayed' );
-            console.log( notif );
-            
-            // Note: notif.args contains the arguments specified during you "notifyAllPlayers" / "notifyPlayer" PHP call
-            
-            // TODO: play the card in the user interface.
-        },    
-        
-        */
+        //  from this point and below, you can write your game notifications handling methods
 
        notif_traitAsked: function( notif )
        {

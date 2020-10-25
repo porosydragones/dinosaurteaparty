@@ -20,17 +20,6 @@
  */
 
 
-/*  
-
-Example:
- 
-$this->card_types = array(
-    1 => array( "card_name" => ...,
-                ...
-              )
-);
-
-*/
 
 $this->trait_names = array(
   1 =>  clienttranslate('drinking'),
@@ -59,7 +48,4 @@ $this->guess_answers = array (
   true => clienttranslate('"Yes, you are correct!"'),
   false => clienttranslate('"No, I am sorry."')
 );
-
-
-
 
