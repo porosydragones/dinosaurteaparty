@@ -148,23 +148,13 @@ function (dojo, declare) {
 
         setup: function( gamedatas )
         {
-            console.log( "Starting game setup..." );
-                   
-            console.log('inactive_dinosaurs->' + JSON.stringify(gamedatas.inactive_dinosaurs));
-            console.log('player_traits->' + JSON.stringify(gamedatas.player_traits));   
-            console.log('players -> ' + JSON.stringify(gamedatas.players)); 
-            console.log('trait_names_texts -> ' + JSON.stringify(gamedatas.trait_names_texts));
             this.trait_names_texts = gamedatas.trait_names_texts;
             // Setting up player boards
             for( var player_id in gamedatas.players )
             {
-                var player = gamedatas.players[player_id];
-                console.log('PLAYER ID->' + player_id);     
-                player_str = player_id.toString();     
-                console.log('PLAYER ID STR->' + player_str);                      
-
-                player_traits = gamedatas.player_traits[player_str];
-                console.log('player_traits.PLAYER ID->' + JSON.stringify(player_traits));                  
+                var player = gamedatas.players[player_id]; 
+                player_str = player_id.toString();                          
+                player_traits = gamedatas.player_traits[player_str];                 
 
                 var player_board_div = $('player_board_'+player_id);
                 for( var $j = 1; $j <=15; $j++ ) {
@@ -191,7 +181,6 @@ function (dojo, declare) {
             this.removeClickableClassForPlayerTraits(this.player_id);
 
             // put dinosaurs in order
-            console.log('dinosaur_order->' + JSON.stringify(gamedatas.dinosaur_order));
             for( var $i = 0; $i < gamedatas.dinosaur_order.length; $i++) {
                 this.putDinosaur(gamedatas.dinosaur_order[$i ]);
             }
@@ -209,40 +198,28 @@ function (dojo, declare) {
             dojo.query(".guess_dinosaur").connect("onclick", this, "onGuessClick"); 
 
 
-            //inactive dinosaurs, add inactivedinosaur or activedinosaur class
-            console.log('inactive_dinosaurs->' + JSON.stringify(gamedatas.inactive_dinosaurs));
-
-            console.log('quirk_1_dinosaur_id ->' + gamedatas.quirk_1_dinosaur_id);
-            console.log('quirk_2_dinosaur_id ->' + gamedatas.quirk_2_dinosaur_id);
-            console.log('quirk_3_dinosaur_id ->' + gamedatas.quirk_3_dinosaur_id);                        
+            //inactive dinosaurs, add inactivedinosaur or activedinosaur class                        
             for($i=1; $i<=20; $i++) {
                 var dinosaur_id_to_change = ".dinosaur" + $i;
                 if(gamedatas.inactive_dinosaurs.includes($i)) {
-                    //console.log( "Dinosaur is INACTIVE "+$i );
                     dojo.query(dinosaur_id_to_change).addClass("dinosaur" + $i + "_inactive");                    
                 } else {
-                    //console.log( "Dinosaur is ACTIVE "+$i );
                     dojo.query(dinosaur_id_to_change).addClass(this.dinosauractive_class);                
                 }
 
                 //add quirk
                 // if dinosaur has quirk1
                 if( gamedatas.quirk_1_dinosaur_id == $i ) {
-                    dojo.query(dinosaur_id_to_change).addClass("quirk1");   
-                    console.log('add quirk1 to id' + $i);                    
+                    dojo.query(dinosaur_id_to_change).addClass("quirk1");                    
                 } else if ( gamedatas.quirk_2_dinosaur_id == $i ) { // if dinosaur has quirk2
-                    dojo.query(dinosaur_id_to_change).addClass("quirk2");   
-                    console.log('add quirk2 to id' + $i);                     
+                    dojo.query(dinosaur_id_to_change).addClass("quirk2");                      
                 } else if ( gamedatas.quirk_3_dinosaur_id == $i ) { // if dinosaur has quirk3
-                    dojo.query(dinosaur_id_to_change).addClass("quirk3");   
-                    console.log('add quirk3 to id' + $i);                     
+                    dojo.query(dinosaur_id_to_change).addClass("quirk3");                    
                 }
             }
 
             // Setup game notifications to handle (see "setupNotifications" method below)
             this.setupNotifications();
-
-            console.log( "Ending game setup" );
         },
         
 
@@ -254,7 +231,6 @@ function (dojo, declare) {
         //
         onEnteringState: function( stateName, args )
         {
-            console.log( 'Entering state: '+stateName );
             
             switch( stateName )
             {
@@ -280,7 +256,6 @@ function (dojo, declare) {
         //
         onLeavingState: function( stateName )
         {
-            console.log( 'Leaving state: '+stateName );
             
             switch( stateName )
             {
@@ -306,7 +281,6 @@ function (dojo, declare) {
         //        
         onUpdateActionButtons: function( stateName, args )
         {
-            console.log( 'onUpdateActionButtons: '+stateName );
                       
             if( this.isCurrentPlayerActive() )
             {            
@@ -339,7 +313,6 @@ function (dojo, declare) {
         */
 
         callDinosaurGuess: function( dinosaur_id, target_player_id ) {
-            console.log('callDinosaurGuess.dinosaur_id: ' + dinosaur_id + '.target_player_id:' + target_player_id);
             this.ajaxcall( "/dinosaurteaparty/dinosaurteaparty/guessDinosaur.html", { 
                 lock: true, 
                 dinosaur_id:  dinosaur_id,
@@ -369,7 +342,6 @@ function (dojo, declare) {
         
         onMyMethodToCall1: function( evt )
         {
-            console.log( 'onMyMethodToCall1' );
             
             // Preventing default browser reaction
             dojo.stopEvent( evt );
@@ -401,7 +373,6 @@ function (dojo, declare) {
  
         // Current player click a trait of another player
         onTraitClick: function( evt ) {
-            console.log( 'onTraitClick' );
             // Preventing default browser reaction
             dojo.stopEvent( evt );  
 
@@ -410,13 +381,11 @@ function (dojo, declare) {
             
             // Check if trait is normal and not for current player
             if(this.player_id == evt.currentTarget.dataset.traitplayerid) {
-                console.log('cannot click your own traits');
                 return;
             }         
 
             // Check if trait is normal, not correct or incorrect
             if(!evt.currentTarget.className.includes(this.traitnormal_class)) {
-                console.log('cannot click correct or incorrect traits');
                 return;
             }
 
@@ -439,7 +408,6 @@ function (dojo, declare) {
 
         // Current player clicks the guess button in a player board, then enable click on dinosaur
         onGuessClick: function( evt) {
-            console.log( 'onGuessClick' );
             // Preventing default browser reaction
             dojo.stopEvent( evt );   
             // Check that this action is possible (see "possibleactions" in states.inc.php)
@@ -464,7 +432,6 @@ function (dojo, declare) {
             // return if the dinosaur is not active
             this.dinosaur_inactive_class = 'dinosaur' +  evt.currentTarget.dataset.dinosaurid + '_inactive';
             if(evt.currentTarget.className.includes(this.dinosaur_inactive_class)) {
-                console.log('cannot click on inactive dinosaur');
                 return;
             }
 
@@ -492,7 +459,6 @@ function (dojo, declare) {
         */
         setupNotifications: function()
         {
-            console.log( 'notifications subscriptions setup' );
             
             dojo.subscribe('traitAsked',this,"notif_traitAsked");
 
@@ -505,32 +471,20 @@ function (dojo, declare) {
 
        notif_traitAsked: function( notif )
        {
-           console.log( 'notif_traitAsked' );
-           console.log( notif );
-
            var correctTrait = notif.args.correctAsk;
            var target_player_id = notif.args.target_player_id;
            var player_board_div = $('player_board_'+target_player_id);
            var trait_id = notif.args.trait_id;
-
-           console.log( 'notif_traitAsked.correctTrait= ' +correctTrait  );
-           console.log( 'notif_traitAsked.target_player_id= ' +target_player_id  );    
-           console.log( 'notif_traitAsked.player_board_div= ' +player_board_div  );  
-           console.log( 'notif_traitAsked.trait_id= ' +trait_id  );        
+       
            var player_trait_to_change = "#player_" + target_player_id + "_trait_" + trait_id;
-           console.log( 'notif_traitAsked.player_trait_to_change= ' +player_trait_to_change  );  
 
            // remove from trait: clickable item so cursos is not pointer
            // and trait_normal to not link function to trait
            if(correctTrait) {
-            console.log( 'notif_traitAsked.correctAsk' );
-            var correct_class_to_add = 'trait' + trait_id + '_correct';
-            console.log( 'notif_traitAsked.correct_class_to_add= ' +correct_class_to_add  );   
+            var correct_class_to_add = 'trait' + trait_id + '_correct';   
             dojo.query(player_trait_to_change).addClass(correct_class_to_add);  
            } else {
-            console.log( 'notif_traitAsked.INcorrectAsk' );
             var incorrect_class_to_add = 'trait' + trait_id + '_incorrect';
-            console.log( 'notif_traitAsked.incorrect_class_to_add= ' +incorrect_class_to_add  );   
             dojo.query(player_trait_to_change).addClass(incorrect_class_to_add);                   
            }
            // in both correct or incorrect: remove clickable from trait
@@ -543,8 +497,6 @@ function (dojo, declare) {
        
        notif_dinosaurTryGuessed: function (notif) 
        {
-        console.log( 'notif_dinosaurTryGuessed' );
-        console.log( notif );
 
         var correctGuess = notif.args.correctGuess;
         var dinosaur_id = notif.args.dinosaur_id;
@@ -552,35 +504,27 @@ function (dojo, declare) {
 
         // only if correct guess, change dinosaur to inactive
         if(correctGuess) {
-            console.log( 'notif_dinosaurTryGuessed.correctGuess' );
             var dinosaur_to_change = "#table_cards_line_" +  dinosaur_id;
             var inactive_class_to_add = 'dinosaur' + dinosaur_id + '_inactive';
-            console.log( 'notif_dinosaurTryGuessed.dinosaur_to_change=' + dinosaur_to_change );
-            console.log( 'notif_dinosaurTryGuessed.inactive_class_to_add=' + inactive_class_to_add );
             dojo.query(dinosaur_to_change).addClass(inactive_class_to_add);
             this.revertPlayerTraitsToNormalClickable(target_player_id);
             // update player score
             var div_player_score = 'player_score_'+ notif.args.player_id; 
             document.getElementById(div_player_score).innerHTML = notif.args.player_score ;
-        } else {
-            console.log( 'notif_dinosaurTryGuessed.INcorrectGuess' );
-        }
+        } 
+
        },
 
        notif_newDinosaurAssigned: function (notif) 
        {
 
-        console.log( 'notif_newDinosaurAssigned' );
-        console.log( notif );
         var target_player_id = notif.args.target_player_id;
             // give player its new dinosaur
             if(target_player_id == this.player_id) {
                 var old_dinosaur_id = notif.args.old_dinosaur_id;                
                 var new_dinosaur_id = notif.args.new_dinosaur_id;
                 var my_dino_to_remove = '#my_dino_' +  old_dinosaur_id;
-                console.log( 'notif_newDinosaurAssigned.my_dino_to_remove= ' + my_dino_to_remove );
                 dojo.query(my_dino_to_remove).remove();
-                console.log( 'notif_newDinosaurAssigned.putMyDinosaur= ' + new_dinosaur_id);
                 this.putMyDinosaur(new_dinosaur_id);
             }
        },
