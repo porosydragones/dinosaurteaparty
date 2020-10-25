@@ -23,7 +23,6 @@ define([
 function (dojo, declare) {
     return declare("bgagame.dinosaurteaparty", ebg.core.gamegui, {
         constructor: function(){
-            console.log('dinosaurteaparty constructor');
               
             // Here, you can init the global variables of your user interface
             // Example:
@@ -117,10 +116,12 @@ function (dojo, declare) {
 
                 
        putMyDinosaur: function(my_dinosaur_id) {
-        var node = this.format_block("jstpl_my_dinosaur_item", {
-            MY_DINOSAUR_ID: my_dinosaur_id
-        });
-        dojo.place(node, "my_dinosaur");             
+           if(my_dinosaur_id != null ){
+                var node = this.format_block("jstpl_my_dinosaur_item", {
+                    MY_DINOSAUR_ID: my_dinosaur_id
+                });
+                dojo.place(node, "my_dinosaur");     
+            }        
         }, 
 
         removeClickableClassForPlayerTraits: function (player_id) {
@@ -197,9 +198,12 @@ function (dojo, declare) {
                 this.putDinosaur(gamedatas.dinosaur_order[$i ]);
             }
             
-            console.log('mydinosaur->' + JSON.stringify(gamedatas.my_dinosaur));
-            console.log('mydinosaur id->' + gamedatas.my_dinosaur['id']);
-            this.putMyDinosaur(gamedatas.my_dinosaur['id']);
+            //for spectator my_dinosaur_id is null
+            var my_dinosaur_id = null;
+            if(gamedatas.my_dinosaur != null && gamedatas.my_dinosaur['id'] != null ) {
+                my_dinosaur_id = gamedatas.my_dinosaur['id'];
+            }
+            this.putMyDinosaur(my_dinosaur_id);
           
             
             // TODO: Set up your game interface here, according to "gamedatas"
