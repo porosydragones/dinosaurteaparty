@@ -593,16 +593,23 @@
     width: 35px;
 }
 
-/*
+.guess_glow_dinos {
+    box-sizing: border-box;
+}
+
 .guess_glow_dinos:hover {
-    box-shadow: 0px 0px 25px #4d83ac;
+    box-shadow: 0px 0px 5px black;
+    transform: scale(1.1);
+}
+
+.guess_dinosaur {
+    box-sizing: border-box;
 }
 
 .guess_dinosaur:hover {
-    box-shadow: 0px 0px 15px #4d83ac !important;
+    transform: scale(1.1);
 }
 
 .trait_normal:hover {
-    box-shadow: 0px 0px 15px #4d83ac !important;
+    transform: scale(1.3);
 }
-*/
