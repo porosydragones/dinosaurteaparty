@@ -68,7 +68,6 @@ $machinestates = array(
     		"description" => clienttranslate('${actplayer} must ask about a trait to a player or guess a dinosaur of a player'),
     		"descriptionmyturn" => clienttranslate('${you} must ask about a trait to a player or guess a dinosaur of a player'),
             "type" => "activeplayer",
-            "args" => "argPlayerTurn",            
     		"possibleactions" => array( "askTrait", "guessDinosaur" ),
     		"transitions" => array( "playAgain" => 10, "nextPlayer" => 20, "correctGuess" => 30 )
     ),  
@@ -76,7 +75,7 @@ $machinestates = array(
     20 => array(
         "name" => "nextPlayer",
         "type" => "game",
-        "action" => "stNextPlayer",
+        "action" => "stNextPlayer", 
         "updateGameProgression" => true,        
         "transitions" => array( "nextTurn" => 10)
     ),     
@@ -87,7 +86,7 @@ $machinestates = array(
         "type" => "game",
         "action" => "stCorrectGuess",
         "updateGameProgression" => true,   
-        "transitions" => array( "prepareEndGame" => 90, "playAgain" => 10 )
+        "transitions" => array( "prepareEndGame" => 90, "nextPlayer" => 20 )
     ),
    
     90 => array(

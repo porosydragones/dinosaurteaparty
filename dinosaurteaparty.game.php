@@ -548,10 +548,6 @@ class dinosaurteaparty extends Table
 
 
 
-    function argPlayerTurn() {
-        return ""; 
-    }
-
 //////////////////////////////////////////////////////////////////////////////
 //////////// Game state actions
 ////////////
@@ -580,9 +576,9 @@ class dinosaurteaparty extends Table
         // get active player score
         $player_score = self::getPlayerScore( $player_id );
 
-        // if the player less than 3 points, play again
+        // if the player less than 3 points, go to next player 
         if($player_score < 3 ) {
-            $this->gamestate->nextstate("playAgain"); 
+            $this->gamestate->nextstate("nextPlayer"); 
         } else { //if the player has 3 points, end game
             $this->gamestate->nextstate("prepareEndGame"); 
         }
