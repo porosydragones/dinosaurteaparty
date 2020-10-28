@@ -49,10 +49,10 @@ function (dojo, declare) {
         */
         
        putDinosaur: function(dinosaur_id) {
-        var node = this.format_block("jstpl_dinosaur_item", {
-            DINOSAUR_ID: dinosaur_id
-        });
-        dojo.place(node, "dinosaur_cards");             
+            var node = this.format_block("jstpl_dinosaur_item", {
+                DINOSAUR_ID: dinosaur_id
+            });
+            dojo.place(node, "dinosaur_cards");  
         }, 
         
         putTraitNormal: function(trait_id, player_id, player_board_div) {
@@ -205,7 +205,14 @@ function (dojo, declare) {
                 if(gamedatas.inactive_dinosaurs.includes($i)) {
                     dojo.query(dinosaur_id_to_change).addClass("dinosaur" + $i + "_inactive");                    
                 } else {
-                    dojo.query(dinosaur_id_to_change).addClass(this.dinosauractive_class);                
+                    dojo.query(dinosaur_id_to_change).addClass(this.dinosauractive_class);  
+
+                    //add tooltip    
+                    var dinohtml = this.format_block("jstpl_dinosaur_tooltip", {
+                        DINOSAUR_ID: $i
+                    });
+                    var dinoclass = 'dinosaur'+$i;
+                    this.addTooltipHtmlToClass( dinosaur_id_to_change, dinohtml, 100 );            
                 }
 
                 //add quirk
