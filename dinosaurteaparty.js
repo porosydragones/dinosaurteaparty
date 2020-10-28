@@ -105,9 +105,10 @@ function (dojo, declare) {
                 player_name_tag: player_name
             } );
             var node = this.format_block("jstpl_guess_item", {
-                TRAIT_PLAYER_ID: player_id,
+                GUESS_PLAYER_ID: player_id,
                 GUESS_TITLE: translated_guess_title,
-                GUESS_TEXT: translated_guess
+                GUESS_TEXT: translated_guess,
+                GUESS_PLAYER_ID_DATA: player_id
             });
             dojo.place(node, player_board_div);    
         },
@@ -392,7 +393,10 @@ function (dojo, declare) {
             // disable dinosaur click and cancel guess button if clicked before trait
             this.guessPlayerClicked = null;
             dojo.query(".dinosaur_active").removeClass(this.clickableitem_class);
-            dojo.query(".dinosaur_active").removeClass(this.dinosauractiveglow_class);   
+            dojo.query(".dinosaur_active").removeClass(this.dinosauractiveglow_class);  
+            //remove
+            var player_guess_to_change = "#player_" + evt.currentTarget.dataset.traitplayerid + "_guess";
+            dojo.query(player_guess_to_change).removeClass("guess_dinosaur_active");
 
             this.ajaxcall( "/dinosaurteaparty/dinosaurteaparty/askTrait.html", { 
                     lock: true, 
@@ -418,6 +422,9 @@ function (dojo, declare) {
             this.dinosaurHandle = dojo.query(".dinosaur_active").connect("onclick", this, "onDinosaurClick"); 
             dojo.query(".dinosaur_active").addClass(this.clickableitem_class);
             dojo.query(".dinosaur_active").addClass(this.dinosauractiveglow_class);
+            //guess button active
+            var player_guess_to_change = "#player_" + this.guessPlayerClicked + "_guess";
+            dojo.query(player_guess_to_change).addClass("guess_dinosaur_active");
         },         
 
         // Current player click a dinosaur to guess a player
@@ -438,7 +445,9 @@ function (dojo, declare) {
             // disable dinosaur click 
             dojo.query(".dinosaur_active").removeClass(this.clickableitem_class);
             dojo.query(".dinosaur_active").removeClass(this.dinosauractiveglow_class);
-            //dojo.disconnect(this.dinosaurHandle);
+            //button inactive
+            var player_guess_to_change = "#player_" + this.guessPlayerClicked + "_guess";            
+            dojo.query(player_guess_to_change).removeClass("guess_dinosaur_active");
 
             this.callDinosaurGuess(evt.currentTarget.dataset.dinosaurid,this.guessPlayerClicked);
             this.guessPlayerClicked = null;  

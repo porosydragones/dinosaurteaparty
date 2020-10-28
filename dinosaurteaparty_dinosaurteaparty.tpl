@@ -55,7 +55,7 @@ var jstpl_trait_item_incorrect = '<div id="player_${TRAIT_PLAYER_ID}_trait_${TRA
 
 
 
-var jstpl_guess_item = '<div id="player_guess" title="${GUESS_TITLE}" class="dtp_placeholder dtp_clickableitem guess_dinosaur" data-playerid="${TRAIT_PLAYER_ID}"><span class="guess_text">${GUESS_TEXT}</span></div>';
+var jstpl_guess_item = '<div id="player_${GUESS_PLAYER_ID}_guess" title="${GUESS_TITLE}" class="dtp_placeholder dtp_clickableitem guess_dinosaur" data-playerid="${GUESS_PLAYER_ID_DATA}"><span class="guess_text">${GUESS_TEXT}</span></div>';
 
 var jstpl_my_dinosaur_item = '<div id="my_dino_${MY_DINOSAUR_ID}" class="dtp_placeholder mydinosaur mydinosaur${MY_DINOSAUR_ID}" data-dinosaurid="${MY_DINOSAUR_ID}"></div>';
 
