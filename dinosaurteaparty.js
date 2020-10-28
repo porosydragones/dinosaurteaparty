@@ -468,31 +468,40 @@ function (dojo, declare) {
         },  
         
         //  from this point and below, you can write your game notifications handling methods
+        // Note: notif.args contains the arguments specified during you "notifyAllPlayers" / "notifyPlayer" PHP call
 
+
+        
+        // Players are notified about the trait asked and they will mark the trait token as correct or incorrect
+        // the variable markTraitToken indicates if the token should be marked or not
+        // if answer is yes, always mark token
+        // if answer is no, mark only in normal mode (not in clever mode)   
        notif_traitAsked: function( notif )
        {
-           var correctTrait = notif.args.correctAsk;
-           var target_player_id = notif.args.target_player_id;
-           var player_board_div = $('player_board_'+target_player_id);
-           var trait_id = notif.args.trait_id;
-       
-           var player_trait_to_change = "#player_" + target_player_id + "_trait_" + trait_id;
+        var markTraitToken = notif.args.markTraitToken;
 
-           // remove from trait: clickable item so cursos is not pointer
-           // and trait_normal to not link function to trait
-           if(correctTrait) {
-            var correct_class_to_add = 'trait' + trait_id + '_correct';   
-            dojo.query(player_trait_to_change).addClass(correct_class_to_add);  
-           } else {
-            var incorrect_class_to_add = 'trait' + trait_id + '_incorrect';
-            dojo.query(player_trait_to_change).addClass(incorrect_class_to_add);                   
-           }
-           // in both correct or incorrect: remove clickable from trait
-           dojo.query(player_trait_to_change).removeClass(this.traitnormal_class);  
-           dojo.query(player_trait_to_change).removeClass(this.clickableitem_class);  
+        // indicates if the token should be marked or not
+        if(markTraitToken) {
+            var correctTrait = notif.args.correctAsk;
+            var target_player_id = notif.args.target_player_id;
+            var player_board_div = $('player_board_'+target_player_id);
+            var trait_id = notif.args.trait_id;
+        
+            var player_trait_to_change = "#player_" + target_player_id + "_trait_" + trait_id;
 
-
-           // Note: notif.args contains the arguments specified during you "notifyAllPlayers" / "notifyPlayer" PHP call
+            // remove from trait: clickable item so cursos is not pointer
+            // and trait_normal to not link function to trait
+            if(correctTrait) {
+                var correct_class_to_add = 'trait' + trait_id + '_correct';   
+                dojo.query(player_trait_to_change).addClass(correct_class_to_add);  
+            } else {
+                var incorrect_class_to_add = 'trait' + trait_id + '_incorrect';
+                dojo.query(player_trait_to_change).addClass(incorrect_class_to_add);                   
+            }
+            // in both correct or incorrect: remove clickable from trait
+            dojo.query(player_trait_to_change).removeClass(this.traitnormal_class);  
+            dojo.query(player_trait_to_change).removeClass(this.clickableitem_class);  
+            }
        }, 
        
        notif_dinosaurTryGuessed: function (notif) 

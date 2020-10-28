@@ -393,18 +393,20 @@ class dinosaurteaparty extends Table
         //persist trait
         // if answer is yes, always persist
         // if answer is no, persist only in normal mode (not in clever mode)        
-        if( $player_answer ){
+        if( self::isNormalVariantOrYesAnswer($player_answer) ){
             self::persistPlayerTrait($player_id,$trait_id,$player_answer);
-        } else {
-            $game_play_variant = self::getGameStateValue('game_play_variant');
-            if( $game_play_variant == 1 ) {
-                self::persistPlayerTrait($player_id,$trait_id,$player_answer);
-            } else {
-                // no answer and clever, do not persist
-            }
-        }
+        } 
 
         return $player_answer;
+    }
+
+    
+    // in normal variant all answers are persisted and marked
+    // in clever variant only yes answers are persisted and marked in traits tokens (always notified to log)
+    // if (normal variant answer yes/no) OR (clever anwer yes): persist and mark answer
+    private function isNormalVariantOrYesAnswer($player_answer) {
+        $game_play_variant = self::getGameStateValue('game_play_variant');
+        return (( $game_play_variant == 1 )  || (  $player_answer ));
     }
 
     private function checkGuessPlayerDinosaur($player_id, $dinosaur_id) { 
@@ -471,7 +473,9 @@ class dinosaurteaparty extends Table
         }
 
 
-        // Notify all players about the card played
+        // Notify all players about the trait asked and they will mark the trait token as correct or incorrect
+        // if answer is yes, always mark token
+        // if answer is no, mark only in normal mode (not in clever mode)   
         self::notifyAllPlayers( "traitAsked", clienttranslate( '${player_name} asks ${target_player_name} about ${trait_name}: ${answer}' ), array(
             'player_id' => $player_id,
             'player_name' => self::getUniqueValueFromDb( "SELECT player_name FROM player WHERE player_id = $player_id" ),
@@ -480,9 +484,9 @@ class dinosaurteaparty extends Table
             'trait_id' =>$trait_id,            
             'target_player_id' => $target_player_id,
             'correctAsk' => $correctAsk,
-            'answer' => $this->trait_answers[$correctAsk]
-        ) );  
-        
+            'answer' => $this->trait_answers[$correctAsk],
+            'markTraitToken' => self::isNormalVariantOrYesAnswer($correctAsk)
+        ) );
       
     }
 

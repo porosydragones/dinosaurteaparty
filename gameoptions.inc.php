@@ -40,7 +40,7 @@ $game_options = array(
                     // If this value is chosen, the value of "tmdisplay" is displayed in the game lobby
                     2 => array( 
                         'name' => totranslate('Clever play'), 
-                        'description' => totranslate('When the answer to an inquiry is NO, NO token is put down.'),  
+                        'description' => totranslate('When the answer to an inquiry is no, NO token is put down.'),  
                         'tmdisplay' => totranslate('Clever play') 
                         )
 
