@@ -500,6 +500,20 @@ class dinosaurteaparty extends Table
         // Add your game logic to play a card there
         $correctGuess = $this->checkGuessPlayerDinosaur($target_player_id, $dinosaur_id);
         
+        // Notify all players about the guess
+        self::notifyAllPlayers( "dinosaurTryGuessed", clienttranslate( '${player_name} asks ${target_player_name}: "Are you ${dinosaur_name}?" ${answer}' ), array(
+            'player_id' => $player_id,
+            'player_name' => self::getUniqueValueFromDb( "SELECT player_name FROM player WHERE player_id = $player_id" ), 
+            'player_score' => self::getPlayerScore( $player_id ),
+            'target_player_id' => $target_player_id,
+            'target_player_name' => self::getUniqueValueFromDb( "SELECT player_name FROM player WHERE player_id = $target_player_id" ),               
+            'dinosaur_id' => $dinosaur_id,
+            'dinosaur_name' => $dinosaur_name, 
+            'correctGuess' => $correctGuess,
+            'answer' => $this->guess_answers[$correctGuess]
+        ) );
+
+
         if($correctGuess) {
             //save current target_player_id in global
             self::setGameStateValue( 'current_target_player_id', $target_player_id );
@@ -528,20 +542,6 @@ class dinosaurteaparty extends Table
             //go to next player, not correct
             self::nextTurnNextPlayer();
         }
-
-        // Notify all players about the guess
-        self::notifyAllPlayers( "dinosaurTryGuessed", clienttranslate( '${player_name} asks ${target_player_name}: "Are you ${dinosaur_name}?" ${answer}' ), array(
-            'player_id' => $player_id,
-            'player_name' => self::getUniqueValueFromDb( "SELECT player_name FROM player WHERE player_id = $player_id" ), 
-            'player_score' => self::getPlayerScore( $player_id ),
-            'target_player_id' => $target_player_id,
-            'target_player_name' => self::getUniqueValueFromDb( "SELECT player_name FROM player WHERE player_id = $target_player_id" ),               
-            'dinosaur_id' => $dinosaur_id,
-            'dinosaur_name' => $dinosaur_name, 
-            'correctGuess' => $correctGuess,
-            'answer' => $this->guess_answers[$correctGuess]
-        ) );
-
     }
 
 
