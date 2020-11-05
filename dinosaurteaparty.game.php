@@ -504,7 +504,7 @@ class dinosaurteaparty extends Table
         self::notifyAllPlayers( "dinosaurTryGuessed", clienttranslate( '${player_name} asks ${target_player_name}: "Are you ${dinosaur_name}?" ${answer}' ), array(
             'player_id' => $player_id,
             'player_name' => self::getUniqueValueFromDb( "SELECT player_name FROM player WHERE player_id = $player_id" ), 
-            'player_score' => self::getPlayerScore( $player_id ),
+            'player_score' => (self::getPlayerScore( $player_id ) + 1), // 1 more point because point is added after this
             'target_player_id' => $target_player_id,
             'target_player_name' => self::getUniqueValueFromDb( "SELECT player_name FROM player WHERE player_id = $target_player_id" ),               
             'dinosaur_id' => $dinosaur_id,
