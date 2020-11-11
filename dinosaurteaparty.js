@@ -401,9 +401,9 @@ function (dojo, declare) {
             this.guessPlayerClicked = null;
             dojo.query(".dinosaur_active").removeClass(this.clickableitem_class);
             dojo.query(".dinosaur_active").removeClass(this.dinosauractiveglow_class);  
-            //remove
-            var player_guess_to_change = "#player_" + evt.currentTarget.dataset.traitplayerid + "_guess";
-            dojo.query(player_guess_to_change).removeClass("guess_dinosaur_active");
+          
+            //reactive guess button: remove guess active in players    
+            dojo.query(".guess_dinosaur_active").removeClass("guess_dinosaur_active");  
 
             this.ajaxcall( "/dinosaurteaparty/dinosaurteaparty/askTrait.html", { 
                     lock: true, 
@@ -414,11 +414,12 @@ function (dojo, declare) {
                 }, function( is_error) {
                 } );               
             
-        },
+        }, 
 
 
         // Current player clicks the guess button in a player board, then enable click on dinosaur
         onGuessClick: function( evt) {
+            console.log('onGuessClick');
             // Preventing default browser reaction
             dojo.stopEvent( evt );   
             // Check that this action is possible (see "possibleactions" in states.inc.php)
@@ -431,6 +432,9 @@ function (dojo, declare) {
             dojo.query(".dinosaur_active").addClass(this.dinosauractiveglow_class);
             //guess button active
             var player_guess_to_change = "#player_" + this.guessPlayerClicked + "_guess";
+            // active guess button 
+            // first remove guess_dinosaur_active of possible divs that have it (if the player has clicked another guess before)
+            dojo.query(".guess_dinosaur_active").removeClass("guess_dinosaur_active");
             dojo.query(player_guess_to_change).addClass("guess_dinosaur_active");
         },         
 
@@ -447,14 +451,13 @@ function (dojo, declare) {
             this.dinosaur_inactive_class = 'dinosaur' +  evt.currentTarget.dataset.dinosaurid + '_inactive';
             if(evt.currentTarget.className.includes(this.dinosaur_inactive_class)) {
                 return;
-            }
+            } 
 
             // disable dinosaur click 
             dojo.query(".dinosaur_active").removeClass(this.clickableitem_class);
             dojo.query(".dinosaur_active").removeClass(this.dinosauractiveglow_class);
-            //button inactive
-            var player_guess_to_change = "#player_" + this.guessPlayerClicked + "_guess";            
-            dojo.query(player_guess_to_change).removeClass("guess_dinosaur_active");
+            //reactive guess button: remove guess active in players          
+            dojo.query(".guess_dinosaur_active").removeClass("guess_dinosaur_active");
 
             this.callDinosaurGuess(evt.currentTarget.dataset.dinosaurid,this.guessPlayerClicked);
             this.guessPlayerClicked = null;  

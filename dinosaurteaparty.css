@@ -422,7 +422,8 @@
 }
 
 .guess_dinosaur_active {
-    background-image: /* top, transparent blue */ linear-gradient( rgb(64 101 163 / 0.4), rgb(64 101 163 / 0.4) ), /* your image */ url("img/guess.png");  
+    background-image: /* top, transparent blue */ linear-gradient( rgb(64 101 163 / 0.4), rgb(64 101 163 / 0.4) ), /* your image */ url("img/guess.png"); 
+    pointer-events:none; 
 }
 
 
