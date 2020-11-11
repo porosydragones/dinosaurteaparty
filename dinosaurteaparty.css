@@ -713,3 +713,12 @@
 .trait_normal:hover {
     transform: scale(1.3);
 }
+
+.gray_dino {
+    filter: grayscale(100%);
+}
+
+.big_dino {
+    transform: scale(1.1);
+}
+
