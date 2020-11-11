@@ -31,7 +31,11 @@ function (dojo, declare) {
             this.traitnormal_class = 'trait_normal';
             this.dinosauractive_class='dinosaur_active';
             this.dinosauractiveglow_class='guess_glow_dinos';
+            this.dinosaurgray_class = 'gray_dino';
+            this.dinosaurbig_class = 'big_dino';
             this.trait_names_texts=null;
+            this.inactiveDinosaurs = [];
+            this.dino_with_trait = [];
 
         },
         
@@ -149,6 +153,7 @@ function (dojo, declare) {
 
         setup: function( gamedatas )
         {
+
             this.trait_names_texts = gamedatas.trait_names_texts;
             // Setting up player boards
             for( var player_id in gamedatas.players )
@@ -198,8 +203,14 @@ function (dojo, declare) {
             dojo.query(".trait_normal").connect("onclick", this, "onTraitClick");
             dojo.query(".guess_dinosaur").connect("onclick", this, "onGuessClick"); 
 
+            dojo.query(".trait").connect("onmouseenter", this, "onTraitEnter");
+            dojo.query(".trait").connect("onmouseleave", this, "onTraitExit");            
+
+            //store dinosaur traits to onhovertrait effects
+            this.dino_with_trait = gamedatas.dinosaur_traits;
 
             //inactive dinosaurs, add inactivedinosaur or activedinosaur class                        
+            this.inactiveDinosaurs = gamedatas.inactive_dinosaurs;
             for($i=1; $i<=20; $i++) {
                 var dinosaur_id_to_change = ".dinosaur" + $i;
                 if(gamedatas.inactive_dinosaurs.includes($i)) {
@@ -378,6 +389,36 @@ function (dojo, declare) {
         },        
         
         */
+
+        onTraitEnter: function(evt) {
+            // Preventing default browser reaction
+            dojo.stopEvent( evt );        
+           // console.log('this.inactiveDinosaurs ' + this.inactiveDinosaurs);
+            for( d = 1; d <= 20 ; d++) {
+                // if the dino is active
+                //console.log('d ' + d);
+               // console.log('this.inactiveDinosaurs.includes(d) ' +this.inactiveDinosaurs.includes(d));
+                if(!this.inactiveDinosaurs.includes(d)) {
+                    //if the dino has the trait
+                    dino_class =  '.dinosaur'+d;
+                    if(this.dino_with_trait[d] && this.dino_with_trait[d].includes(evt.currentTarget.dataset.traitid)) {
+                        dojo.query(dino_class).addClass(this.dinosaurbig_class);  
+                    } else { //the dino has not the trait
+                        dojo.query(dino_class).addClass(this.dinosaurgray_class);  
+                    }
+                }
+            }  
+
+        },
+
+
+        onTraitExit: function(evt) {
+            dojo.stopEvent( evt );           
+
+            dojo.query(".dinosaur_active").removeClass(this.dinosaurgray_class);
+            dojo.query('.dinosaur_active').removeClass(this.dinosaurbig_class);  
+         
+        },
  
         // Current player click a trait of another player
         onTraitClick: function( evt ) {
@@ -419,11 +460,12 @@ function (dojo, declare) {
 
         // Current player clicks the guess button in a player board, then enable click on dinosaur
         onGuessClick: function( evt) {
-            console.log('onGuessClick');
             // Preventing default browser reaction
             dojo.stopEvent( evt );   
+
             // Check that this action is possible (see "possibleactions" in states.inc.php)
             if( ! this.checkAction( 'guessDinosaur' ) ){   return;  } 
+
             
             this.guessPlayerClicked = evt.currentTarget.dataset.playerid;
             // enable dinosaur click
@@ -531,7 +573,13 @@ function (dojo, declare) {
         var target_player_id = notif.args.target_player_id;
 
         // only if correct guess, change dinosaur to inactive
-        if(correctGuess) {
+        if(correctGuess) { 
+            // add to inactive dinosaurs
+           // this.inactiveDinosaurs.push(dinosaur_id);
+            //this.inactive_dinosaurs.sort();
+            //console.log('this.inactiveDinosaurs ' + this.inactiveDinosaurs);
+            this.gamedatas.inactive_dinosaurs.push(dinosaur_id);
+
             var dinosaur_to_change = "#table_cards_line_" +  dinosaur_id;
             var inactive_class_to_add = 'dinosaur' + dinosaur_id + '_inactive';
             dojo.query(dinosaur_to_change).addClass(inactive_class_to_add);

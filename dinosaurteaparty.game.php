@@ -197,6 +197,9 @@ class dinosaurteaparty extends Table
         // get inactive dinosaurs        
         $inactive_dinosaurs = self::getInactiveDinosaurs();
         $result['inactive_dinosaurs'] = $inactive_dinosaurs;   
+        // get dinos traits
+        $result['dinosaur_traits'] = self::getAllDinosTraits();
+
         // get current traits in all players        
         $player_traits = self::getAllPlayerTraits($players_info);    
         $result['player_traits'] = $player_traits;   
@@ -212,6 +215,8 @@ class dinosaurteaparty extends Table
         $result['quirk_3_dinosaur_id'] = $quirk_3_dinosaur_id;  
 
         $result['trait_names_texts'] = $this->trait_names;
+
+
         return $result;
     }
 
@@ -293,6 +298,17 @@ class dinosaurteaparty extends Table
         return $inactive_dinosaurs_int;        
     }
 
+    private function getAllDinosTraits() {
+        $dinos_all_trait_data = [];
+
+        for($d=1 ; $d <= 20 ; $d++ ) {
+            // get dino traits
+            $dinos_all_trait_data[$d] = self::getDinosaurTraits($d);
+        }
+
+        return $dinos_all_trait_data;
+    }
+
     private function getAllPlayerTraits($players_info) {
 
         $player_all_trait_data = [];
@@ -329,6 +345,14 @@ class dinosaurteaparty extends Table
         $dinosaurHasTrait = ! empty($result);
 
         return ($dinosaurHasTrait);                     
+    }
+
+    private function getDinosaurTraits($dinosaur_id) {
+        $sql = "SELECT trait_id 
+            FROM dinosaur_trait where dinosaur_id = ".$dinosaur_id;
+        $result = self::getObjectListFromDB( $sql, true);
+
+        return ($result);    
     }
 
     private function updateDinosaurQuirk3Answer($dinosaur_id, $quirk3lastanswer) {

@@ -450,15 +450,15 @@
 }
 
 .trait_correct {
-    background-color: green;
+
 }
 
 .trait_incorrect {
-    background-color: red;
+
 }
 
 .trait_normal {
-    background-color: orange;
+
 }
 
 .trait1 {
@@ -719,6 +719,6 @@
 }
 
 .big_dino {
-    transform: scale(1.1);
+    transform: scale(1.07);
 }
 
