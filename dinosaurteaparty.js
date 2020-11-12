@@ -393,19 +393,18 @@ function (dojo, declare) {
         onTraitEnter: function(evt) {
             // Preventing default browser reaction
             dojo.stopEvent( evt );        
-           // console.log('this.inactiveDinosaurs ' + this.inactiveDinosaurs);
-            for( d = 1; d <= 20 ; d++) {
+            for( $d = 1; $d <= 20 ; $d++) {
+                dino_class =  '.dinosaur'+$d;
                 // if the dino is active
-                //console.log('d ' + d);
-               // console.log('this.inactiveDinosaurs.includes(d) ' +this.inactiveDinosaurs.includes(d));
-                if(!this.inactiveDinosaurs.includes(d)) {
+                if( ! this.inactiveDinosaurs.includes($d) ) {
                     //if the dino has the trait
-                    dino_class =  '.dinosaur'+d;
-                    if(this.dino_with_trait[d] && this.dino_with_trait[d].includes(evt.currentTarget.dataset.traitid)) {
+                    if(this.dino_with_trait[$d] && this.dino_with_trait[$d].includes(evt.currentTarget.dataset.traitid)) {
                         dojo.query(dino_class).addClass(this.dinosaurbig_class);  
                     } else { //the dino has not the trait
                         dojo.query(dino_class).addClass(this.dinosaurgray_class);  
                     }
+                } else {
+                    dojo.query(dino_class).addClass(this.dinosaurgray_class);  
                 }
             }  
 
@@ -415,8 +414,8 @@ function (dojo, declare) {
         onTraitExit: function(evt) {
             dojo.stopEvent( evt );           
 
-            dojo.query(".dinosaur_active").removeClass(this.dinosaurgray_class);
-            dojo.query('.dinosaur_active').removeClass(this.dinosaurbig_class);  
+            dojo.query(".dinosaur").removeClass(this.dinosaurgray_class);
+            dojo.query('.dinosaur').removeClass(this.dinosaurbig_class);  
          
         },
  
@@ -575,10 +574,8 @@ function (dojo, declare) {
         // only if correct guess, change dinosaur to inactive
         if(correctGuess) { 
             // add to inactive dinosaurs
-           // this.inactiveDinosaurs.push(dinosaur_id);
-            //this.inactive_dinosaurs.sort();
-            //console.log('this.inactiveDinosaurs ' + this.inactiveDinosaurs);
-            this.gamedatas.inactive_dinosaurs.push(dinosaur_id);
+            (this.inactiveDinosaurs.indexOf(dinosaur_id) === -1) ? (this.inactiveDinosaurs.push(dinosaur_id)) : console.log('');
+            this.inactiveDinosaurs.sort();           
 
             var dinosaur_to_change = "#table_cards_line_" +  dinosaur_id;
             var inactive_class_to_add = 'dinosaur' + dinosaur_id + '_inactive';
