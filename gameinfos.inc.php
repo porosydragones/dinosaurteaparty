@@ -16,7 +16,7 @@ $gameinfos = array(
 'game_name' => "Dinosaur Tea Party",
 
 // Game designer (or game designers, separated by commas)
-'designer' => 'Rob Daviau, JR Honeycutt, Justin D. Jacobson',       
+'designer' => 'Rob Daviau, Justin D. Jacobson',       
 
 // Game artist (or game artists, separated by commas)
 'artist' => 'Matijos Gebreselassie, Jason Taylor',         
