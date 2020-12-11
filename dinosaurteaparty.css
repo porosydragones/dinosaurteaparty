@@ -315,90 +315,90 @@
     background-image: url("img/mydinos.png");  
     display:inline-block;  
     margin: 0px;
-    width: 176px;   
+    width: 346px;   
     height: 250px; 
     box-shadow: 1px 1px 2px black;
 }
 
 
 .dinosaurtooltip1 {
-    background: url("img/mydinos.png") -170px 0; 
+    background: url("img/mydinos.png") 0 0; 
 }
 
 .dinosaurtooltip2 {
-    background: url("img/mydinos.png") -519px 0; 
+    background: url("img/mydinos.png") -349px 0; 
 }
 
 .dinosaurtooltip3 {
-    background: url("img/mydinos.png") -868px 0; 
+    background: url("img/mydinos.png") -698px 0; 
 }
 
 .dinosaurtooltip4 {
-    background: url("img/mydinos.png") -1217px 0; 
+    background: url("img/mydinos.png") -1047px 0; 
 }
 
 .dinosaurtooltip5 {
-    background: url("img/mydinos.png") -1566px 0; 
+    background: url("img/mydinos.png") -1396px 0; 
 }
 
 .dinosaurtooltip6 {
-    background: url("img/mydinos.png") -1915px 0; 
+    background: url("img/mydinos.png") -1745px 0; 
 }
 
 .dinosaurtooltip7 {
-    background: url("img/mydinos.png") -2264px 0; 
+    background: url("img/mydinos.png") -2094px 0; 
 }
 
 .dinosaurtooltip8 {
-    background: url("img/mydinos.png") -2613px 0; 
+    background: url("img/mydinos.png") -2443px 0; 
 }
 
 .dinosaurtooltip9 {
-    background: url("img/mydinos.png") -2962px 0; 
+    background: url("img/mydinos.png") -2792px 0; 
 }
 
 .dinosaurtooltip10 {
-    background: url("img/mydinos.png") -3311px 0; 
+    background: url("img/mydinos.png") -3141px 0; 
 }
 
 .dinosaurtooltip11 {
-    background: url("img/mydinos.png") -170px -250px; 
+    background: url("img/mydinos.png") 0px -250px; 
 }
 
 .dinosaurtooltip12 {
-    background: url("img/mydinos.png") -519px -250px; 
+    background: url("img/mydinos.png") -349px -250px; 
 }
 
 .dinosaurtooltip13 {
-    background: url("img/mydinos.png") -868px -250px; 
+    background: url("img/mydinos.png") -698px -250px; 
 }
 
 .dinosaurtooltip14 {
-    background: url("img/mydinos.png") -1217px -250px; 
+    background: url("img/mydinos.png") -1047px -250px; 
 }
 
 .dinosaurtooltip15 {
-    background: url("img/mydinos.png") -1566px -250px; 
+    background: url("img/mydinos.png") -1396px -250px; 
 }
 
 .dinosaurtooltip16 {
-    background: url("img/mydinos.png") -1915px -250px;
+    background: url("img/mydinos.png") -1745px -250px;
 }
 
 .dinosaurtooltip17 {
-    background: url("img/mydinos.png") -2264px -250px;
+    background: url("img/mydinos.png") -2094px -250px;
 }
 
 .dinosaurtooltip18 {
-    background: url("img/mydinos.png") -2613px -250px;
+    background: url("img/mydinos.png") -2443px -250px;
 }
 
 .dinosaurtooltip19 {
-    background: url("img/mydinos.png") -2962px -250px;
+    background: url("img/mydinos.png") -2792px -250px;
 }
 
 .dinosaurtooltip20 {
-    background: url("img/mydinos.png") -3311px -250px;
+    background: url("img/mydinos.png") -3141px -250px;
 }
 
 .quirk1 {
