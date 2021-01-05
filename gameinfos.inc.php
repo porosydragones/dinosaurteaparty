@@ -122,8 +122,8 @@ $gameinfos = array(
 // Each paragraph must be wrapped with totranslate() for translation and should not contain html (plain text without formatting).
 // A good length for this text is between 100 and 150 words (about 6 to 9 lines on a standard display)
 'presentation' => array(
-//    totranslate("This wonderful game is about geometric shapes!"),
-//    totranslate("It was awarded best triangle game of the year in 2005 and nominated for the Spiel des Jahres."),
+    totranslate("It’s the most sought-after invitation of the year: Dinoton Abbey for high tea. Now you’re all gussied up in your finery and ready for some tea and chit-chat. One problem: You can’t remember anyone’s name. Who’s that, sporting the fancy brooch with her pet chicken? Is that Jeannine? Beatriz? Oh, dear. If you’re not careful, you’ll commit a faux pas everyone will be gossiping about."),
+    totranslate("Dinosaur Tea Party is a game of civilized deduction for 3-5 players that plays in about 15 minutes. Each player takes a card corresponding to one of the dino guests. Players take turns asking each other questions or guessing their dinosaur’s name. If someone guesses your name, draw a new card. The first player to guess three names, wins the game. But be careful. Three curious quirks mean you can’t be certain whether that brachiosaurus in the bowler is Carlton or Quinton."),
 //    ...
 ),
 
