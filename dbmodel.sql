@@ -70,7 +70,7 @@ VALUES ('17', 'Vicent', NULL, NULL, NULL, '1');
 INSERT INTO `dinosaur` (`dinosaur_id`, `dinosaur_name`, `dinosaur_quirk`, `dinosaur_player_id`, `dinosaur_quirk3lastanswer`, `dinosaur_active`) 
 VALUES ('18', 'Winston', NULL, NULL, NULL, '1');
 INSERT INTO `dinosaur` (`dinosaur_id`, `dinosaur_name`, `dinosaur_quirk`, `dinosaur_player_id`, `dinosaur_quirk3lastanswer`, `dinosaur_active`) 
-VALUES ('19', 'Xabier', NULL, NULL, NULL, '1');
+VALUES ('19', 'Xavier', NULL, NULL, NULL, '1');
 INSERT INTO `dinosaur` (`dinosaur_id`, `dinosaur_name`, `dinosaur_quirk`, `dinosaur_player_id`, `dinosaur_quirk3lastanswer`, `dinosaur_active`) 
 VALUES ('20', 'Yorick', NULL, NULL, NULL, '1');
 
