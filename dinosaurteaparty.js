@@ -120,8 +120,12 @@ function (dojo, declare) {
                 
        putMyDinosaur: function(my_dinosaur_id) {
            if(my_dinosaur_id != null ){
+
+                var translated_your_dino_title = _("Your dinosaur");
+
                 var node = this.format_block("jstpl_my_dinosaur_item", {
-                    MY_DINOSAUR_ID: my_dinosaur_id
+                    MY_DINOSAUR_ID: my_dinosaur_id,
+                    YOUR_DINO_TITLE: translated_your_dino_title
                 });
                 dojo.place(node, "my_dinosaur");     
             }        
