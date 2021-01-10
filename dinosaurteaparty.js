@@ -37,6 +37,10 @@ function (dojo, declare) {
             this.inactiveDinosaurs = [];
             this.dino_with_trait = [];
 
+            this.dinoIdQuirk1=null;
+            this.dinoIdQuirk2=null;
+            this.dinoIdQuirk3=null;
+
         },
         
         /*
@@ -121,13 +125,40 @@ function (dojo, declare) {
        putMyDinosaur: function(my_dinosaur_id) {
            if(my_dinosaur_id != null ){
 
-                var translated_your_dino_title = _("Your dinosaur");
+            // add title
+            var translated_your_dino_title = _("Your dinosaur");
+            var node_title = this.format_block("jstpl_my_dinosaur_title", {
+                MY_DINOSAUR_ID: my_dinosaur_id,
+                YOUR_DINO_TITLE: translated_your_dino_title
+            });
+            dojo.place(node_title, "my_dinosaur"); 
 
-                var node = this.format_block("jstpl_my_dinosaur_item", {
+            // add quirk it my dino has one
+            if( my_dinosaur_id == this.dinoIdQuirk1) { // my dino has quirk 1
+                var node_quirk1 = this.format_block("jstpl_my_dinosaur_quirk", {
                     MY_DINOSAUR_ID: my_dinosaur_id,
-                    YOUR_DINO_TITLE: translated_your_dino_title
+                    MY_DINOSAUR_QUIRK_ID: 1
                 });
-                dojo.place(node, "my_dinosaur");     
+                dojo.place(node_quirk1, "my_dinosaur"); 
+            } else if ( my_dinosaur_id == this.dinoIdQuirk2 ) { // my dino has quirk 2
+                var node_quirk2 = this.format_block("jstpl_my_dinosaur_quirk", {
+                    MY_DINOSAUR_ID: my_dinosaur_id,
+                    MY_DINOSAUR_QUIRK_ID: 2
+                });
+                dojo.place(node_quirk2, "my_dinosaur"); 
+            } else if ( my_dinosaur_id == this.dinoIdQuirk3 ) { // my dino has quirk 3
+                var node_quirk3 = this.format_block("jstpl_my_dinosaur_quirk", {
+                    MY_DINOSAUR_ID: my_dinosaur_id,
+                    MY_DINOSAUR_QUIRK_ID: 3
+                });
+                dojo.place(node_quirk3, "my_dinosaur"); 
+            }
+
+            // add my dino img
+            var node = this.format_block("jstpl_my_dinosaur_item", {
+                MY_DINOSAUR_ID: my_dinosaur_id
+            });
+            dojo.place(node, "my_dinosaur");     
             }        
         }, 
 
@@ -194,6 +225,11 @@ function (dojo, declare) {
             for( var $i = 0; $i < gamedatas.dinosaur_order.length; $i++) {
                 this.putDinosaur(gamedatas.dinosaur_order[$i ]);
             }
+
+            // set quirks
+            this.dinoIdQuirk1=gamedatas.quirk_1_dinosaur_id;
+            this.dinoIdQuirk2 = gamedatas.quirk_2_dinosaur_id;
+            this.dinoIdQuirk3 = gamedatas.quirk_3_dinosaur_id;
             
             //for spectator my_dinosaur_id is null
             var my_dinosaur_id = null;
@@ -600,8 +636,16 @@ function (dojo, declare) {
             if(target_player_id == this.player_id) {
                 var old_dinosaur_id = notif.args.old_dinosaur_id;                
                 var new_dinosaur_id = notif.args.new_dinosaur_id;
+                // remove title
+                var my_dino_title_to_remove = '#my_dino_' +  old_dinosaur_id + '_title';
+                dojo.query(my_dino_title_to_remove).remove();
+                // remove quirk if exists
+                var my_dino_quirk_to_remove = '#my_dino_' +  old_dinosaur_id + '_quirk';
+                dojo.query(my_dino_quirk_to_remove).remove();
+                // remove dino img
                 var my_dino_to_remove = '#my_dino_' +  old_dinosaur_id;
                 dojo.query(my_dino_to_remove).remove();
+
                 this.putMyDinosaur(new_dinosaur_id);
             }
        },

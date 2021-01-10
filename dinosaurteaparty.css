@@ -310,6 +310,25 @@
     background: url("img/mydinos.png") -3141px -250px;
 }
 
+.dtp_my_dino_quirk {
+    display: inline-block;
+    width: 150px;
+    height: 41px;
+    background: url("img/DTP_quirks.png") 0px 0px;
+    margin: 10px;
+}
+
+.dtp_my_dino_quirk_1 {
+    background: url("img/DTP_quirks.png") 0px 0px;
+}
+
+.dtp_my_dino_quirk_2 {
+    background: url("img/DTP_quirks.png") 0px -41px;
+}
+
+.dtp_my_dino_quirk_3 {
+    background: url("img/DTP_quirks.png") 0px -82px;
+}
 
 .dinosaurtooltip {
     background-image: url("img/mydinos.png");  
