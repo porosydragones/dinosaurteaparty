@@ -66,7 +66,7 @@ VALUES ('15', 'Tabitha', NULL, NULL, NULL, '1');
 INSERT INTO `dinosaur` (`dinosaur_id`, `dinosaur_name`, `dinosaur_quirk`, `dinosaur_player_id`, `dinosaur_quirk3lastanswer`, `dinosaur_active`) 
 VALUES ('16', 'Ulysses', NULL, NULL, NULL, '1');
 INSERT INTO `dinosaur` (`dinosaur_id`, `dinosaur_name`, `dinosaur_quirk`, `dinosaur_player_id`, `dinosaur_quirk3lastanswer`, `dinosaur_active`) 
-VALUES ('17', 'Vicent', NULL, NULL, NULL, '1');
+VALUES ('17', 'Vincent', NULL, NULL, NULL, '1');
 INSERT INTO `dinosaur` (`dinosaur_id`, `dinosaur_name`, `dinosaur_quirk`, `dinosaur_player_id`, `dinosaur_quirk3lastanswer`, `dinosaur_active`) 
 VALUES ('18', 'Winston', NULL, NULL, NULL, '1');
 INSERT INTO `dinosaur` (`dinosaur_id`, `dinosaur_name`, `dinosaur_quirk`, `dinosaur_player_id`, `dinosaur_quirk3lastanswer`, `dinosaur_active`) 
