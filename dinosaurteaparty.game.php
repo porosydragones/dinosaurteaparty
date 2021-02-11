@@ -500,11 +500,11 @@ class dinosaurteaparty extends Table
         // Notify all players about the trait asked and they will mark the trait token as correct or incorrect
         // if answer is yes, always mark token
         // if answer is no, mark only in normal mode (not in clever mode)   
-        self::notifyAllPlayers( "traitAsked", clienttranslate( '${player_name} asks ${target_player_name} about ${trait_name}: ${answer}' ), array(
+        self::notifyAllPlayers( "traitAsked", clienttranslate( '${player_name} asks ${player_name2} about ${trait_name}: ${answer}' ), array(
             'i18n' => array( 'trait_name', 'answer' ),
             'player_id' => $player_id,
             'player_name' => self::getUniqueValueFromDb( "SELECT player_name FROM player WHERE player_id = $player_id" ),
-            'target_player_name' => self::getUniqueValueFromDb( "SELECT player_name FROM player WHERE player_id = $target_player_id" ),            
+            'player_name2' => self::getUniqueValueFromDb( "SELECT player_name FROM player WHERE player_id = $target_player_id" ),            
             'trait_name' => $this->trait_names[$trait_id],
             'trait_id' =>$trait_id,            
             'target_player_id' => $target_player_id,
@@ -524,15 +524,15 @@ class dinosaurteaparty extends Table
 
         // Add your game logic to play a card there
         $correctGuess = $this->checkGuessPlayerDinosaur($target_player_id, $dinosaur_id);
-        
+         
         // Notify all players about the guess
-        self::notifyAllPlayers( "dinosaurTryGuessed", clienttranslate( '${player_name} asks ${target_player_name}: "Are you ${dinosaur_name}?" ${answer}' ), array(
+        self::notifyAllPlayers( "dinosaurTryGuessed", clienttranslate( '${player_name} asks ${player_name2}: "Are you ${dinosaur_name}?" ${answer}' ), array(
             'i18n' => array(  'answer' ),
             'player_id' => $player_id,
             'player_name' => self::getUniqueValueFromDb( "SELECT player_name FROM player WHERE player_id = $player_id" ), 
             'player_score' => (self::getPlayerScore( $player_id ) + 1), // 1 more point because point is added after this
             'target_player_id' => $target_player_id,
-            'target_player_name' => self::getUniqueValueFromDb( "SELECT player_name FROM player WHERE player_id = $target_player_id" ),               
+            'player_name2' => self::getUniqueValueFromDb( "SELECT player_name FROM player WHERE player_id = $target_player_id" ),               
             'dinosaur_id' => $dinosaur_id,
             'dinosaur_name' => $dinosaur_name, 
             'correctGuess' => $correctGuess,
