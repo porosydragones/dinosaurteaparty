@@ -258,20 +258,25 @@ function (dojo, declare) {
                 } else {
                     dojo.query(dinosaur_id_to_change).addClass(this.dinosauractive_class);  
 
-                    var tooltiptext = '';
+                    var tooltip_title = '';
+                    var tooltip_text = '';
                     // add quirk to tooltip if dino has it
                     if( gamedatas.quirk_1_dinosaur_id == $i ) {
-                        tooltiptext = _("Always says 'NO'");                 
+                        tooltip_title = _("Always says 'NO': ");   
+                        tooltip_text = _("Always answer NO when a player inquires if you have a trait, even if the correct answer is yes.");              
                     } else if ( gamedatas.quirk_2_dinosaur_id == $i ) { // if dinosaur has quirk2
-                        tooltiptext = _("Always lies");                        
+                        tooltip_title = _("Always lies: ");   
+                        tooltip_text = _("Always answer falsely when another player asks if you have a trait. If your answer would normally be YES, you must answer NO, and vice versa.");                         
                     } else if ( gamedatas.quirk_3_dinosaur_id == $i ) { // if dinosaur has quirk3
-                        tooltiptext =  _("Switches answers");                 
+                        tooltip_title =  _("Switches answers: ");  
+                        tooltip_text = _("Answer either YES or NO to the first question asked to you, no matter what the correct answer is. After that, always answer opposite what your prior answer was. Example: “Yes, no, yes, no, etc.”");                   
                     }
 
                     //add tooltip    
                     var dinohtml = this.format_block("jstpl_dinosaur_tooltip", {
                         DINOSAUR_ID: $i,
-                        TOOLTIP_TEXT: tooltiptext
+                        TOOLTIP_TITLE: tooltip_title,
+                        TOOLTIP_TEXT: tooltip_text
                     });
                     var dinoclass = 'dinosaur'+$i;
                     this.addTooltipHtmlToClass( dinosaur_id_to_change, dinohtml, 100 );            

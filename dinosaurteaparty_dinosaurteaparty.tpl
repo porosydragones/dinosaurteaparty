@@ -46,8 +46,8 @@
 // Javascript HTML templates
 
 
-var jstpl_dinosaur_item = '<div id="table_cards_line_${DINOSAUR_ID}" class="dtp_placeholder dinosaur dinosaur${DINOSAUR_ID}" data-dinosaurid="${DINOSAUR_ID}"></div>';
-var jstpl_dinosaur_tooltip = '<div id="dino_${DINOSAUR_ID}_tooltip" class="dtp_placeholder dinosaurtooltip dinosaurtooltip${DINOSAUR_ID} "> </div><div>${TOOLTIP_TEXT}</div>';
+var jstpl_dinosaur_item = '<div id="table_cards_line_${DINOSAUR_ID}" class="dtp_placeholder dinosaur dinosaur${DINOSAUR_ID}" data-dinosaurid="${DINOSAUR_ID}"></div>';  
+var jstpl_dinosaur_tooltip = '<div id="dino_${DINOSAUR_ID}_tooltip" class="dtp_placeholder dinosaurtooltip dinosaurtooltip${DINOSAUR_ID} "> </div><div class="dinosaurtooltip_text"><span style="color: #0c5a93;font-weight: bolder;">${TOOLTIP_TITLE}</span><span>${TOOLTIP_TEXT}</span></div>';
 
 var jstpl_trait_item_normal = '<div id="player_${TRAIT_PLAYER_ID}_trait_${TRAIT_ID}" title="${TRAIT_TITLE}" class="dtp_placeholder dtp_clickableitem trait trait${TRAIT_ID} trait_normal" data-traitid="${TRAIT_ID}" data-traitplayerid="${TRAIT_PLAYER_ID}"></div>';
 var jstpl_trait_item_correct = '<div id="player_${TRAIT_PLAYER_ID}_trait_${TRAIT_ID}" title="${TRAIT_TITLE}" class="dtp_placeholder trait trait${TRAIT_ID} trait${TRAIT_ID}_correct" data-traitid="${TRAIT_ID}" data-traitplayerid="${TRAIT_PLAYER_ID}"></div>';
