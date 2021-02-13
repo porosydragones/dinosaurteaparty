@@ -258,9 +258,20 @@ function (dojo, declare) {
                 } else {
                     dojo.query(dinosaur_id_to_change).addClass(this.dinosauractive_class);  
 
+                    var tooltiptext = '';
+                    // add quirk to tooltip if dino has it
+                    if( gamedatas.quirk_1_dinosaur_id == $i ) {
+                        tooltiptext = _("Always says 'NO'");                 
+                    } else if ( gamedatas.quirk_2_dinosaur_id == $i ) { // if dinosaur has quirk2
+                        tooltiptext = _("Always lies");                        
+                    } else if ( gamedatas.quirk_3_dinosaur_id == $i ) { // if dinosaur has quirk3
+                        tooltiptext =  _("Switches answers");                 
+                    }
+
                     //add tooltip    
                     var dinohtml = this.format_block("jstpl_dinosaur_tooltip", {
-                        DINOSAUR_ID: $i
+                        DINOSAUR_ID: $i,
+                        TOOLTIP_TEXT: tooltiptext
                     });
                     var dinoclass = 'dinosaur'+$i;
                     this.addTooltipHtmlToClass( dinosaur_id_to_change, dinohtml, 100 );            
